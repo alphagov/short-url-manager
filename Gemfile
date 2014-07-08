@@ -9,6 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'unicorn', '4.8.3'
 gem 'airbrake', '4.0.0'
+gem 'logstasher', '0.5.3'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'
