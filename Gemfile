@@ -7,6 +7,7 @@ gem 'rails', '4.1.4'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+gem 'unicorn', '4.8.3'
 gem 'airbrake', '4.0.0'
 
 group :development, :test do
