@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
+gem 'sass-rails', '~> 4.0.3'
 
 gem 'mongoid', '4.0.0'
 
@@ -12,6 +13,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn', '4.8.3'
 gem 'airbrake', '4.0.0'
 gem 'logstasher', '0.5.3'
+
+gem 'govuk_admin_template'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'

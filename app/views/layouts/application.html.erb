@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>FurlManager</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+<% end %>
 
-<%= yield %>
-
-</body>
-</html>
+<%= render :template => 'layouts/govuk_admin_template' %>
