@@ -23,4 +23,5 @@ group :development, :test do
   gem 'simplecov-rcov', '0.2.3', :require => false
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'byebug'
 end
