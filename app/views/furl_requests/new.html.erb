@@ -1,0 +1,31 @@
+<h1>Request a friendly url</h1>
+
+<%= form_for :furl_request, url: { action: :create } do |f| %>
+  <fieldset>
+    <div class="form-group">
+      <%= f.label :from %>
+      <%= f.text_field :from, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :to %>
+      <%= f.text_field :to, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :reason %>
+      <%= f.text_area :reason, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :contact_email %>
+      <%= f.text_field :contact_email, class: 'form-control' %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div class="form-group">
+      <%= f.submit "Make this request", class: 'btn btn-success' %>
+    </div>
+  </fieldset>
+<%- end -%>
