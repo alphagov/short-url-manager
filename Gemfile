@@ -15,9 +15,12 @@ gem 'airbrake', '4.0.0'
 gem 'logstasher', '0.5.3'
 
 gem 'govuk_admin_template'
+gem 'gds-sso', '~> 9.3.0'
+gem 'plek'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'
+  gem 'factory_girl_rails', '~> 4.4.1'
 
   gem 'simplecov', '0.8.2', :require => false
   gem 'simplecov-rcov', '0.2.3', :require => false

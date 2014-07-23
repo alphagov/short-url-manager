@@ -1,6 +1,7 @@
 require 'simplecov'
 require 'simplecov-rcov'
 require 'capybara/rspec'
+require 'factory_girl_rails'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.start 'rails'
 
@@ -28,7 +29,10 @@ RSpec.configure do |config|
 
   config.after do
     DatabaseCleaner.clean
+    Warden.test_reset!
   end
+
+  config.include FactoryGirl::Syntax::Methods
 
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with
