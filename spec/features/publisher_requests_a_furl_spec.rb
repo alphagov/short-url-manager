@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "As a publisher, I can request a FURL" do
   background do
-    # signin as publisher
+    login_as create(:user, permissions: ['signon', 'request_furls'])
   end
 
   scenario "Publisher requests a furl" do
@@ -22,5 +22,11 @@ feature "As a publisher, I can request a FURL" do
     expect(furl_request.to).to            eql to_path
     expect(furl_request.reason).to        eql reason
     expect(furl_request.contact_email).to eql email
+  end
+
+  scenario "Non-'furl requester' sees no option to request a furl" do
+    login_as create(:user, permissions: ['signon'])
+    visit "/"
+    expect(page).to have_no_content('Request a new friendly url')
   end
 end

@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 describe FurlRequestsController do
+  let(:user) { create(:user, permissions: ['signon', 'request_furls', 'manage_furls']) }
+  before { login_as user }
+
+  describe "access control" do
+    context "with a user without request_furls permission" do
+      let(:user) { create(:user, permissions: ['signon', 'manage_furls']) }
+
+      specify {
+        expect_not_authourised(:get, :new)
+        expect_not_authourised(:post, :create)
+      }
+    end
+  end
+
   describe "#create" do
     before {
       post :create, params
