@@ -7,6 +7,7 @@ class FurlRequestsController < ApplicationController
 
   def create
     @furl_request = FurlRequest.new(furl_request_params)
+    @furl_request.requester = current_user
     if @furl_request.save
       flash[:success] = "Your request has been made."
       redirect_to root_path

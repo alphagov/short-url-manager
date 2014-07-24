@@ -39,6 +39,10 @@ describe FurlRequestsController do
         expect(furl_request.contact_email).to eql params[:furl_request][:contact_email]
       end
 
+      it "should associate the current user with the furl_request" do
+        expect(FurlRequest.last.requester).to eql user
+      end
+
       it "should redirect to the dashboard with a flash message" do
         expect(response).to redirect_to root_path
         expect(flash).not_to be_empty
