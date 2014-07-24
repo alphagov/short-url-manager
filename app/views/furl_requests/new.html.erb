@@ -13,6 +13,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :organisation_slug, "Organisation" %>
+      <%= f.select :organisation_slug, options_for_select(organisations.map {|org| [org.title, org.slug] }), {}, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :reason %>
       <%= f.text_area :reason, class: 'form-control' %>
     </div>

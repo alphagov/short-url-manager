@@ -2,12 +2,13 @@ class FurlRequestsController < ApplicationController
   before_filter :authourise_as_furl_requester!, only: [:new, :create]
 
   def new
-    @furl_request = FurlRequest.new
+    @furl_request = FurlRequest.new(organisation_slug: current_user.organisation_slug)
   end
 
   def create
     @furl_request = FurlRequest.new(furl_request_params)
     @furl_request.requester = current_user
+
     if @furl_request.save
       flash[:success] = "Your request has been made."
       redirect_to root_path
@@ -16,9 +17,14 @@ class FurlRequestsController < ApplicationController
     end
   end
 
+  def organisations
+    @organisations ||= Organisation.all.order_by([:title, 'asc'])
+  end
+  helper_method :organisations
+
 private
   def furl_request_params
-    params[:furl_request].permit(:from, :to, :reason, :contact_email)
+    @furl_request_params ||= params[:furl_request].permit(:from, :to, :reason, :contact_email, :organisation_slug)
   end
 
   def authourise_as_furl_requester!
