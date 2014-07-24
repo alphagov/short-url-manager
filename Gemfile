@@ -13,10 +13,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn', '4.8.3'
 gem 'airbrake', '4.0.0'
 gem 'logstasher', '0.5.3'
+gem 'whenever', :require => false
 
 gem 'govuk_admin_template'
 gem 'gds-sso', '~> 9.3.0'
 gem 'plek'
+gem 'gds-api-adapters'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'
@@ -26,5 +28,7 @@ group :development, :test do
   gem 'simplecov-rcov', '0.2.3', :require => false
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'webmock', :require => false
+
   gem 'byebug'
 end

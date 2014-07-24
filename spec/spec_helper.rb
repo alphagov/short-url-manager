@@ -2,6 +2,7 @@ require 'simplecov'
 require 'simplecov-rcov'
 require 'capybara/rspec'
 require 'factory_girl_rails'
+require 'webmock/rspec'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.start 'rails'
 
