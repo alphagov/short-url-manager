@@ -34,7 +34,9 @@ describe FurlRequestsController do
   describe "#create" do
     let!(:organisation) { create :organisation }
     before {
-      post :create, params
+      unless self.class.metadata[:without_first_posting]
+        post :create, params
+      end
     }
 
     context "with valid params" do
@@ -66,6 +68,13 @@ describe FurlRequestsController do
       it "should redirect to the dashboard with a flash message" do
         expect(response).to redirect_to root_path
         expect(flash).not_to be_empty
+      end
+
+      it "should send a furl_requested notificaiton", without_first_posting: true do
+        mock_mail = double
+        expect(mock_mail).to receive(:deliver)
+        expect(Notifier).to receive(:furl_requested).with(kind_of(FurlRequest)).and_return(mock_mail)
+        post :create, params
       end
     end
 

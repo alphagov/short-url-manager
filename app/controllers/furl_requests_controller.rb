@@ -10,6 +10,7 @@ class FurlRequestsController < ApplicationController
     @furl_request.requester = current_user
 
     if @furl_request.save
+      Notifier.furl_requested(@furl_request).deliver
       flash[:success] = "Your request has been made."
       redirect_to root_path
     else
