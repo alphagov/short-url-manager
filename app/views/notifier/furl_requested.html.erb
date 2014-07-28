@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Furl request for '<%= @furl_request.from %>' by <%= @furl_request.organisation_title %></h1>
+    <dl>
+      <dt>From:</dt>
+      <dd><%= @furl_request.from %></dd>
+
+      <dt>To:</dt>
+      <dd><%= @furl_request.to %></dd>
+
+      <dt>Requester:</dt>
+      <dd><%= @furl_request.requester.name %></dd>
+
+      <dt>Contact email:</dt>
+      <dd><%= @furl_request.contact_email %></dd>
+
+      <dt>Organisation:</dt>
+      <dd><%= @furl_request.organisation_title %></dd>
+
+      <dt>Reason:</dt>
+      <dd><%= @furl_request.reason %></dd>
+    </dl>
+  </body>
+</html>

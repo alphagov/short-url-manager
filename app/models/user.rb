@@ -9,6 +9,8 @@ class User
   field :permissions, type: Array
   field :remotely_signed_out, type: Boolean, default: false
 
+  scope :furl_managers, ->{ where(permissions: /manage_furls/) }
+
   def can_request_furls?
     permissions.include? 'request_furls'
   end
