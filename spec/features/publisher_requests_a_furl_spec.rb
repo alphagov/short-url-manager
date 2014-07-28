@@ -5,12 +5,16 @@ feature "As a publisher, I can request a FURL" do
     create :organisation, title: 'Ministry of Magic', slug: 'ministry-of-magic'
     create :organisation, title: 'Ministry of Beards', slug: 'ministry-of-beards'
     create :user, email: "furl-manager-1@example.com", permissions: ['signon', 'manage_furls']
-    login_as create(:user, permissions: ['signon', 'request_furls'], name: "Gandalf")
+    login_as create(:user, permissions: ['signon', 'request_furls'], name: "Gandalf", email: "gandalf@example.com", organisation_slug: "ministry-of-magic")
   end
 
   scenario "Publisher requests a furl, and furl managers are notified" do
     visit "/"
     click_on "Request a new friendly url"
+
+    expect(page).to have_field "Contact email", with: "gandalf@example.com"
+    expect(page).to have_select "Organisation", selected: "Ministry of Magic"
+
     fill_in "From",          with: from_path = "/some-friendly-url"
     fill_in "To",            with: to_path   = "/government/publications/some-random-publication"
     select "Ministry of Beards", from: "Organisation"

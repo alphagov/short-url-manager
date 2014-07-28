@@ -2,7 +2,7 @@ class FurlRequestsController < ApplicationController
   before_filter :authourise_as_furl_requester!, only: [:new, :create]
 
   def new
-    @furl_request = FurlRequest.new(organisation_slug: current_user.organisation_slug)
+    @furl_request = FurlRequest.new(contact_email: current_user.email, organisation_slug: current_user.organisation_slug)
   end
 
   def create
