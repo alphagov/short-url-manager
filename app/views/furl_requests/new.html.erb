@@ -1,16 +1,18 @@
 <h1>Request a friendly url</h1>
 
-<%= form_for @furl_request, url: { action: :create } do |f| %>`
+<%= form_for @furl_request, url: { action: :create } do |f| %>
   <%= render_errors_for @furl_request, leading_message: "Your request for a friendly URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
       <%= f.label :from %>
       <%= f.text_field :from, class: 'form-control' %>
+      <p class="help-block">This is the friendly URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
     </div>
 
     <div class="form-group">
       <%= f.label :to %>
       <%= f.text_field :to, class: 'form-control' %>
+      <p class="help-block">This is the path to redirect the user to. Please specify it as a relative path (eg. "/government/publications/what-hmrc-does-to-prevent-tax-evasion").</p>
     </div>
 
     <div class="form-group">
@@ -21,6 +23,7 @@
     <div class="form-group">
       <%= f.label :reason %>
       <%= f.text_area :reason, class: 'form-control' %>
+      <p class="help-block">Please give the reason for this request as requests without a clear and valid reason will be denied. Please also include any other information relevant to this request. As an example if it's related to a non-digital media campaign, please include these details.</p>
     </div>
 
     <div class="form-group">
