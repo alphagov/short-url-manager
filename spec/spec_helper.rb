@@ -26,6 +26,7 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
+    ActionMailer::Base.deliveries = []
   end
 
   config.after do
