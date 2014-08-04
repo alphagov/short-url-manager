@@ -1,0 +1,8 @@
+<div class="form_errors">
+  <p><%= leading_message %></p>
+  <ul>
+    <%- error_messages.each do |error_message| -%>
+      <li><%= error_message %></li>
+    <%- end -%>
+  </ul>
+</div>
