@@ -25,8 +25,18 @@ describe FurlRequest do
       specify { expect(instance).to_not be_valid }
     end
 
+    context "when 'from' is present, but is not a relative path" do
+      let(:from) { 'http://www.somewhere.com/a-path' }
+      specify { expect(instance).to_not be_valid }
+    end
+
     context "without 'to'" do
       let(:to) { '' }
+      specify { expect(instance).to_not be_valid }
+    end
+
+    context "when 'to' is present, but is not a relative path" do
+      let(:to) { 'http://www.somewhere.com/a-path' }
       specify { expect(instance).to_not be_valid }
     end
 

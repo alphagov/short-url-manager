@@ -11,8 +11,9 @@ class FurlRequest
 
   belongs_to :requester, class_name: "User"
 
-  validates :from, :to, :reason, :organisation_slug, :organisation_title, presence: true
-  validates :contact_email, presence: true, format: { with: /\A[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})\z/ }
+  validates :from, :to, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
+  validates :contact_email, format: { with: /\A[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})\z/ }, allow_blank: true
+  validates :from, :to, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
 
   before_validation :retreive_organisation_title, unless: ->{ organisation_title.present? }
 
