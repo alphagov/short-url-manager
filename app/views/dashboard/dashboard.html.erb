@@ -1,1 +1,7 @@
 <h1>Dashboard</h1>
+
+<ul class="nav nav-pills nav-stacked">
+  <% if current_user.can_request_furls? %>
+    <li><%= link_to "Request a new friendly url", new_furl_request_path %></li>
+  <% end %>
+</ul>

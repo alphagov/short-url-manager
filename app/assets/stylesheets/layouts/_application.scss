@@ -1,0 +1,17 @@
+.flash-messages {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    color: #333;
+    background-color: #ccc;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin-bottom: 2px;
+
+    &.success {
+      background-color: #00823B;
+      color: white;
+    }
+  }
+}

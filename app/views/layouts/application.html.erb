@@ -1,5 +1,21 @@
+<% content_for :page_title, "GOV.UK - Friendly URL manager" %>
+
 <% content_for :head do %>
   <%= stylesheet_link_tag "application", :media => "all" %>
+<% end %>
+
+<% content_for :app_title, "Friendly URL manager" %>
+
+<% content_for :content do %>
+  <%- unless flash.empty? -%>
+    <ul class="flash-messages">
+      <% flash.each do |type, message| %>
+        <%= content_tag :li, message, class: type %>
+      <% end %>
+    </ul>
+  <%- end -%>
+
+  <%= yield %>
 <% end %>
 
 <%= render :template => 'layouts/govuk_admin_template' %>
