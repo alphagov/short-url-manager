@@ -1,5 +1,10 @@
 class FurlRequestsController < ApplicationController
-  before_filter :authourise_as_furl_requester!, only: [:new, :create]
+  before_filter :authorise_as_furl_requester!, only: [:new, :create]
+  before_filter :authorise_as_furl_manager!, only: [:index, :show]
+
+  def index
+    @furl_requests = FurlRequest.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
+  end
 
   def new
     @furl_request = FurlRequest.new(contact_email: current_user.email, organisation_slug: current_user.organisation_slug)
@@ -28,7 +33,11 @@ private
     @furl_request_params ||= params[:furl_request].permit(:from, :to, :reason, :contact_email, :organisation_slug)
   end
 
-  def authourise_as_furl_requester!
+  def authorise_as_furl_requester!
     authorise_user!('request_furls')
+  end
+
+  def authorise_as_furl_manager!
+    authorise_user!('manage_furls')
   end
 end

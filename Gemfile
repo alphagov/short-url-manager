@@ -14,6 +14,7 @@ gem 'unicorn', '~> 4.8.3'
 gem 'airbrake', '~> 4.0.0'
 gem 'logstasher', '~> 0.5.3'
 gem 'whenever', '~> 0.9.2', :require => false
+gem 'will_paginate_mongoid', '~> 2.0.1'
 
 gem 'govuk_admin_template', '~> 1.0.5'
 gem 'gds-sso', '~> 9.3.0'

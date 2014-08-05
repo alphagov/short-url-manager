@@ -13,6 +13,51 @@ describe FurlRequestsController do
         expect_not_authourised(:post, :create)
       }
     end
+
+    context "with a user without manage_furls permission" do
+      let(:user) { create(:user, permissions: ['signon', 'request_furls']) }
+
+      specify {
+        expect_not_authourised(:get, :index)
+      }
+    end
+  end
+
+
+  describe "#index" do
+    context "with several furl_requests requested at different times" do
+      let!(:furl_requests) { [
+        create(:furl_request, created_at: 10.days.ago),
+        create(:furl_request, created_at: 5.days.ago),
+        create(:furl_request, created_at: 15.days.ago)
+      ] }
+      before { get :index }
+
+      it "should order furl_requests by created_at date with the most recent first" do
+        expect(assigns[:furl_requests]).to be == [furl_requests[1], furl_requests[0], furl_requests[2]]
+      end
+    end
+
+    context "with 45 furl requests" do
+      let!(:furl_requests) { 45.times.map { |n| create :furl_request, created_at: n.days.ago } }
+      before { get :index, params }
+
+      context "page param is not given" do
+        let(:params) { {} }
+
+        it "should assign the first 40 furl_requests" do
+          expect(assigns[:furl_requests]).to be == furl_requests[0..39]
+        end
+      end
+
+      context "page param is 2" do
+        let(:params) { { page: 2 } }
+
+        it "should assign the latter 5 furl_requests" do
+          expect(assigns[:furl_requests]).to be == furl_requests[40..44]
+        end
+      end
+    end
   end
 
   describe "#new" do

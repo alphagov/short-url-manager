@@ -4,4 +4,7 @@
   <% if current_user.can_request_furls? %>
     <li><%= link_to "Request a new friendly url", new_furl_request_path %></li>
   <% end %>
+  <% if current_user.can_manage_furls? %>
+    <li><%= link_to "Manage friendly URL requests", furl_requests_path %></li>
+  <% end %>
 </ul>
