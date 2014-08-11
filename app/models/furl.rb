@@ -24,7 +24,7 @@ private
       ]
     })
   rescue GdsApi::HTTPErrorResponse
-    errors.add(:base, "An error prevented the redirect for this friendly URL being created")
+    errors.add(:base, "An error posting to the publishing API prevented the redirect for this friendly URL being created")
     false # Do not continue to save
   end
 

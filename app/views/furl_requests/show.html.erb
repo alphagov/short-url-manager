@@ -1,4 +1,4 @@
-<h1>fURL requested by <%= @furl_request.organisation_title %></h1>
+<h1>Friendly URL requested by <%= @furl_request.organisation_title %></h1>
 
 <dl>
   <dt>By:</dt>
@@ -20,4 +20,5 @@
   <dd><%= @furl_request.contact_email %></dd>
 </dl>
 
+<%= button_to "Accept and create redirect", accept_furl_request_path(@furl_request), method: :post, class: "btn btn-success" %>
 <%= link_to "Back", furl_requests_path, class: "btn btn-default" %>

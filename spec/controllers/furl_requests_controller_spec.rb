@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'gds_api/test_helpers/publishing_api'
 
 describe FurlRequestsController do
   let(:user) { create(:user, permissions: ['signon', 'request_furls', 'manage_furls']) }
@@ -20,6 +21,7 @@ describe FurlRequestsController do
       specify {
         expect_not_authourised(:get, :index)
         expect_not_authourised(:get, :show, id: 'required-param')
+        expect_not_authourised(:post, :accept, id: 'required-param')
       }
     end
   end
@@ -151,6 +153,33 @@ describe FurlRequestsController do
 
       specify { expect(response).to render_template('furl_requests/new') }
       specify { expect(FurlRequest.count).to eql 0 }
+    end
+  end
+
+  describe "#accept" do
+    include GdsApi::TestHelpers::PublishingApi
+
+    before {
+      stub_default_publishing_api_put
+    }
+
+    context "when given an id of an existing furl request" do
+      let!(:furl_request) { create :furl_request }
+      before {
+        post :accept, id: furl_request.id
+      }
+
+      it "should create a Furl based on the furl request given" do
+        created_furl = Furl.last
+        expect(created_furl).to_not be_nil
+        expect(created_furl.request).to eql furl_request
+        expect(created_furl.from).to eql furl_request.from
+        expect(created_furl.to).to eql furl_request.to
+      end
+
+      it "should assign the Furl" do
+        expect(assigns(:furl)).to be_a Furl
+      end
     end
   end
 
