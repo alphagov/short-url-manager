@@ -15,6 +15,9 @@
 
 @import 'govuk_admin_template';
 
+@import 'modules/clickable_row';
+@import 'modules/dl';
+
 @import 'layouts/application';
 
 @import 'views/shared/form_errors';

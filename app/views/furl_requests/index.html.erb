@@ -1,0 +1,16 @@
+<h1>Friendly URL requests</h1>
+
+<%= will_paginate @furl_requests %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr class="table-header">
+      <th>Organisation</th>
+      <th>From</th>
+      <th>To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @furl_requests %>
+  </tbody>
+</table>
+<%= will_paginate @furl_requests %>
