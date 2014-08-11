@@ -1,0 +1,10 @@
+table tbody tr.clickable_row td {
+    padding: 0;
+
+    a {
+      display: block;
+      padding: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+}

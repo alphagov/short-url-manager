@@ -6,6 +6,12 @@ class FurlRequestsController < ApplicationController
     @furl_requests = FurlRequest.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
   end
 
+  def show
+    @furl_request = FurlRequest.find(params[:id])
+  rescue Mongoid::Errors::DocumentNotFound
+    render text: "Not found", status: 404
+  end
+
   def new
     @furl_request = FurlRequest.new(contact_email: current_user.email, organisation_slug: current_user.organisation_slug)
   end

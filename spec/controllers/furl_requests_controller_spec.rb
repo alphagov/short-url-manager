@@ -19,10 +19,10 @@ describe FurlRequestsController do
 
       specify {
         expect_not_authourised(:get, :index)
+        expect_not_authourised(:get, :show, id: 'required-param')
       }
     end
   end
-
 
   describe "#index" do
     context "with several furl_requests requested at different times" do
@@ -56,6 +56,24 @@ describe FurlRequestsController do
         it "should assign the latter 5 furl_requests" do
           expect(assigns[:furl_requests]).to be == furl_requests[40..44]
         end
+      end
+    end
+  end
+
+  describe "#show" do
+    context "with a furl_request" do
+      let!(:furl_request) { create :furl_request }
+
+      context "when requesting a furl_request which exists" do
+        before { get :show, id: furl_request.id }
+
+        specify { expect(assigns(:furl_request)).to eql furl_request }
+      end
+
+      context "when requesting a furl_request which doesn't exist" do
+        before { get :show, id: "1234567890" }
+
+        specify { expect(response.status).to eql 404 }
       end
     end
   end
