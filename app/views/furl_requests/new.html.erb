@@ -1,5 +1,7 @@
 <h1>Request a friendly url</h1>
 
+<p>If you are not familiar with requesting friendly URLs, please read <a href="https://insidegovuk.blog.gov.uk/2014/04/07/how-to-request-a-short-url/">this blog post</a> first.</p>
+
 <%= form_for @furl_request, url: { action: :create } do |f| %>
   <%= render_errors_for @furl_request, leading_message: "Your request for a friendly URL could not be made for the following reasons:" %>
   <fieldset>
