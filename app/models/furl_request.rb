@@ -10,6 +10,7 @@ class FurlRequest
   field :organisation_title, type: String
 
   belongs_to :requester, class_name: "User"
+  has_one :furl
 
   validates :from, :to, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
   validates :contact_email, format: { with: /\A[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})\z/ }, allow_blank: true
