@@ -161,35 +161,31 @@ describe FurlRequestsController do
   describe "#accept" do
     include GdsApi::TestHelpers::PublishingApi
 
-    before {
-      stub_default_publishing_api_put
-    }
+    let!(:furl_request) { create :furl_request }
 
-    context "when given an id of an existing furl request" do
-      let!(:furl_request) { create :furl_request }
+    context "furl can be created without problem" do
       before {
-        unless self.class.metadata[:without_first_posting]
-          post :accept, id: furl_request.id
-        end
+        stub_default_publishing_api_put
+        post :accept, id: furl_request.id
       }
 
-      it "should create a Furl based on the furl request given" do
-        created_furl = Furl.last
-        expect(created_furl).to_not be_nil
-        expect(created_furl.request).to eql furl_request
-        expect(created_furl.from).to eql furl_request.from
-        expect(created_furl.to).to eql furl_request.to
+      it "should assign the FurlRequest" do
+        expect(assigns(:furl_request)).to eql furl_request
       end
 
-      it "should assign the Furl" do
-        expect(assigns(:furl)).to be_a Furl
+      it "should have accepted the furl_request" do
+        expect(furl_request.reload).to be_accepted
       end
+    end
 
-      it "should send a furl_request_accepted notificaiton", without_first_posting: true do
-        mock_mail = double
-        expect(mock_mail).to receive(:deliver)
-        expect(Notifier).to receive(:furl_request_accepted).with(kind_of(FurlRequest)).and_return(mock_mail)
+    context "furl can't be created" do
+      before {
+        publishing_api_isnt_available
         post :accept, id: furl_request.id
+      }
+
+      it "should render the accept_failed template" do
+        expect(response).to render_template('furl_requests/accept_failed')
       end
     end
   end
@@ -209,25 +205,16 @@ describe FurlRequestsController do
     let!(:furl_request) { create :furl_request }
     let(:rejection_reason) { "Don't like it!" }
     before {
-      unless self.class.metadata[:without_first_posting]
-        get :reject, id: furl_request.id, furl_request: {rejection_reason: rejection_reason}
-      end
+      post :reject, id: furl_request.id, furl_request: { rejection_reason: rejection_reason }
     }
 
-    it "should update the rejection_reason on the furl_request" do
+    it "should reject the furl request, passing in the given reason" do
       expect(furl_request.reload.rejection_reason).to eql rejection_reason
     end
 
     it "should redirect to the furl_request index with a flash message" do
       expect(response).to redirect_to(furl_requests_path)
       expect(flash).not_to be_empty
-    end
-
-    it "should send a furl_request_rejected notificaiton", without_first_posting: true do
-      mock_mail = double
-      expect(mock_mail).to receive(:deliver)
-      expect(Notifier).to receive(:furl_request_rejected).with(kind_of(FurlRequest)).and_return(mock_mail)
-      post :reject, id: furl_request.id
     end
   end
 

@@ -1,19 +1,11 @@
-<% if @furl.persisted? %>
-  <h1>The redirect has been published</h1>
+<h1>The redirect has been published</h1>
 
-  <dl>
-    <dt>From:</dt>
-    <dd><%= link_to @furl.from, govuk_url_for(@furl.from) %></dd>
+<dl>
+  <dt>From:</dt>
+  <dd><%= link_to @furl_request.furl.from, govuk_url_for(@furl_request.furl.from) %></dd>
 
-    <dt>To:</dt>
-    <dd><%= link_to @furl.to, govuk_url_for(@furl.to) %></dd>
-  </dl>
+  <dt>To:</dt>
+  <dd><%= link_to @furl_request.furl.to, govuk_url_for(@furl_request.furl.to) %></dd>
+</dl>
 
-  <%= link_to "Done", furl_requests_path, class: "btn btn-default" %>
-<% else %>
-  <h1>The redirect could not be published</h1>
-
-  <%= render_errors_for @furl, leading_message: "The friendly URL could not be created for the following reasons:" %>
-
-  <%= link_to "Back", furl_requests_path, class: "btn btn-default" %>
-<% end %>
+<%= link_to "Done", furl_requests_path, class: "btn btn-default" %>

@@ -7,7 +7,7 @@ class Furl
   field :from, type: String
   field :to, type: String
 
-  belongs_to :request, class_name: "FurlRequest"
+  belongs_to :request, class_name: "FurlRequest", inverse_of: :furl
 
   validates :from, :to, presence: true
   validates :from, :to, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true

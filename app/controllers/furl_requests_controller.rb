@@ -15,7 +15,7 @@ class FurlRequestsController < ApplicationController
   end
 
   def create
-    @furl_request = FurlRequest.new(furl_request_params)
+    @furl_request = FurlRequest.new(create_furl_request_params)
     @furl_request.requester = current_user
 
     if @furl_request.save
@@ -28,11 +28,8 @@ class FurlRequestsController < ApplicationController
   end
 
   def accept
-    @furl = Furl.new from: @furl_request.from,
-                     to: @furl_request.to,
-                     request: @furl_request
-    if @furl.save
-      Notifier.furl_request_accepted(@furl_request).deliver
+    if !@furl_request.accept!
+      render template: 'furl_requests/accept_failed'
     end
   end
 
@@ -40,9 +37,11 @@ class FurlRequestsController < ApplicationController
   end
 
   def reject
-    @furl_request.update_attribute(:rejection_reason, params[:furl_request].try(:[], :rejection_reason))
-    Notifier.furl_request_rejected(@furl_request).deliver
-    flash[:success] = "The friendly URL request has been rejected, and the requester has been notified."
+    if @furl_request.reject!(params[:furl_request].try(:[], :rejection_reason))
+      flash[:success] = "The friendly URL request has been rejected, and the requester has been notified."
+    else
+      flash[:error] = "The friendly URL request could not be rejected."
+    end
     redirect_to furl_requests_path
   end
 
@@ -58,7 +57,7 @@ private
     render text: "Not found", status: 404
   end
 
-  def furl_request_params
-    @furl_request_params ||= params[:furl_request].permit(:from, :to, :reason, :contact_email, :organisation_slug)
+  def create_furl_request_params
+    @create_furl_request_params ||= params[:furl_request].permit(:from, :to, :reason, :contact_email, :organisation_slug)
   end
 end

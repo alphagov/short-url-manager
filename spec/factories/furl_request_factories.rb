@@ -7,5 +7,9 @@ FactoryGirl.define do
     sequence(:organisation_slug) { |n| "organisation-#{n}" }
     sequence(:organisation_title) { |n| "Organisation #{n}" }
     association :requester, factory: :furl_requester
+
+    trait :pending do
+      state 'pending'
+    end
   end
 end
