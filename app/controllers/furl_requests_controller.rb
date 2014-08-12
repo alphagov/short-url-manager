@@ -28,9 +28,12 @@ class FurlRequestsController < ApplicationController
   end
 
   def accept
-    @furl = Furl.create from: @furl_request.from,
-                        to: @furl_request.to,
-                        request: @furl_request
+    @furl = Furl.new from: @furl_request.from,
+                     to: @furl_request.to,
+                     request: @furl_request
+    if @furl.save
+      Notifier.furl_request_accepted(@furl_request).deliver
+    end
   end
 
   def organisations

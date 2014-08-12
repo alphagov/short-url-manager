@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Dear <%= @furl_request.requester.name %>,</p>
+
+    <p>Your request for a friendly URL has been accepted and is now live. The path at <%= link_to @furl_request.furl.from, govuk_url_for(@furl_request.furl.from) %> now redirectes to <%= link_to @furl_request.furl.to, govuk_url_for(@furl_request.furl.to) %>.</p>
+  </body>
+</html>

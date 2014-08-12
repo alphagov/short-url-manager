@@ -166,7 +166,9 @@ describe FurlRequestsController do
     context "when given an id of an existing furl request" do
       let!(:furl_request) { create :furl_request }
       before {
-        post :accept, id: furl_request.id
+        unless self.class.metadata[:without_first_posting]
+          post :accept, id: furl_request.id
+        end
       }
 
       it "should create a Furl based on the furl request given" do
@@ -179,6 +181,13 @@ describe FurlRequestsController do
 
       it "should assign the Furl" do
         expect(assigns(:furl)).to be_a Furl
+      end
+
+      it "should send a furl_request_accepted notificaiton", without_first_posting: true do
+        mock_mail = double
+        expect(mock_mail).to receive(:deliver)
+        expect(Notifier).to receive(:furl_request_accepted).with(kind_of(FurlRequest)).and_return(mock_mail)
+        post :accept, id: furl_request.id
       end
     end
   end

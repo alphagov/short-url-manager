@@ -27,5 +27,10 @@ feature "fURL manager responds to fURL requets" do
     expect(Furl.count).to eql 1
 
     assert_publishing_api_put_item('/ministry-of-beards', publishing_api_redirect_hash("/ministry-of-beards", "/government/organisations/ministry-of-beards"))
+
+    expect(ActionMailer::Base.deliveries.count).to eql 1
+    mail = ActionMailer::Base.deliveries.last
+    expect(mail.to).to eql ['gandalf@example.com']
+    expect(mail.subject).to include 'Friendly URL request approved'
   end
 end

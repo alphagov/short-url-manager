@@ -46,4 +46,34 @@ describe Notifier do
       end
     end
   end
+
+  describe 'furl_request_accepted' do
+    let!(:requester) { create :furl_requester, name: "Mr Bigglesworth" }
+    let(:furl_request_contact_email) { "bigglesworth@example.com" }
+    let(:furl_from) { "/evilhq" }
+    let(:furl_to) { "/favourite-hangouts/evil-headquarters" }
+    let(:furl_request) { create :furl_request, requester: requester,
+                                               contact_email: furl_request_contact_email,
+                                               furl: build(:furl, from: furl_from,
+                                                                  to: furl_to) }
+    let(:mail) { Notifier.furl_request_accepted(furl_request) }
+
+    it "should send from <Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk" do
+      expect(mail.from).to eql "<Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk"
+    end
+
+    it "should sent to the contact email address supplied with the initial request" do
+      expect(mail.to).to be == ["bigglesworth@example.com"]
+    end
+
+    it "should set a subject" do
+      expect(mail.subject).to eql "Friendly URL request approved"
+    end
+
+    it "should address the user by name, and give the from path and to path in the email body" do
+      expect(mail).to have_body_content "Mr Bigglesworth"
+      expect(mail).to have_body_content "/evilhq"
+      expect(mail).to have_body_content "/favourite-hangouts/evil-headquarters"
+    end
+  end
 end
