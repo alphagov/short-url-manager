@@ -1,7 +1,7 @@
 class FurlRequestsController < ApplicationController
   before_filter :authorise_as_furl_requester!, only: [:new, :create]
-  before_filter :authorise_as_furl_manager!, only: [:index, :show, :accept]
-  before_filter :get_furl_request, only: [:show, :accept]
+  before_filter :authorise_as_furl_manager!, only: [:index, :show, :accept, :new_rejection, :reject]
+  before_filter :get_furl_request, only: [:show, :accept, :new_rejection, :reject]
 
   def index
     @furl_requests = FurlRequest.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
@@ -34,6 +34,16 @@ class FurlRequestsController < ApplicationController
     if @furl.save
       Notifier.furl_request_accepted(@furl_request).deliver
     end
+  end
+
+  def new_rejection
+  end
+
+  def reject
+    @furl_request.update_attribute(:rejection_reason, params[:furl_request].try(:[], :rejection_reason))
+    Notifier.furl_request_rejected(@furl_request).deliver
+    flash[:success] = "The friendly URL request has been rejected, and the requester has been notified."
+    redirect_to furl_requests_path
   end
 
   def organisations

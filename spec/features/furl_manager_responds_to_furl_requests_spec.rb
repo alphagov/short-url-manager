@@ -33,4 +33,21 @@ feature "fURL manager responds to fURL requets" do
     expect(mail.to).to eql ['gandalf@example.com']
     expect(mail.subject).to include 'Friendly URL request approved'
   end
+
+  scenario "fURL manager rejects a fURL request, giving a reason" do
+    visit furl_requests_path
+
+    click_on "Ministry of Beards"
+    click_on "Reject"
+    fill_in "Reason", with: "Beards are soo last season."
+    click_on "Reject"
+
+    expect(page).to have_content("The friendly URL request has been rejected, and the requester has been notified")
+
+    expect(ActionMailer::Base.deliveries.count).to eql 1
+    mail = ActionMailer::Base.deliveries.last
+    expect(mail.to).to eql ['gandalf@example.com']
+    expect(mail.subject).to include 'Friendly URL request denied'
+    expect(mail).to have_body_content "Beards are soo last season."
+  end
 end

@@ -76,4 +76,52 @@ describe Notifier do
       expect(mail).to have_body_content "/favourite-hangouts/evil-headquarters"
     end
   end
+
+  describe 'furl_request_rejected' do
+    let!(:requester) { create :furl_requester, name: "Mr Bigglesworth" }
+    let(:furl_request_contact_email) { "bigglesworth@example.com" }
+    let(:furl_request_from) { "/evilhq" }
+    let(:furl_request_to) { "/favourite-hangouts/evil-headquarters" }
+    let(:furl_request_rejection_reason) { nil }
+    let(:furl_request) { create :furl_request, requester: requester,
+                                               contact_email: furl_request_contact_email,
+                                               from: furl_request_from,
+                                               to: furl_request_to,
+                                               rejection_reason: furl_request_rejection_reason }
+    let(:mail) { Notifier.furl_request_rejected(furl_request) }
+
+    it "should send from <Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk" do
+      expect(mail.from).to eql "<Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk"
+    end
+
+    it "should sent to the contact email address supplied with the initial request" do
+      expect(mail.to).to be == ["bigglesworth@example.com"]
+    end
+
+    it "should set a subject" do
+      expect(mail.subject).to eql "Friendly URL request denied"
+    end
+
+    it "should address the user by name, and give the from path and to path in the email body" do
+      expect(mail).to have_body_content "Mr Bigglesworth"
+      expect(mail).to have_body_content "/evilhq"
+      expect(mail).to have_body_content "/favourite-hangouts/evil-headquarters"
+    end
+
+    context "when a reason is given" do
+      let(:furl_request_rejection_reason) { "The British government does not negotiate with terrorists" }
+
+      it "should include the reason in the body content" do
+        expect(mail).to have_body_content "The British government does not negotiate with terrorists"
+      end
+    end
+
+    context "when no reason is given" do
+      let(:furl_request_rejection_reason) { nil }
+
+      it "should state that no reason was given" do
+        expect(mail).to have_body_content "No reason was given"
+      end
+    end
+  end
 end

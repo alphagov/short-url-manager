@@ -15,4 +15,11 @@ class Notifier < ActionMailer::Base
     subject = "Friendly URL request approved"
     mail to: to, subject: subject
   end
+
+  def furl_request_rejected(furl_request)
+    @furl_request = furl_request
+    to = Array(furl_request.contact_email)
+    subject = "Friendly URL request denied"
+    mail to: to, subject: subject
+  end
 end

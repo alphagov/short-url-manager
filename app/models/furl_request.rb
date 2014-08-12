@@ -8,6 +8,7 @@ class FurlRequest
   field :contact_email, type: String
   field :organisation_slug, type: String
   field :organisation_title, type: String
+  field :rejection_reason, type: String
 
   belongs_to :requester, class_name: "User"
   has_one :furl

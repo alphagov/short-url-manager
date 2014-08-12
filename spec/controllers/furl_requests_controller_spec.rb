@@ -22,6 +22,8 @@ describe FurlRequestsController do
         expect_not_authourised(:get, :index)
         expect_not_authourised(:get, :show, id: 'required-param')
         expect_not_authourised(:post, :accept, id: 'required-param')
+        expect_not_authourised(:get, :new_rejection, id: 'required-param')
+        expect_not_authourised(:post, :reject, id: 'required-param')
       }
     end
   end
@@ -189,6 +191,43 @@ describe FurlRequestsController do
         expect(Notifier).to receive(:furl_request_accepted).with(kind_of(FurlRequest)).and_return(mock_mail)
         post :accept, id: furl_request.id
       end
+    end
+  end
+
+  describe "new_rejection" do
+    let!(:furl_request) { create :furl_request }
+    before {
+      get :new_rejection, id: furl_request.id
+    }
+
+    it "should assign the furl_request" do
+      expect(assigns(:furl_request)).to eql furl_request
+    end
+  end
+
+  describe "reject" do
+    let!(:furl_request) { create :furl_request }
+    let(:rejection_reason) { "Don't like it!" }
+    before {
+      unless self.class.metadata[:without_first_posting]
+        get :reject, id: furl_request.id, furl_request: {rejection_reason: rejection_reason}
+      end
+    }
+
+    it "should update the rejection_reason on the furl_request" do
+      expect(furl_request.reload.rejection_reason).to eql rejection_reason
+    end
+
+    it "should redirect to the furl_request index with a flash message" do
+      expect(response).to redirect_to(furl_requests_path)
+      expect(flash).not_to be_empty
+    end
+
+    it "should send a furl_request_rejected notificaiton", without_first_posting: true do
+      mock_mail = double
+      expect(mock_mail).to receive(:deliver)
+      expect(Notifier).to receive(:furl_request_rejected).with(kind_of(FurlRequest)).and_return(mock_mail)
+      post :reject, id: furl_request.id
     end
   end
 
