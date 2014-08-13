@@ -4,7 +4,7 @@ class FurlRequestsController < ApplicationController
   before_filter :get_furl_request, only: [:show, :accept, :new_rejection, :reject]
 
   def index
-    @furl_requests = FurlRequest.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
+    @furl_requests = FurlRequest.pending.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
   end
 
   def show

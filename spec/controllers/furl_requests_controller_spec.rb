@@ -31,9 +31,9 @@ describe FurlRequestsController do
   describe "#index" do
     context "with several furl_requests requested at different times" do
       let!(:furl_requests) { [
-        create(:furl_request, created_at: 10.days.ago),
-        create(:furl_request, created_at: 5.days.ago),
-        create(:furl_request, created_at: 15.days.ago)
+        create(:furl_request, :pending, created_at: 10.days.ago),
+        create(:furl_request, :pending, created_at: 5.days.ago),
+        create(:furl_request, :pending, created_at: 15.days.ago)
       ] }
       before { get :index }
 
@@ -43,7 +43,7 @@ describe FurlRequestsController do
     end
 
     context "with 45 furl requests" do
-      let!(:furl_requests) { 45.times.map { |n| create :furl_request, created_at: n.days.ago } }
+      let!(:furl_requests) { 45.times.map { |n| create :furl_request, :pending, created_at: n.days.ago } }
       before { get :index, params }
 
       context "page param is not given" do
@@ -60,6 +60,17 @@ describe FurlRequestsController do
         it "should assign the latter 5 furl_requests" do
           expect(assigns[:furl_requests]).to be == furl_requests[40..44]
         end
+      end
+    end
+
+    context "with several different states of furl_request" do
+      let!(:pending_furl_request) { create(:furl_request, :pending) }
+      let!(:accepted_furl_request) { create(:furl_request, :accepted) }
+      let!(:rejected_furl_request) { create(:furl_request, :rejected) }
+      before { get :index }
+
+      it "should only include pending requests" do
+        expect(assigns(:furl_requests)).to be == [pending_furl_request]
       end
     end
   end

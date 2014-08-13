@@ -29,6 +29,20 @@ describe FurlRequest do
     end
   end
 
+  describe "scopes" do
+    describe "pending" do
+      context "with furl_requets in different states" do
+        let!(:pending_furl_request) { create(:furl_request, :pending) }
+        let!(:accepted_furl_request) { create(:furl_request, :accepted) }
+        let!(:rejected_furl_request) { create(:furl_request, :rejected) }
+
+        it "should only include pending requests" do
+          expect(FurlRequest.pending).to be == [pending_furl_request]
+        end
+      end
+    end
+  end
+
   describe "organisation fields" do
     context "when an organisation slug for an existing organisation is given" do
       let!(:organisation) { create :organisation }

@@ -21,6 +21,8 @@ class FurlRequest
 
   before_validation :retreive_organisation_title, unless: ->{ organisation_title.present? }
 
+  scope :pending, -> { where(state: "pending") }
+
   def accept!
     new_furl = Furl.new(from: from, to: to, request: self)
     if new_furl.save
