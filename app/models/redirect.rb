@@ -19,6 +19,7 @@ private
     publishing_api.put_content_item(from_path, {
       "base_path" => from_path,
       "format" => "redirect",
+      "update_type" => "major",
       "redirects" => [
         { "path" => from_path, "type" => "exact", "destination" => to_path }
       ]

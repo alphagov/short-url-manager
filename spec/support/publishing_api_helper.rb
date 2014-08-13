@@ -3,6 +3,7 @@ module PublishingApiHelper
     {
       "base_path" => from_path,
       "format" => "redirect",
+      "update_type" => "major",
       "redirects" => [
         {"path" => from_path, "type" => "exact", "destination" => to_path}
       ]
