@@ -3,15 +3,15 @@ require 'rails_helper'
 describe Notifier do
   describe 'furl_requested' do
     let!(:users) { [ create(:furl_manager) ] }
-    let(:furl_request_from) { "/somewhere" }
-    let(:furl_request_to) { "/somewhere/else" }
+    let(:furl_request_from_path) { "/somewhere" }
+    let(:furl_request_to_path) { "/somewhere/else" }
     let(:furl_request_requester) { create(:furl_requester) }
     let(:furl_request_contact_email) { "furl_requester@example.com" }
     let(:furl_request_organisation_title) { "Ministry of beards" }
     let(:furl_request_reason) { "because furls" }
     let(:furl_request) {
-      create :furl_request, from: furl_request_from,
-                            to: furl_request_to,
+      create :furl_request, from_path: furl_request_from_path,
+                            to_path: furl_request_to_path,
                             requester: furl_request_requester,
                             contact_email: furl_request_contact_email,
                             organisation_title: furl_request_organisation_title,
@@ -24,12 +24,12 @@ describe Notifier do
     end
 
     it "should set a subject showing the from and applicable organisation" do
-      expect(mail.subject).to eql "Furl request for '#{furl_request_from}' by #{furl_request_organisation_title}"
+      expect(mail.subject).to eql "Friendly URL request for '#{furl_request_from_path}' by #{furl_request_organisation_title}"
     end
 
     it "should include all relevant data in the body" do
-      expect(mail).to have_body_content "From: #{furl_request_from}"
-      expect(mail).to have_body_content "To: #{furl_request_to}"
+      expect(mail).to have_body_content "From: #{furl_request_from_path}"
+      expect(mail).to have_body_content "To: #{furl_request_to_path}"
       expect(mail).to have_body_content "Requester: #{furl_request_requester.name}"
       expect(mail).to have_body_content "Contact email: #{furl_request_contact_email}"
       expect(mail).to have_body_content "Organisation: #{furl_request_organisation_title}"
@@ -50,12 +50,12 @@ describe Notifier do
   describe 'furl_request_accepted' do
     let!(:requester) { create :furl_requester, name: "Mr Bigglesworth" }
     let(:furl_request_contact_email) { "bigglesworth@example.com" }
-    let(:furl_from) { "/evilhq" }
-    let(:furl_to) { "/favourite-hangouts/evil-headquarters" }
+    let(:redirect_from_path) { "/evilhq" }
+    let(:redirect_to_path) { "/favourite-hangouts/evil-headquarters" }
     let(:furl_request) { create :furl_request, requester: requester,
                                                contact_email: furl_request_contact_email,
-                                               furl: build(:furl, from: furl_from,
-                                                                  to: furl_to) }
+                                               redirect: build(:redirect, from_path: redirect_from_path,
+                                                                          to_path: redirect_to_path) }
     let(:mail) { Notifier.furl_request_accepted(furl_request) }
 
     it "should send from <Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk" do
@@ -80,13 +80,13 @@ describe Notifier do
   describe 'furl_request_rejected' do
     let!(:requester) { create :furl_requester, name: "Mr Bigglesworth" }
     let(:furl_request_contact_email) { "bigglesworth@example.com" }
-    let(:furl_request_from) { "/evilhq" }
-    let(:furl_request_to) { "/favourite-hangouts/evil-headquarters" }
+    let(:furl_request_from_path) { "/evilhq" }
+    let(:furl_request_to_path) { "/favourite-hangouts/evil-headquarters" }
     let(:furl_request_rejection_reason) { nil }
     let(:furl_request) { create :furl_request, requester: requester,
                                                contact_email: furl_request_contact_email,
-                                               from: furl_request_from,
-                                               to: furl_request_to,
+                                               from_path: furl_request_from_path,
+                                               to_path: furl_request_to_path,
                                                rejection_reason: furl_request_rejection_reason }
     let(:mail) { Notifier.furl_request_rejected(furl_request) }
 

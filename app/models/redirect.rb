@@ -1,26 +1,26 @@
 require 'gds_api/publishing_api'
 
-class Furl
+class Redirect
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :from, type: String
-  field :to, type: String
+  field :from_path, type: String
+  field :to_path, type: String
 
-  belongs_to :request, class_name: "FurlRequest", inverse_of: :furl
+  belongs_to :furl_request
 
-  validates :from, :to, presence: true
-  validates :from, :to, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
+  validates :from_path, :to_path, presence: true
+  validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
 
   before_save :create_redirect_in_publishing_api
 
 private
   def create_redirect_in_publishing_api
-    publishing_api.put_content_item(from, {
-      "base_path" => from,
+    publishing_api.put_content_item(from_path, {
+      "base_path" => from_path,
       "format" => "redirect",
       "redirects" => [
-        {"path" => from, "type" => "exact", "destination" => to}
+        { "path" => from_path, "type" => "exact", "destination" => to_path }
       ]
     })
   rescue GdsApi::HTTPErrorResponse

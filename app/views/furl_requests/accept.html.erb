@@ -2,10 +2,10 @@
 
 <dl>
   <dt>From:</dt>
-  <dd><%= link_to @furl_request.furl.from, govuk_url_for(@furl_request.furl.from) %></dd>
+  <dd><%= link_to @furl_request.redirect.from_path, govuk_url_for(@furl_request.redirect.from_path) %></dd>
 
   <dt>To:</dt>
-  <dd><%= link_to @furl_request.furl.to, govuk_url_for(@furl_request.furl.to) %></dd>
+  <dd><%= link_to @furl_request.redirect.to_path, govuk_url_for(@furl_request.redirect.to_path) %></dd>
 </dl>
 
 <%= link_to "Done", furl_requests_path, class: "btn btn-default" %>

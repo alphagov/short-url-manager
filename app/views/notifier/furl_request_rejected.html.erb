@@ -6,7 +6,7 @@
   <body>
     <p>Dear <%= @furl_request.requester.name %>,</p>
 
-    <p>Your request for a friendly URL from <%= @furl_request.from %> to <%= link_to @furl_request.to, govuk_url_for(@furl_request.to) %> has been denied.</p>
+    <p>Your request for a friendly URL from <%= @furl_request.from_path %> to <%= link_to @furl_request.to_path, govuk_url_for(@furl_request.to_path) %> has been denied.</p>
 
     <% if @furl_request.rejection_reason.present? %>
       <p>The following reason was given:</p>

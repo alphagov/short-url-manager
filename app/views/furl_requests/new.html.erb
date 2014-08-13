@@ -6,14 +6,14 @@
   <%= render_errors_for @furl_request, leading_message: "Your request for a friendly URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
-      <%= f.label :from %>
-      <%= f.text_field :from, class: 'form-control' %>
+      <%= f.label :from_path, 'From' %>
+      <%= f.text_field :from_path, class: 'form-control' %>
       <p class="help-block">This is the friendly URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
     </div>
 
     <div class="form-group">
-      <%= f.label :to %>
-      <%= f.text_field :to, class: 'form-control' %>
+      <%= f.label :to_path, 'To' %>
+      <%= f.text_field :to_path, class: 'form-control' %>
       <p class="help-block">This is the path to redirect the user to. Please specify it as a relative path (eg. "/government/publications/what-hmrc-does-to-prevent-tax-evasion").</p>
     </div>
 

@@ -3,19 +3,19 @@ require 'rails_helper'
 describe FurlRequest do
   describe "validations:" do
     specify { expect(build :furl_request).to be_valid }
-    specify { expect(build :furl_request, from: '').to_not be_valid }
-    specify { expect(build :furl_request, to: '').to_not be_valid }
+    specify { expect(build :furl_request, from_path: '').to_not be_valid }
+    specify { expect(build :furl_request, to_path: '').to_not be_valid }
     specify { expect(build :furl_request, reason: '').to_not be_valid }
     specify { expect(build :furl_request, contact_email: '').to_not be_valid }
     specify { expect(build :furl_request, contact_email: 'invalid.email.address').to_not be_valid }
     specify { expect(build :furl_request, organisation_title: '').to_not be_valid }
     specify { expect(build :furl_request, organisation_slug: '').to_not be_valid }
 
-    it "should be invalid when from is not a relative path" do
-      expect(build :furl_request, from: 'http://www.somewhere.com/a-path').to_not be_valid
+    it "should be invalid when from_path is not a relative path" do
+      expect(build :furl_request, from_path: 'http://www.somewhere.com/a-path').to_not be_valid
     end
-    it "should be invalid when to is not a relative path" do
-      expect(build :furl_request, to: 'http://www.somewhere.com/a-path').to_not be_valid
+    it "should be invalid when to_path is not a relative path" do
+      expect(build :furl_request, to_path: 'http://www.somewhere.com/a-path').to_not be_valid
     end
     it "should be invalid when contact_email is not a valid email address" do
       expect(build :furl_request, contact_email: 'invalid.email.address').to_not be_valid
@@ -67,20 +67,20 @@ describe FurlRequest do
     let(:furl_request) { create :furl_request, :pending }
 
     describe "accept!" do
-      let(:furl_creation_successful?) { true }
+      let(:redirect_creation_successful?) { true }
       let(:new_furl) {
         new_furl = double
-        allow(new_furl).to receive(:save).and_return(furl_creation_successful?)
+        allow(new_furl).to receive(:save).and_return(redirect_creation_successful?)
         new_furl
       }
       before {
         stub_notification(:furl_request_accepted)
-        allow(Furl).to receive(:new).and_return(new_furl)
+        allow(Redirect).to receive(:new).and_return(new_furl)
       }
       let!(:return_value) { furl_request.accept! }
 
-      it "should create a related Furl, copying :to and :from attributes" do
-        expect(Furl).to have_received(:new).with(hash_including(to: furl_request.to, from: furl_request.from))
+      it "should create a related Redirect, copying :to_path and :from_path attributes" do
+        expect(Redirect).to have_received(:new).with(hash_including(to_path: furl_request.to_path, from_path: furl_request.from_path))
         expect(new_furl).to have_received(:save)
       end
 
@@ -97,8 +97,8 @@ describe FurlRequest do
         expect(stub_mail).to have_received(:deliver)
       end
 
-      context "when the furl can't be created for some reason" do
-        let(:furl_creation_successful?) { false }
+      context "when the redirect can't be created for some reason" do
+        let(:redirect_creation_successful?) { false }
 
         it "should not have updated the state" do
           expect(furl_request.state).to eql 'pending'

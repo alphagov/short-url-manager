@@ -120,8 +120,8 @@ describe FurlRequestsController do
     context "with valid params" do
       let(:params) { {
         furl_request: {
-          from: "/a-friendly-url",
-          to: "/somewhere/a-document",
+          from_path: "/a-friendly-url",
+          to_path: "/somewhere/a-document",
           reason: "Because wombles",
           contact_email: "wombles@example.com",
           organisation_slug: organisation.slug
@@ -131,8 +131,8 @@ describe FurlRequestsController do
       it "should create a furl_request" do
         furl_request = FurlRequest.last
         expect(furl_request).to_not be_nil
-        expect(furl_request.from).to               eql params[:furl_request][:from]
-        expect(furl_request.to).to                 eql params[:furl_request][:to]
+        expect(furl_request.from_path).to          eql params[:furl_request][:from_path]
+        expect(furl_request.to_path).to            eql params[:furl_request][:to_path]
         expect(furl_request.reason).to             eql params[:furl_request][:reason]
         expect(furl_request.contact_email).to      eql params[:furl_request][:contact_email]
         expect(furl_request.organisation_slug).to  eql organisation.slug
@@ -159,8 +159,8 @@ describe FurlRequestsController do
     context "with invalid params" do
       let (:params) { {
         furl_request: {
-          from: '',
-          to: ''
+          from_path: '',
+          to_path: ''
         }
       } }
 
@@ -174,7 +174,7 @@ describe FurlRequestsController do
 
     let!(:furl_request) { create :furl_request }
 
-    context "furl can be created without problem" do
+    context "redirects can be created without problem" do
       before {
         stub_default_publishing_api_put
         post :accept, id: furl_request.id
@@ -189,7 +189,7 @@ describe FurlRequestsController do
       end
     end
 
-    context "furl can't be created" do
+    context "redirects can't be created" do
       before {
         publishing_api_isnt_available
         post :accept, id: furl_request.id

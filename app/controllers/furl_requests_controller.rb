@@ -58,6 +58,6 @@ private
   end
 
   def create_furl_request_params
-    @create_furl_request_params ||= params[:furl_request].permit(:from, :to, :reason, :contact_email, :organisation_slug)
+    @create_furl_request_params ||= params[:furl_request].permit(:from_path, :to_path, :reason, :contact_email, :organisation_slug)
   end
 end

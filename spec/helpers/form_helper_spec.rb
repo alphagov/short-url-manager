@@ -17,7 +17,7 @@ describe FormHelper do
     }
     let(:leading_message) { nil }
 
-    subject { Capybara::Node::Simple.new(render_errors_for(model, leading_message: leading_message)) }
+    let(:rendered) { Capybara::Node::Simple.new(render_errors_for(model, leading_message: leading_message)) }
 
     describe "without errors" do
       let(:errors) { [] }
@@ -35,8 +35,8 @@ describe FormHelper do
 
       describe "specific errors" do
         it "should render errors in a list" do
-          expect(subject).to have_css("div.form_errors ul li", text: "Attribute 1 can't be blank")
-          expect(subject).to have_css("div.form_errors ul li", text: "Attribute 2 can't be a small lemon")
+          expect(rendered).to have_css("div.form_errors ul li", text: "Attribute 1 can't be blank")
+          expect(rendered).to have_css("div.form_errors ul li", text: "Attribute 2 can't be a small lemon")
         end
       end
 
@@ -45,7 +45,7 @@ describe FormHelper do
           let(:leading_message) { nil }
 
           it "should have a default message based on the model's class name" do
-            expect(subject).to have_css("div.form_errors p", text: "The test model could not be saved for the following reasons:")
+            expect(rendered).to have_css("div.form_errors p", text: "The test model could not be saved for the following reasons:")
           end
         end
 
@@ -53,7 +53,7 @@ describe FormHelper do
           let(:leading_message) { "Your death ray could not be activated." }
 
           it "should show the custom leading_message" do
-            expect(subject).to have_css("div.form_errors p", text: "Your death ray could not be activated.")
+            expect(rendered).to have_css("div.form_errors p", text: "Your death ray could not be activated.")
           end
         end
       end

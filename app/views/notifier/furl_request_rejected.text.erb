@@ -1,6 +1,6 @@
 Dear <%= @furl_request.requester.name %>,
 
-Your request for a friendly URL from <%= @furl_request.from %> to <%= @furl_request.to %> has been denied.
+Your request for a friendly URL from <%= @furl_request.from_path %> to <%= @furl_request.to_path %> has been denied.
 
 <% if @furl_request.rejection_reason.present? %>
 The following reason was given:

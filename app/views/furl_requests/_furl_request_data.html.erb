@@ -6,10 +6,10 @@
   <dd><%= furl_request.created_at.to_s(:govuk_date) %></dd>
 
   <dt>From:</dt>
-  <dd><%= furl_request.from %></dd>
+  <dd><%= furl_request.from_path %></dd>
 
   <dt>To:</dt>
-  <dd><%= link_to furl_request.to, govuk_url_for(furl_request.to) %></dd>
+  <dd><%= link_to furl_request.to_path, govuk_url_for(furl_request.to_path) %></dd>
 
   <dt>Reason:</dt>
   <dd><%= furl_request.reason %></dd>
