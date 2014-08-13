@@ -1,0 +1,20 @@
+<h1>Reject this friendly url request</h1>
+
+<%= render 'furl_request_data', furl_request: @furl_request %>
+
+<%= form_for @furl_request, url: { action: :reject }, method: :post do |f| %>
+  <%= render_errors_for @furl_request, leading_message: "The friendly URL request could not be rejected for the following reasons:" %>
+  <fieldset>
+    <div class="form-group">
+      <%= f.label :rejection_reason, "Reason" %>
+      <%= f.text_area :rejection_reason, class: 'form-control' %>
+      <p class="help-block">Optionally, tell the requester why you are rejecting their request.</p>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div class="form-group">
+      <%= f.submit "Reject", class: 'btn btn-danger' %>
+    </div>
+  </fieldset>
+<%- end -%>

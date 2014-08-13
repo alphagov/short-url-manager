@@ -5,4 +5,13 @@ class ApplicationController < ActionController::Base
 
   include GDS::SSO::ControllerMethods
   before_filter :authenticate_user!
+
+private
+  def authorise_as_furl_requester!
+    authorise_user!('request_furls')
+  end
+
+  def authorise_as_furl_manager!
+    authorise_user!('manage_furls')
+  end
 end

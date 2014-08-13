@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'gds_api/test_helpers/publishing_api'
 
 describe FurlRequestsController do
   let(:user) { create(:user, permissions: ['signon', 'request_furls', 'manage_furls']) }
@@ -20,6 +21,9 @@ describe FurlRequestsController do
       specify {
         expect_not_authourised(:get, :index)
         expect_not_authourised(:get, :show, id: 'required-param')
+        expect_not_authourised(:post, :accept, id: 'required-param')
+        expect_not_authourised(:get, :new_rejection, id: 'required-param')
+        expect_not_authourised(:post, :reject, id: 'required-param')
       }
     end
   end
@@ -27,9 +31,9 @@ describe FurlRequestsController do
   describe "#index" do
     context "with several furl_requests requested at different times" do
       let!(:furl_requests) { [
-        create(:furl_request, created_at: 10.days.ago),
-        create(:furl_request, created_at: 5.days.ago),
-        create(:furl_request, created_at: 15.days.ago)
+        create(:furl_request, :pending, created_at: 10.days.ago),
+        create(:furl_request, :pending, created_at: 5.days.ago),
+        create(:furl_request, :pending, created_at: 15.days.ago)
       ] }
       before { get :index }
 
@@ -39,7 +43,7 @@ describe FurlRequestsController do
     end
 
     context "with 45 furl requests" do
-      let!(:furl_requests) { 45.times.map { |n| create :furl_request, created_at: n.days.ago } }
+      let!(:furl_requests) { 45.times.map { |n| create :furl_request, :pending, created_at: n.days.ago } }
       before { get :index, params }
 
       context "page param is not given" do
@@ -56,6 +60,17 @@ describe FurlRequestsController do
         it "should assign the latter 5 furl_requests" do
           expect(assigns[:furl_requests]).to be == furl_requests[40..44]
         end
+      end
+    end
+
+    context "with several different states of furl_request" do
+      let!(:pending_furl_request) { create(:furl_request, :pending) }
+      let!(:accepted_furl_request) { create(:furl_request, :accepted) }
+      let!(:rejected_furl_request) { create(:furl_request, :rejected) }
+      before { get :index }
+
+      it "should only include pending requests" do
+        expect(assigns(:furl_requests)).to be == [pending_furl_request]
       end
     end
   end
@@ -105,8 +120,8 @@ describe FurlRequestsController do
     context "with valid params" do
       let(:params) { {
         furl_request: {
-          from: "/a-friendly-url",
-          to: "/somewhere/a-document",
+          from_path: "/a-friendly-url",
+          to_path: "/somewhere/a-document",
           reason: "Because wombles",
           contact_email: "wombles@example.com",
           organisation_slug: organisation.slug
@@ -116,8 +131,8 @@ describe FurlRequestsController do
       it "should create a furl_request" do
         furl_request = FurlRequest.last
         expect(furl_request).to_not be_nil
-        expect(furl_request.from).to               eql params[:furl_request][:from]
-        expect(furl_request.to).to                 eql params[:furl_request][:to]
+        expect(furl_request.from_path).to          eql params[:furl_request][:from_path]
+        expect(furl_request.to_path).to            eql params[:furl_request][:to_path]
         expect(furl_request.reason).to             eql params[:furl_request][:reason]
         expect(furl_request.contact_email).to      eql params[:furl_request][:contact_email]
         expect(furl_request.organisation_slug).to  eql organisation.slug
@@ -144,13 +159,73 @@ describe FurlRequestsController do
     context "with invalid params" do
       let (:params) { {
         furl_request: {
-          from: '',
-          to: ''
+          from_path: '',
+          to_path: ''
         }
       } }
 
       specify { expect(response).to render_template('furl_requests/new') }
       specify { expect(FurlRequest.count).to eql 0 }
+    end
+  end
+
+  describe "#accept" do
+    include GdsApi::TestHelpers::PublishingApi
+
+    let!(:furl_request) { create :furl_request }
+
+    context "redirects can be created without problem" do
+      before {
+        stub_default_publishing_api_put
+        post :accept, id: furl_request.id
+      }
+
+      it "should assign the FurlRequest" do
+        expect(assigns(:furl_request)).to eql furl_request
+      end
+
+      it "should have accepted the furl_request" do
+        expect(furl_request.reload).to be_accepted
+      end
+    end
+
+    context "redirects can't be created" do
+      before {
+        publishing_api_isnt_available
+        post :accept, id: furl_request.id
+      }
+
+      it "should render the accept_failed template" do
+        expect(response).to render_template('furl_requests/accept_failed')
+      end
+    end
+  end
+
+  describe "new_rejection" do
+    let!(:furl_request) { create :furl_request }
+    before {
+      get :new_rejection, id: furl_request.id
+    }
+
+    it "should assign the furl_request" do
+      expect(assigns(:furl_request)).to eql furl_request
+    end
+  end
+
+  describe "reject" do
+    let!(:furl_request) { create :furl_request }
+    let(:rejection_reason) { "Don't like it!" }
+    before {
+      post :reject, id: furl_request.id, furl_request: { rejection_reason: rejection_reason }
+    }
+
+    it "should reject the furl request, passing in the given reason" do
+      expect(furl_request.reload.rejection_reason).to eql rejection_reason
+    end
+
+    it "should redirect to the furl_request index with a flash message" do
+      expect(response).to redirect_to(furl_requests_path)
+      expect(flash).not_to be_empty
     end
   end
 

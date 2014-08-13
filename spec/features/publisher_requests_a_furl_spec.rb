@@ -26,8 +26,8 @@ feature "As a publisher, I can request a FURL" do
     expect(page).to have_content "Your request has been made."
 
     furl_request = FurlRequest.last
-    expect(furl_request.from).to               eql from_path
-    expect(furl_request.to).to                 eql to_path
+    expect(furl_request.from_path).to          eql from_path
+    expect(furl_request.to_path).to            eql to_path
     expect(furl_request.reason).to             eql reason
     expect(furl_request.contact_email).to      eql email
     expect(furl_request.organisation_slug).to  eql 'ministry-of-beards'
@@ -36,7 +36,7 @@ feature "As a publisher, I can request a FURL" do
     expect(ActionMailer::Base.deliveries.count).to eql 1
     mail = ActionMailer::Base.deliveries.last
     expect(mail.to).to eql ['furl-manager-1@example.com']
-    expect(mail.subject).to include 'Furl request'
+    expect(mail.subject).to include 'Friendly URL request'
   end
 
   scenario "User without request_furls permission sees no option to request a furl" do
