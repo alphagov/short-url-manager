@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   root "dashboard#dashboard"
 
-  resources :furl_requests
-  post "/furl_requests/:id/accept" => "furl_requests#accept", as: "accept_furl_request"
-  get "/furl_requests/:id/new_rejection" => "furl_requests#new_rejection", as: "new_rejection_furl_request"
-  post "/furl_requests/:id/reject" => "furl_requests#reject", as: "reject_furl_request"
+  resources :furl_requests do
+    member do
+      post "accept" => "furl_requests#accept"
+      get "new_rejection" => "furl_requests#new_rejection"
+      post "reject" => "furl_requests#reject"
+    end
+  end
 
   get "/healthcheck" => Proc.new { [200, {}, ["OK"]] }
 
