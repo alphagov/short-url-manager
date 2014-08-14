@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   add_template_helper UrlHelper
-  default from: "<Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk"
+  default from: '"Friendly URL manager" <noreply+furl-manager@digital.cabinet-office.gov.uk>'
 
   def furl_requested(furl_request)
     @furl_request = furl_request
