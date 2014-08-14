@@ -19,8 +19,8 @@ describe Notifier do
     }
     let(:mail) { Notifier.furl_requested(furl_request) }
 
-    it "should send from <Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk" do
-      expect(mail.from).to eql "<Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk"
+    it "should send from noreply+furl-manager@digital.cabinet-office.gov.uk" do
+      expect(mail.from).to be == ["noreply+furl-manager@digital.cabinet-office.gov.uk"]
     end
 
     it "should set a subject showing the from and applicable organisation" do
@@ -58,8 +58,8 @@ describe Notifier do
                                                                           to_path: redirect_to_path) }
     let(:mail) { Notifier.furl_request_accepted(furl_request) }
 
-    it "should send from <Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk" do
-      expect(mail.from).to eql "<Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk"
+    it "should send from noreply+furl-manager@digital.cabinet-office.gov.uk" do
+      expect(mail.from).to be == ["noreply+furl-manager@digital.cabinet-office.gov.uk"]
     end
 
     it "should sent to the contact email address supplied with the initial request" do
@@ -90,8 +90,8 @@ describe Notifier do
                                                rejection_reason: furl_request_rejection_reason }
     let(:mail) { Notifier.furl_request_rejected(furl_request) }
 
-    it "should send from <Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk" do
-      expect(mail.from).to eql "<Friendly URL manager> noreply+furl-manager@digital.cabinet-office.gov.uk"
+    it "should send from noreply+furl-manager@digital.cabinet-office.gov.uk" do
+      expect(mail.from).to be == ["noreply+furl-manager@digital.cabinet-office.gov.uk"]
     end
 
     it "should sent to the contact email address supplied with the initial request" do
