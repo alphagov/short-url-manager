@@ -1,7 +1,7 @@
 development:
   sessions:
     default:
-      database: furl_manager_development
+      database: short_url_manager_development
       hosts:
         - localhost:27017
       options:
@@ -9,7 +9,7 @@ development:
 test:
   sessions:
     default:
-      database: furl_manager_test
+      database: short_url_manager_test
       hosts:
         - localhost:27017
       options:

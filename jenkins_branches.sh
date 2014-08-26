@@ -8,7 +8,7 @@ VENV_PATH="${HOME}/venv/${JOB_NAME}"
 
 pip install -q ghtools
 
-REPO="alphagov/furl-manager"
+REPO="alphagov/short-url-manager"
 gh-status "$REPO" "$GIT_COMMIT" pending -d "\"Build #${BUILD_NUMBER} is running on Jenkins\"" -u "$BUILD_URL" >/dev/null
 
 if ./jenkins.sh; then

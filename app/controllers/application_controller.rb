@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
 private
-  def authorise_as_furl_requester!
-    authorise_user!('request_furls')
+  def authorise_as_short_url_requester!
+    authorise_user!('request_short_urls')
   end
 
-  def authorise_as_furl_manager!
-    authorise_user!('manage_furls')
+  def authorise_as_short_url_manager!
+    authorise_user!('manage_short_urls')
   end
 end

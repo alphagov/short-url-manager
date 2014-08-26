@@ -9,38 +9,38 @@ describe User do
 
   describe "permissions" do
     context "user has no special permissions" do
-      specify { expect(instance.can_request_furls?).to be_falsy }
-      specify { expect(instance.can_manage_furls?).to be_falsy }
+      specify { expect(instance.can_request_short_urls?).to be_falsy }
+      specify { expect(instance.can_manage_short_urls?).to be_falsy }
     end
 
-    context "user has request_furls permission" do
-      let(:permissions) { ['signin', 'request_furls'] }
-      specify { expect(instance.can_request_furls?).to be_truthy }
-      specify { expect(instance.can_manage_furls?).to be_falsy }
+    context "user has request_short_urls permission" do
+      let(:permissions) { ['signin', 'request_short_urls'] }
+      specify { expect(instance.can_request_short_urls?).to be_truthy }
+      specify { expect(instance.can_manage_short_urls?).to be_falsy }
     end
 
-    context "user has manage_furls permission" do
-      let(:permissions) { ['signin', 'manage_furls'] }
-      specify { expect(instance.can_request_furls?).to be_falsy }
-      specify { expect(instance.can_manage_furls?).to be_truthy }
+    context "user has manage_short_urls permission" do
+      let(:permissions) { ['signin', 'manage_short_urls'] }
+      specify { expect(instance.can_request_short_urls?).to be_falsy }
+      specify { expect(instance.can_manage_short_urls?).to be_truthy }
     end
   end
 
   describe "scopes" do
     context "with several users of various types" do
-      let!(:furl_managers) {
-        2.times.map { create :furl_manager }
+      let!(:short_url_managers) {
+        2.times.map { create :short_url_manager }
       }
       let!(:other_users) {
-        2.times.map { create :furl_requester }
+        2.times.map { create :short_url_requester }
       }
 
-      describe "#furl_managers" do
-        subject { User.furl_managers }
+      describe "#short_url_managers" do
+        subject { User.short_url_managers }
 
-        it "should return only users with the manage_furls permission" do
+        it "should return only users with the manage_short_urls permission" do
           expect(subject.length).to eql 2
-          expect(subject).to include *furl_managers
+          expect(subject).to include *short_url_managers
           expect(subject).to_not include *other_users
         end
       end

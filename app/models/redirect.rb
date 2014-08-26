@@ -7,7 +7,7 @@ class Redirect
   field :from_path, type: String
   field :to_path, type: String
 
-  belongs_to :furl_request
+  belongs_to :short_url_request
 
   validates :from_path, :to_path, presence: true
   validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
@@ -25,7 +25,7 @@ private
       ]
     })
   rescue GdsApi::HTTPErrorResponse
-    errors.add(:base, "An error posting to the publishing API prevented the redirect for this friendly URL being created")
+    errors.add(:base, "An error posting to the publishing API prevented the redirect for this short URL being created")
     false # Do not continue to save
   end
 

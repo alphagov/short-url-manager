@@ -1,0 +1,10 @@
+Dear <%= @short_url_request.requester.name %>,
+
+Your request for a short URL from <%= @short_url_request.from_path %> to <%= @short_url_request.to_path %> has been denied.
+
+<% if @short_url_request.rejection_reason.present? %>
+The following reason was given:
+<%= @short_url_request.rejection_reason %>
+<% else %>
+No reason was given.
+<% end %>

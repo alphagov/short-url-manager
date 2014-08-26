@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root "dashboard#dashboard"
 
-  resources :furl_requests do
+  resources :short_url_requests do
     member do
-      post "accept" => "furl_requests#accept"
-      get "new_rejection" => "furl_requests#new_rejection"
-      post "reject" => "furl_requests#reject"
+      post "accept" => "short_url_requests#accept"
+      get "new_rejection" => "short_url_requests#new_rejection"
+      post "reject" => "short_url_requests#reject"
     end
   end
 

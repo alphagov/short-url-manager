@@ -9,13 +9,13 @@ class User
   field :permissions, type: Array
   field :remotely_signed_out, type: Boolean, default: false
 
-  scope :furl_managers, ->{ where(permissions: /manage_furls/) }
+  scope :short_url_managers, ->{ where(permissions: /manage_short_urls/) }
 
-  def can_request_furls?
-    permissions.include? 'request_furls'
+  def can_request_short_urls?
+    permissions.include? 'request_short_urls'
   end
 
-  def can_manage_furls?
-    permissions.include? 'manage_furls'
+  def can_manage_short_urls?
+    permissions.include? 'manage_short_urls'
   end
 end
