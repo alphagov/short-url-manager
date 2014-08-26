@@ -25,7 +25,7 @@ private
       ]
     })
   rescue GdsApi::HTTPErrorResponse
-    errors.add(:base, "An error posting to the publishing API prevented the redirect for this short URL being created")
+    errors.add(:base, "An error posting to the publishing API prevented this redirect from being created.")
     false # Do not continue to save
   end
 
