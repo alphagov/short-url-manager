@@ -4,11 +4,11 @@ FactoryGirl.define do
     sequence(:email) { |n| "user-#{n}@example.com" }
   end
 
-  factory :furl_requester, parent: :user do
-    permissions ['signon', 'request_furls']
+  factory :short_url_requester, parent: :user do
+    permissions ['signon', 'request_short_urls']
   end
 
-  factory :furl_manager, parent: :user do
-    permissions ['signon', 'manage_furls']
+  factory :short_url_manager, parent: :user do
+    permissions ['signon', 'manage_short_urls']
   end
 end

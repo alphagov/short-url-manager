@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Dear <%= @short_url_request.requester.name %>,</p>
+
+    <p>Your request for a short URL from <%= @short_url_request.from_path %> to <%= link_to @short_url_request.to_path, govuk_url_for(@short_url_request.to_path) %> has been denied.</p>
+
+    <% if @short_url_request.rejection_reason.present? %>
+      <p>The following reason was given:</p>
+      <p><%= @short_url_request.rejection_reason %></p>
+    <% else %>
+      <p>No reason was given.</p>
+    <% end %>
+  </body>
+</html>

@@ -1,7 +1,0 @@
-<h1>Friendly URL requested by <%= @furl_request.organisation_title %></h1>
-
-<%= render 'furl_request_data', furl_request: @furl_request %>
-
-<%= button_to "Accept and create redirect", accept_furl_request_path(@furl_request), method: :post, class: "btn btn-success" %>
-<%= link_to "Reject", new_rejection_furl_request_path(@furl_request), class: "btn btn-danger" %>
-<%= link_to "Back", furl_requests_path, class: "btn btn-default" %>

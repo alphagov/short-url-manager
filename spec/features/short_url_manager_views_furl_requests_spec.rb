@@ -1,23 +1,23 @@
 require 'rails_helper'
 
-feature "fURL manager finds information on furl requests" do
+feature "Short URL manager finds information on short_url requests" do
   background do
-    login_as create(:user, permissions: ['signon', 'manage_furls'])
+    login_as create(:user, permissions: ['signon', 'manage_short_urls'])
   end
 
-  scenario "fURL manager views the index of furl requests and uses the pagination" do
-    create :furl_request, from_path: "/ministry-of-beards",
+  scenario "Short URL manager views the index of short_url requests and uses the pagination" do
+    create :short_url_request, from_path: "/ministry-of-beards",
                           to_path: "/government/organisations/ministry-of-beards",
                           organisation_title: "Ministry of Beards",
                           created_at: 10.minutes.ago
 
     40.times do |n|
-      create :furl_request, from_path: "/from/path/#{n+2}",
+      create :short_url_request, from_path: "/from/path/#{n+2}",
                             created_at: n.days.ago
     end
 
     visit "/"
-    click_on "Manage friendly URL requests"
+    click_on "Manage short URL requests"
 
     expect(page).to have_content "/ministry-of-beards"
     expect(page).to have_content "/government/organisations/ministry-of-beards"
@@ -33,15 +33,15 @@ feature "fURL manager finds information on furl requests" do
     expect(page).to have_no_content "/from/path/40"
   end
 
-  scenario "fURL manager views the details for a single fRUL request" do
-    create :furl_request, from_path: "/ministry-of-beards",
+  scenario "Short URL manager views the details for a single fRUL request" do
+    create :short_url_request, from_path: "/ministry-of-beards",
                           to_path: "/government/organisations/ministry-of-beards",
                           reason: "Because we really need to think about beards",
                           contact_email: "gandalf@example.com",
                           created_at: Time.zone.parse("2014-01-01 12:00:00"),
                           organisation_title: "Ministry of Beards"
 
-    visit furl_requests_path
+    visit short_url_requests_path
 
     click_on "Ministry of Beards"
 
@@ -53,9 +53,9 @@ feature "fURL manager finds information on furl requests" do
     expect(page).to have_content "gandalf@example.com"
   end
 
-  scenario "User without manage_furls permission sees no option to manage furl requests" do
+  scenario "User without manage_short_urls permission sees no option to manage short_url requests" do
     login_as create(:user, permissions: ['signon'])
     visit "/"
-    expect(page).to have_no_content('Manage friendly URL requests')
+    expect(page).to have_no_content('Manage short URL requests')
   end
 end

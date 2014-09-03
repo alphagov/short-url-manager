@@ -1,4 +1,4 @@
-class FurlRequest
+class ShortUrlRequest
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -24,10 +24,10 @@ class FurlRequest
   scope :pending, -> { where(state: "pending") }
 
   def accept!
-    new_furl = Redirect.new(from_path: from_path, to_path: to_path, furl_request: self)
-    if new_furl.save
+    new_short_url = Redirect.new(from_path: from_path, to_path: to_path, short_url_request: self)
+    if new_short_url.save
       update_attributes state: 'accepted'
-      Notifier.furl_request_accepted(self).deliver
+      Notifier.short_url_request_accepted(self).deliver
       true
     else
       false
@@ -37,7 +37,7 @@ class FurlRequest
   def reject!(reason = nil)
     update_attributes state: 'rejected',
                       rejection_reason: reason
-    Notifier.furl_request_rejected(self).deliver
+    Notifier.short_url_request_rejected(self).deliver
     true
   end
 

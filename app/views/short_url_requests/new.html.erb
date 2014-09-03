@@ -1,14 +1,14 @@
-<h1>Request a friendly url</h1>
+<h1>Request a short URL</h1>
 
-<p>If you are not familiar with requesting friendly URLs, please read <a href="https://insidegovuk.blog.gov.uk/2014/04/07/how-to-request-a-short-url/">this blog post</a> first.</p>
+<p>If you are not familiar with requesting short URLs, please read <a href="https://insidegovuk.blog.gov.uk/2014/04/07/how-to-request-a-short-url/">this blog post</a> first.</p>
 
-<%= form_for @furl_request, url: { action: :create } do |f| %>
-  <%= render_errors_for @furl_request, leading_message: "Your request for a friendly URL could not be made for the following reasons:" %>
+<%= form_for @short_url_request, url: { action: :create } do |f| %>
+  <%= render_errors_for @short_url_request, leading_message: "Your request for a short URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
       <%= f.label :from_path, 'From' %>
       <%= f.text_field :from_path, class: 'form-control' %>
-      <p class="help-block">This is the friendly URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
+      <p class="help-block">This is the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
     </div>
 
     <div class="form-group">
@@ -19,7 +19,7 @@
 
     <div class="form-group">
       <%= f.label :organisation_slug, "Organisation" %>
-      <%= f.select :organisation_slug, options_for_select(organisations.map {|org| [org.title, org.slug] }, @furl_request.organisation_slug), {}, class: 'form-control' %>
+      <%= f.select :organisation_slug, options_for_select(organisations.map {|org| [org.title, org.slug] }, @short_url_request.organisation_slug), {}, class: 'form-control' %>
     </div>
 
     <div class="form-group">

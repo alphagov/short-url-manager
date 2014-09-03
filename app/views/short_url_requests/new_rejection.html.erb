@@ -1,9 +1,9 @@
-<h1>Reject this friendly url request</h1>
+<h1>Reject this short URL request</h1>
 
-<%= render 'furl_request_data', furl_request: @furl_request %>
+<%= render 'short_url_request_data', short_url_request: @short_url_request %>
 
-<%= form_for @furl_request, url: { action: :reject }, method: :post do |f| %>
-  <%= render_errors_for @furl_request, leading_message: "The friendly URL request could not be rejected for the following reasons:" %>
+<%= form_for @short_url_request, url: { action: :reject }, method: :post do |f| %>
+  <%= render_errors_for @short_url_request, leading_message: "The short URL request could not be rejected for the following reasons:" %>
   <fieldset>
     <div class="form-group">
       <%= f.label :rejection_reason, "Reason" %>
