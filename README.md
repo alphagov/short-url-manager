@@ -34,10 +34,6 @@ $ ./startup.sh
 
 If you are using the GDS development virtual machine then the application will be available on the host at [http://short-url-manager.dev.gov.uk/](http://short-url-manager.dev.gov.uk/)
 
-### Authentication in dev
-
-In dev `gds-sso` will authenticate you as the first user in the User collection. You will need to give this user any missing permissions you need
-
 ## Running the test suite
 
 ```
