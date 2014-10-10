@@ -8,8 +8,8 @@ GDS::SSO.config do |config|
 end
 
 
-# In development, if we want to be able to test API requests to the tags
-# endpoints, we need to override the permissions for the dummy user inserted by
+# In development, if we want to be able to test features that require permissions
+# then we need to override the default permissions for the dummy user inserted by
 # GDS::SSO in the mock_bearer_token strategy.
 #
 # The easiest way to do this is just to override the GDS::SSO test user with a
