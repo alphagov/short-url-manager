@@ -1,10 +1,10 @@
 <h1>Dashboard</h1>
 
-<ul class="nav nav-pills nav-stacked">
+<ul class="list-group col-md-6">
   <% if current_user.can_request_short_urls? %>
-    <li><%= link_to "Request a new short URL", new_short_url_request_path %></li>
+    <li class="list-group-item"><%= link_to "Request a new short URL", new_short_url_request_path %></li>
   <% end %>
   <% if current_user.can_manage_short_urls? %>
-    <li><%= link_to "Manage short URL requests", short_url_requests_path %></li>
+    <li class="list-group-item"><%= link_to "Manage short URL requests", short_url_requests_path %></li>
   <% end %>
 </ul>
