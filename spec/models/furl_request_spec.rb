@@ -27,6 +27,13 @@ describe ShortUrlRequest do
       expect(build :short_url_request, state: 'rejected').to be_valid
       expect(build :short_url_request, state: 'liquid').to_not be_valid
     end
+
+    it "should trim whitespace from from_path and to_path" do
+      from_path_stripped_whitespace = create(:short_url_request, from_path: '/a-path ')
+      to_path_stripped_whitespace = create(:short_url_request, to_path: '/b-path ')
+      expect(from_path_stripped_whitespace.from_path).to eq('/a-path')
+      expect(to_path_stripped_whitespace.to_path).to eq('/b-path')
+    end
   end
 
   describe "scopes" do

@@ -20,6 +20,7 @@ class ShortUrlRequest
   validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
 
   before_validation :retreive_organisation_title, unless: ->{ organisation_title.present? }
+  before_validation :strip_whitespace, :only => [:from_path, :to_path]
 
   scope :pending, -> { where(state: "pending") }
 
@@ -56,5 +57,10 @@ class ShortUrlRequest
 private
   def retreive_organisation_title
     self.organisation_title = Organisation.where(slug: organisation_slug).first.try(:title)
+  end
+
+  def strip_whitespace
+    self.from_path = self.from_path.strip
+    self.to_path = self.to_path.strip
   end
 end
