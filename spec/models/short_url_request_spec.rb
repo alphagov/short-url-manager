@@ -38,7 +38,7 @@ describe ShortUrlRequest do
 
   describe "scopes" do
     describe "pending" do
-      context "with short_url_requets in different states" do
+      context "with short_url_requests in different states" do
         let!(:pending_short_url_request) { create(:short_url_request, :pending) }
         let!(:accepted_short_url_request) { create(:short_url_request, :accepted) }
         let!(:rejected_short_url_request) { create(:short_url_request, :rejected) }
