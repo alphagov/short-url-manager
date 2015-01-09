@@ -1,6 +1,6 @@
 class ShortUrlRequestsController < ApplicationController
   before_filter :authorise_as_short_url_requester!, only: [:new, :create]
-  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject]
+  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls]
   before_filter :get_short_url_request, only: [:show, :accept, :new_rejection, :reject]
 
   def index
@@ -8,6 +8,10 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def show
+  end
+
+  def list_short_urls
+    @accepted_short_urls = ShortUrlRequest.all.where(state: 'accepted').order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
   end
 
   def new

@@ -1,0 +1,20 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr class="table-header">
+      <th>Organisation</th>
+      <th>From</th>
+      <th>To</th>
+      <th>State</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <% @accepted_short_urls.each do |request| %>
+    <tr class="clickable_row">
+      <td><%= link_to request.organisation_title, short_url_request_path(request) %></td>
+      <td><%= link_to request.from_path, short_url_request_path(request) %></td>
+      <td><%= link_to request.to_path, short_url_request_path(request) %></td>
+      <td><%= link_to request.state.titleize, short_url_request_path(request) %></td>
+      <td><%= link_to request.updated_at.to_date, short_url_request_path(request) %></td>
+    </tr>
+  <% end %>
+</table>
