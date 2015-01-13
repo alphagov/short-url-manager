@@ -10,8 +10,8 @@ describe ShortUrlRequestsController do
       let(:user) { create(:user, permissions: ['signon', 'manage_short_urls']) }
 
       specify {
-        expect_not_authourised(:get, :new)
-        expect_not_authourised(:post, :create)
+        expect_not_authorised(:get, :new)
+        expect_not_authorised(:post, :create)
       }
     end
 
@@ -19,11 +19,11 @@ describe ShortUrlRequestsController do
       let(:user) { create(:user, permissions: ['signon', 'request_short_urls']) }
 
       specify {
-        expect_not_authourised(:get, :index)
-        expect_not_authourised(:get, :show, id: 'required-param')
-        expect_not_authourised(:post, :accept, id: 'required-param')
-        expect_not_authourised(:get, :new_rejection, id: 'required-param')
-        expect_not_authourised(:post, :reject, id: 'required-param')
+        expect_not_authorised(:get, :index)
+        expect_not_authorised(:get, :show, id: 'required-param')
+        expect_not_authorised(:post, :accept, id: 'required-param')
+        expect_not_authorised(:get, :new_rejection, id: 'required-param')
+        expect_not_authorised(:post, :reject, id: 'required-param')
       }
     end
   end
