@@ -16,7 +16,7 @@ class ShortUrlRequest
 
   validates :state, :from_path, :to_path, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
   validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
-  validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
+  validates :state, inclusion: { in: %w(pending accepted rejected deleted) }, allow_blank: true
 
   before_validation :retreive_organisation_title, unless: ->{ organisation_title.present? }
   before_validation :strip_whitespace, :only => [:from_path, :to_path]
