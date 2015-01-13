@@ -32,12 +32,7 @@ module SSOControllerHelper
     )
   end
 
-  def expect_authourised(http_method, action, params={})
-    send(http_method, action, params)
-    expect(response.status).to_not eql 403
-  end
-
-  def expect_not_authourised(http_method, action, params={})
+  def expect_not_authorised(http_method, action, params={})
     send(http_method, action, params)
     expect(response.status).to eql 403
   end
