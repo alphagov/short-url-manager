@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post "reject" => "short_url_requests#reject"
     end
   end
+  get "list_short_urls" => "short_url_requests#list_short_urls"
 
   get "/healthcheck" => Proc.new { [200, {}, ["OK"]] }
 

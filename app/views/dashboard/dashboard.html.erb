@@ -6,5 +6,6 @@
   <% end %>
   <% if current_user.can_manage_short_urls? %>
     <li class="list-group-item"><%= link_to "Manage short URL requests", short_url_requests_path %></li>
+    <li class="list-group-item"><%= link_to "View all accepted short URLs managed by this app", list_short_urls_path %></li>
   <% end %>
 </ul>
