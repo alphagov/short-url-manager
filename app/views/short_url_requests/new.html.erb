@@ -6,13 +6,13 @@
   <%= render_errors_for @short_url_request, leading_message: "Your request for a short URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
-      <%= f.label :from_path, 'From' %>
+      <%= f.label :from_path, 'Short URL' %>
       <%= f.text_field :from_path, class: 'form-control input-md-8' %>
       <p class="help-block">This is the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
     </div>
 
     <div class="form-group">
-      <%= f.label :to_path, 'To' %>
+      <%= f.label :to_path, 'Target URL' %>
       <%= f.text_field :to_path, class: 'form-control input-md-8' %>
       <p class="help-block">This is the path to redirect the user to. Please specify it as a relative path (eg. "/government/publications/what-hmrc-does-to-prevent-tax-evasion").</p>
     </div>

@@ -15,8 +15,8 @@ feature "As a publisher, I can request a short URL" do
     expect(page).to have_field "Contact email", with: "gandalf@example.com"
     expect(page).to have_select "Organisation", selected: "Ministry of Magic"
 
-    fill_in "From",          with: from_path = "/some-friendly-url"
-    fill_in "To",            with: to_path   = "/government/publications/some-random-publication"
+    fill_in "Short URL",          with: from_path = "/some-friendly-url"
+    fill_in "Target URL",         with: to_path   = "/government/publications/some-random-publication"
     select "Ministry of Beards", from: "Organisation"
     fill_in "Reason",        with: reason    = "Because of the wombats"
     fill_in "Contact email", with: email     = "gandalf@example.com"
