@@ -15,12 +15,13 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def new
-    @short_url_request = ShortUrlRequest.new(contact_email: current_user.email, organisation_slug: current_user.organisation_slug)
+    @short_url_request = ShortUrlRequest.new(organisation_slug: current_user.organisation_slug)
   end
 
   def create
     @short_url_request = ShortUrlRequest.new(create_short_url_request_params)
     @short_url_request.requester = current_user
+    @short_url_request.contact_email = current_user.email
 
     if @short_url_request.save
       Notifier.short_url_requested(@short_url_request).deliver
@@ -62,6 +63,6 @@ private
   end
 
   def create_short_url_request_params
-    @create_short_url_request_params ||= params[:short_url_request].permit(:from_path, :to_path, :reason, :contact_email, :organisation_slug)
+    @create_short_url_request_params ||= params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug)
   end
 end
