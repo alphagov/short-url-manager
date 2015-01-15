@@ -123,7 +123,6 @@ describe ShortUrlRequestsController do
           from_path: "/a-friendly-url",
           to_path: "/somewhere/a-document",
           reason: "Because wombles",
-          contact_email: "wombles@example.com",
           organisation_slug: organisation.slug
         }
       } }
@@ -134,7 +133,7 @@ describe ShortUrlRequestsController do
         expect(short_url_request.from_path).to          eql params[:short_url_request][:from_path]
         expect(short_url_request.to_path).to            eql params[:short_url_request][:to_path]
         expect(short_url_request.reason).to             eql params[:short_url_request][:reason]
-        expect(short_url_request.contact_email).to      eql params[:short_url_request][:contact_email]
+        expect(short_url_request.contact_email).to      eql user.email
         expect(short_url_request.organisation_slug).to  eql organisation.slug
         expect(short_url_request.organisation_title).to eql organisation.title
       end

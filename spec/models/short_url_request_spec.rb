@@ -6,8 +6,6 @@ describe ShortUrlRequest do
     specify { expect(build :short_url_request, from_path: '').to_not be_valid }
     specify { expect(build :short_url_request, to_path: '').to_not be_valid }
     specify { expect(build :short_url_request, reason: '').to_not be_valid }
-    specify { expect(build :short_url_request, contact_email: '').to_not be_valid }
-    specify { expect(build :short_url_request, contact_email: 'invalid.email.address').to_not be_valid }
     specify { expect(build :short_url_request, organisation_title: '').to_not be_valid }
     specify { expect(build :short_url_request, organisation_slug: '').to_not be_valid }
 
@@ -16,9 +14,6 @@ describe ShortUrlRequest do
     end
     it "should be invalid when to_path is not a relative path" do
       expect(build :short_url_request, to_path: 'http://www.somewhere.com/a-path').to_not be_valid
-    end
-    it "should be invalid when contact_email is not a valid email address" do
-      expect(build :short_url_request, contact_email: 'invalid.email.address').to_not be_valid
     end
 
     it "should allow 'pending', 'accepted' and 'rejected' as acceptable state values" do

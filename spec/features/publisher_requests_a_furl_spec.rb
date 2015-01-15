@@ -12,14 +12,12 @@ feature "As a publisher, I can request a short URL" do
     visit "/"
     click_on "Request a new short URL"
 
-    expect(page).to have_field "Contact email", with: "gandalf@example.com"
     expect(page).to have_select "Organisation", selected: "Ministry of Magic"
 
     fill_in "Short URL",          with: from_path = "/some-friendly-url"
     fill_in "Target URL",         with: to_path   = "/government/publications/some-random-publication"
     select "Ministry of Beards", from: "Organisation"
     fill_in "Reason",        with: reason    = "Because of the wombats"
-    fill_in "Contact email", with: email     = "gandalf@example.com"
 
     click_on "Make this request"
 
@@ -29,7 +27,7 @@ feature "As a publisher, I can request a short URL" do
     expect(short_url_request.from_path).to          eql from_path
     expect(short_url_request.to_path).to            eql to_path
     expect(short_url_request.reason).to             eql reason
-    expect(short_url_request.contact_email).to      eql email
+    expect(short_url_request.contact_email).to      eql 'gandalf@example.com'
     expect(short_url_request.organisation_slug).to  eql 'ministry-of-beards'
     expect(short_url_request.organisation_title).to eql 'Ministry of Beards'
 

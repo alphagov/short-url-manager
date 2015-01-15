@@ -15,7 +15,6 @@ class ShortUrlRequest
   has_one :redirect
 
   validates :state, :from_path, :to_path, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
-  validates :contact_email, format: { with: /\A[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})\z/ }, allow_blank: true
   validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
   validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
 
