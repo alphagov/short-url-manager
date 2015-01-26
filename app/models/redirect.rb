@@ -28,7 +28,7 @@ private
     publishing_api.put_content_item(from_path, api_params)
   rescue GdsApi::HTTPErrorResponse => e
     Airbrake.notify_or_ignore(e, :params => api_params)
-    errors.add(:base, "An error posting to the publishing API prevented this redirect from being created.")
+    errors.add(:base, "An error posting to the publishing API prevented this redirect from being created: #{e}")
     false # Do not continue to save
   end
 
