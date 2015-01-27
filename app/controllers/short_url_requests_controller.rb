@@ -1,7 +1,9 @@
+require 'gds_api/router'
+
 class ShortUrlRequestsController < ApplicationController
   before_filter :authorise_as_short_url_requester!, only: [:new, :create]
   before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls]
-  before_filter :get_short_url_request, only: [:show, :accept, :new_rejection, :reject]
+  before_filter :get_short_url_request, only: [:show, :accept, :new_rejection, :reject, :destroy]
 
   def index
     @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
@@ -48,6 +50,22 @@ class ShortUrlRequestsController < ApplicationController
       flash[:error] = "The short URL request could not be rejected."
     end
     redirect_to short_url_requests_path
+  end
+
+  def destroy
+    router.delete_route("#{@short_url_request.from_path}")
+    if router.commit_routes
+      @short_url_request.state = "deleted"
+      @short_url_request.save
+      flash[:success] = "The short URL has been deleted and will not work anymore."
+    else
+      flash[:error] = "The short URL could not be deleted."
+    end
+    redirect_to list_short_urls_path
+  end
+
+  def router
+    @_router ||= GdsApi::Router.new(Plek.new.find('router-api'))
   end
 
   def organisations

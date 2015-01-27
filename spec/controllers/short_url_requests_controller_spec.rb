@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/router'
 
 describe ShortUrlRequestsController do
   let(:user) { create(:user, permissions: ['signon', 'request_short_urls', 'manage_short_urls']) }
@@ -224,6 +225,29 @@ describe ShortUrlRequestsController do
 
     it "should redirect to the short_url_request index with a flash message" do
       expect(response).to redirect_to(short_url_requests_path)
+      expect(flash).not_to be_empty
+    end
+  end
+
+  describe "#destroy" do
+    let!(:short_url_request) { create :short_url_request, state: 'accepted' }
+    let(:router) { instance_double(GdsApi::Router).as_null_object }
+
+    before {
+      allow(controller).to receive(:router).and_return(router)
+      delete :destroy, id: short_url_request.id, from_path: short_url_request.from_path
+    }
+
+    it "should remove the route" do
+      expect(router).to have_received(:delete_route).with("#{short_url_request.from_path}")
+    end
+
+    it "should set the specific short URL's state to 'deleted'" do
+      expect(short_url_request.reload.state).to eq("deleted")
+    end
+
+    it "should redirect to the list page with a flash message" do
+      expect(response).to redirect_to(list_short_urls_path)
       expect(flash).not_to be_empty
     end
   end
