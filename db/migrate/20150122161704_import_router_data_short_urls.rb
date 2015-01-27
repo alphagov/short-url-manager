@@ -16,9 +16,21 @@ class ImportRouterDataShortUrls < Mongoid::Migration
       })
       req.organisation_title = "Unknown" if org_slug == 'unknown' # Avoid validation error looking up org
       req.save!
-      redirect = Redirect.new(:from_path => req.from_path, :to_path => req.to_path, :short_url_request => req)
-      unless redirect.save
-        puts "  Failed to create redirect - #{redirect.errors.full_messages}"
+
+      retries = 0
+      begin
+        redirect = Redirect.new(:from_path => req.from_path, :to_path => req.to_path, :short_url_request => req)
+        unless redirect.save
+          puts "  Failed to create redirect - #{redirect.errors.full_messages}"
+        end
+      rescue GdsApi::TimedOutException
+        if retries < 3
+          retries += 1
+          puts "  Timeout, retry #{retries}..."
+          sleep 0.1
+          retry
+        end
+        raise
       end
     end
   end
