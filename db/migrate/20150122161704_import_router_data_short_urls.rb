@@ -6,6 +6,12 @@ class ImportRouterDataShortUrls < Mongoid::Migration
       from, to, org_slug, reason = row['from'], row['to'], row['org_slug'], row['reason']
 
       puts "Importing #{from} -> #{to}"
+
+      if ShortUrlRequest.where(:state => 'accepted', :from_path => from).exists?
+        puts "  Accepted request already exists, skipping..."
+        next
+      end
+
       req = ShortUrlRequest.new({
         :state => "accepted",
         :from_path => from,
