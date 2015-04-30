@@ -33,8 +33,12 @@ GEM
       builder
       multi_json
     arel (5.0.1.20140414130214)
-    bootstrap-sass (3.3.1.0)
-      sass (~> 3.2)
+    autoprefixer-rails (5.1.8)
+      execjs
+      json
+    bootstrap-sass (3.3.4.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     bson (2.3.0)
     builder (3.2.2)
     byebug (3.1.2)
@@ -80,8 +84,8 @@ GEM
       rails (>= 3.0.0)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    govuk_admin_template (1.4.0)
-      bootstrap-sass (~> 3.3.1)
+    govuk_admin_template (2.2.0)
+      bootstrap-sass (~> 3.3.3)
       jquery-rails (~> 3.1.1)
       rails (>= 3.2.0)
     hashie (3.2.0)
@@ -262,7 +266,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.4.1)
   gds-api-adapters (~> 17.3.0)
   gds-sso (~> 9.3.0)
-  govuk_admin_template (= 1.4.0)
+  govuk_admin_template (= 2.2.0)
   logstasher (~> 0.5.3)
   mlanett-redis-lock (= 0.2.2)
   mongoid (~> 4.0.0)
