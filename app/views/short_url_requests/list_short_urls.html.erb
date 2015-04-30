@@ -1,6 +1,4 @@
-<%= will_paginate @accepted_short_urls %>
-
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" data-module="filterable-table">
   <thead>
     <tr class="table-header">
       <th>Organisation</th>
@@ -8,6 +6,14 @@
       <th>To</th>
       <th>State</th>
       <th>Date</th>
+    </tr>
+    <tr class="if-no-js-hide table-header-secondary">
+      <td colspan="5">
+        <form>
+          <label for="url-list-filter" class="rm">Filter short URLs</label>
+          <input id="url-list-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter short URLs">
+        </form>
+      </td>
     </tr>
   </thead>
   <% @accepted_short_urls.each do |request| %>
@@ -21,4 +27,3 @@
   <% end %>
 </table>
 
-<%= will_paginate @accepted_short_urls %>
