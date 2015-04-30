@@ -5,7 +5,7 @@ feature "Short URL manager views accepted short url requests" do
     login_as create(:user, permissions: ['signon', 'manage_short_urls'])
   end
 
-  scenario "Short URL manager the index of short_url requests and uses the pagination" do
+  scenario "Short URL manager the index of short_url requests" do
     create :short_url_request, :accepted, from_path: "/ministry-of-beards",
                           to_path: "/government/organisations/ministry-of-beards",
                           organisation_title: "Ministry of Beards",
@@ -31,11 +31,6 @@ feature "Short URL manager views accepted short url requests" do
 
     expect(page).to have_content "/from/path/2"
     expect(page).to have_content "/from/path/40"
-    expect(page).to have_no_content "/from/path/41"
-
-    click_on "Next", match: :first
-
     expect(page).to have_content "/from/path/41"
-    expect(page).to have_no_content "/from/path/40"
   end
 end
