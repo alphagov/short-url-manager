@@ -228,6 +228,57 @@ describe ShortUrlRequestsController do
     end
   end
 
+  describe '#edit' do
+    let!(:short_url_request) { create :short_url_request }
+
+    it 'displays the form' do
+      get :edit, id: short_url_request.id
+      expect(response.status).to eql(200)
+    end
+  end
+
+  describe '#update' do
+    let!(:organisation) { create(:organisation) }
+    let!(:short_url_request) { create(:short_url_request, from_path: "/original") }
+
+    context 'with valid parameters' do
+      let(:params) do
+        {
+          from_path: short_url_request.from_path,
+          to_path: "/somewhere/different",
+          reason: "Because wombles",
+          organisation_slug: organisation.slug
+        }
+      end
+
+      it 'saves the changes' do
+        put :update, id: short_url_request.id, short_url_request: params
+        expect(response).to redirect_to(short_url_request_path(short_url_request))
+
+        short_url_request.reload
+        expect(short_url_request.to_path).to eql("/somewhere/different")
+      end
+    end
+
+    context 'with a change to the from_path' do
+      let(:params) do
+        {
+          from_path: "/a-changed-from-path",
+          to_path: "/somewhere/a-document",
+          reason: "Because wombles",
+          organisation_slug: organisation.slug
+        }
+      end
+
+      it 'rejects changes to the from_path' do
+        put :update, id: short_url_request.id, short_url_request: params
+
+        short_url_request.reload
+        expect(short_url_request.from_path).to eql("/original")
+      end
+    end
+  end
+
   describe "organisations" do
     context "with some organisations" do
       let!(:organisation_m) { create :organisation, slug: "m-organisation", title: "M organisation" }
