@@ -5,5 +5,7 @@
 <% if @short_url_request.state == 'pending' %>
   <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success" %>
   <%= link_to "Reject", new_rejection_short_url_request_path(@short_url_request), class: "btn btn-danger" %>
+<% elsif @short_url_request.state == 'accepted' %>
+  <%= link_to "Edit", edit_short_url_request_path, class: "btn btn-default" %>
 <% end %>
 <%= link_to "Back", short_url_requests_path, class: "btn btn-default" %>

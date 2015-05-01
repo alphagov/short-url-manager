@@ -200,6 +200,15 @@ describe ShortUrlRequestsController do
     end
   end
 
+  describe '#edit' do
+    let!(:short_url_request) { create :short_url_request }
+
+    it 'displays the form' do
+      get :edit, id: short_url_request.id
+      expect(response.status).to eql(200)
+    end
+  end
+
   describe "new_rejection" do
     let!(:short_url_request) { create :short_url_request }
     before {
