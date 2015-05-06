@@ -116,6 +116,25 @@ describe ShortUrlRequest do
       end
     end
 
+    describe "update!" do
+      let(:accepted_short_url_request) { create :short_url_request, :state => :accepted }
+      let(:new_short_url) {
+        new_short_url = double
+        allow(new_short_url).to receive(:update_attributes)
+        new_short_url
+      }
+      let!(:return_value) { accepted_short_url_request.update! }
+
+      it "should update an existing redirect, copying :to_path attributes" do
+        expect(accepted_short_url_request).to have_received(:update_attributes).with(hash_including(to_path: short_url_request.to_path))
+        expect(new_short_url).to have_received(:update_attributes)
+      end
+
+      it "should return true, indicating that the destination path change was successful" do
+        expect(return_value).to equal true
+      end
+    end
+
     describe "reject!" do
       before { stub_notification(:short_url_request_rejected) }
 
@@ -127,7 +146,7 @@ describe ShortUrlRequest do
         expect(short_url_request.rejection_reason).to eql "A reason"
       end
 
-      it "should return true, indicating that the state chage was successful" do
+      it "should return true, indicating that the state change was successful" do
         expect(short_url_request.reject!).to equal true
       end
 

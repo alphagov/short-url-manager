@@ -45,10 +45,11 @@ class ShortUrlRequestsController < ApplicationController
   def update
     @short_url_request = ShortUrlRequest.find(params[:id])
 
-    if @short_url_request.update_attributes(short_url_request_params)
+    if @short_url_request.update_attributes(short_url_request_params) && @short_url_request.update!
       flash[:success] = "Your edit was successful."
       redirect_to short_url_request_path(@short_url_request)
     else
+      flash[:error] = "Your edit was unsuccessful – try again."
       render 'edit'
     end
   end

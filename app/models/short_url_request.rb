@@ -34,6 +34,15 @@ class ShortUrlRequest
     end
   end
 
+  def update!
+    short_url = self.redirect
+    if short_url.update_attributes(to_path: to_path)
+      true
+    else
+      false
+    end
+  end
+
   def reject!(reason = nil)
     update_attributes state: 'rejected',
                       rejection_reason: reason
