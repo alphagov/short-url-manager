@@ -1,6 +1,6 @@
 class ShortUrlRequestsController < ApplicationController
   before_filter :authorise_as_short_url_requester!, only: [:new, :create]
-  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls]
+  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls, :edit, :update]
   before_filter :get_short_url_request, only: [:show, :accept, :new_rejection, :reject]
 
   def index
@@ -19,7 +19,7 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def create
-    @short_url_request = ShortUrlRequest.new(create_short_url_request_params)
+    @short_url_request = ShortUrlRequest.new(short_url_request_params)
     @short_url_request.requester = current_user
     @short_url_request.contact_email = current_user.email
 
@@ -35,6 +35,22 @@ class ShortUrlRequestsController < ApplicationController
   def accept
     if !@short_url_request.accept!
       render template: 'short_url_requests/accept_failed'
+    end
+  end
+
+  def edit
+    @short_url_request = ShortUrlRequest.find(params[:id])
+  end
+
+  def update
+    @short_url_request = ShortUrlRequest.find(params[:id])
+
+    if @short_url_request.update_attributes(short_url_request_params) && @short_url_request.update!
+      flash[:success] = "Your edit was successful."
+      redirect_to short_url_request_path(@short_url_request)
+    else
+      flash[:error] = "Your edit was unsuccessful – try again."
+      render 'edit'
     end
   end
 
@@ -62,7 +78,7 @@ private
     render text: "Not found", status: 404
   end
 
-  def create_short_url_request_params
-    @create_short_url_request_params ||= params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug)
+  def short_url_request_params
+    @short_url_request_params ||= params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug)
   end
 end
