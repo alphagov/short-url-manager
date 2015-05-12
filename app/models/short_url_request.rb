@@ -27,7 +27,7 @@ class ShortUrlRequest
     new_short_url = Redirect.new(from_path: from_path, to_path: to_path, short_url_request: self)
     if new_short_url.save
       update_attributes state: 'accepted'
-      Notifier.short_url_request_accepted(self).deliver
+      Notifier.short_url_request_accepted(self).deliver_now
       true
     else
       false
@@ -37,7 +37,7 @@ class ShortUrlRequest
   def reject!(reason = nil)
     update_attributes state: 'rejected',
                       rejection_reason: reason
-    Notifier.short_url_request_rejected(self).deliver
+    Notifier.short_url_request_rejected(self).deliver_now
     true
   end
 
