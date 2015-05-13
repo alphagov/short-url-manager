@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.4'
+gem 'rails', '4.2.1'
 gem 'sass-rails', '~> 4.0.3'
 
 gem 'mongoid', '~> 4.0.0'
@@ -25,7 +25,7 @@ gem 'plek', '~> 1.8.1'
 gem 'gds-api-adapters', '~> 17.3.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.1'
+  gem 'rspec-rails', '~> 3.2.1'
   gem 'factory_girl_rails', '~> 4.4.1'
 
   gem 'simplecov', '~> 0.8.2', :require => false

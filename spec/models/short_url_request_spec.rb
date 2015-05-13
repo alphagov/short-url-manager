@@ -62,7 +62,7 @@ describe ShortUrlRequest do
   describe "state changes" do
     let(:stub_mail) { double }
     def stub_notification(type)
-      allow(stub_mail).to receive(:deliver)
+      allow(stub_mail).to receive(:deliver_now)
       allow(Notifier).to receive(type).and_return(stub_mail)
     end
 
@@ -96,7 +96,7 @@ describe ShortUrlRequest do
 
       it "should have sent a notification" do
         expect(Notifier).to have_received(:short_url_request_accepted).with(short_url_request)
-        expect(stub_mail).to have_received(:deliver)
+        expect(stub_mail).to have_received(:deliver_now)
       end
 
       context "when the redirect can't be created for some reason" do
@@ -135,7 +135,7 @@ describe ShortUrlRequest do
         short_url_request.reject!
 
         expect(Notifier).to have_received(:short_url_request_rejected).with(short_url_request)
-        expect(stub_mail).to have_received(:deliver)
+        expect(stub_mail).to have_received(:deliver_now)
       end
     end
 

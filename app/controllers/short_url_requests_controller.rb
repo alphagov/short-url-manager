@@ -24,7 +24,7 @@ class ShortUrlRequestsController < ApplicationController
     @short_url_request.contact_email = current_user.email
 
     if @short_url_request.save
-      Notifier.short_url_requested(@short_url_request).deliver
+      Notifier.short_url_requested(@short_url_request).deliver_now
       flash[:success] = "Your request has been made."
       redirect_to root_path
     else
