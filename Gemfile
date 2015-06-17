@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.2'
 gem 'sass-rails', '~> 4.0.3'
 
 gem 'mongoid', '~> 4.0.0'
@@ -19,7 +19,7 @@ gem 'will_paginate_mongoid', '~> 2.0.1'
 gem 'redis', '3.0.7', require: false # Used by the Organisation importer as a locking mechanism
 gem 'mlanett-redis-lock', '0.2.2' # Used by the Organisation importer as a locking mechanism
 
-gem 'govuk_admin_template', '2.2.0'
+gem 'govuk_admin_template', '2.3.1'
 gem 'gds-sso', '~> 9.3.0'
 gem 'plek', '~> 1.8.1'
 gem 'gds-api-adapters', '~> 17.3.0'
