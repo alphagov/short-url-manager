@@ -22,7 +22,7 @@ gem 'mlanett-redis-lock', '0.2.2' # Used by the Organisation importer as a locki
 gem 'govuk_admin_template', '2.3.1'
 gem 'gds-sso', '~> 9.3.0'
 gem 'plek', '~> 1.8.1'
-gem 'gds-api-adapters', '~> 17.3.0'
+gem 'gds-api-adapters', '20.1.1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.2.1'
