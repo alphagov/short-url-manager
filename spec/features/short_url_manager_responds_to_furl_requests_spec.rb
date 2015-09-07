@@ -13,13 +13,17 @@ feature "Short URL manager responds to short URL requests" do
                                contact_email: "gandalf@example.com",
                                created_at: Time.zone.parse("2014-01-01 12:00:00"),
                                organisation_title: "Ministry of Beards"
-    create :short_url_request, from_path: "/ministry-of-hair",
+
+    accepted_request = create :short_url_request, from_path: "/ministry-of-hair",
                                to_path: "/government/organisations/ministry-of-hair",
                                reason: "Hair enables beards to exist",
                                contact_email: "hairy@example.com",
                                created_at: Time.zone.parse("2014-01-01 12:00:00"),
                                organisation_title: "Ministry of Hair",
                                state: "accepted"
+    create(:redirect, short_url_request: accepted_request,
+                      from_path: accepted_request.from_path,
+                      to_path: accepted_request.to_path)
     login_as create(:user, permissions: ['signon', 'manage_short_urls'])
   end
 
@@ -30,8 +34,6 @@ feature "Short URL manager responds to short URL requests" do
     click_on "Accept and create redirect"
 
     expect(page).to have_content("The redirect has been published")
-
-    expect(Redirect.count).to eql 1
 
     assert_publishing_api_put_item('/ministry-of-beards', publishing_api_redirect_hash("/ministry-of-beards", "/government/organisations/ministry-of-beards"))
 
@@ -68,5 +70,6 @@ feature "Short URL manager responds to short URL requests" do
     click_on "Update"
 
     expect(page).to have_content("Your edit was successful.")
+    assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/government/organisations/ministry-of-long-hair"))
   end
 end

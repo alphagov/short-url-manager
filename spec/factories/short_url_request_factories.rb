@@ -18,15 +18,4 @@ FactoryGirl.define do
       state 'rejected'
     end
   end
-
-  factory :accepted_short_url_request do
-    sequence(:from_path) { |n| "/short-url-request-from-path-#{n}" }
-    sequence(:to_path) { |n| "/short-url-request-to-path-#{n}" }
-    sequence(:reason) { |n| "Short URL request reason #{n}" }
-    sequence(:contact_email) { |n| "short-url-requester-#{n}@example.com" }
-    sequence(:organisation_slug) { |n| "organisation-#{n}" }
-    sequence(:organisation_title) { |n| "Organisation #{n}" }
-    sequence(:state) { |n| "accepted" }
-    association :requester, factory: :short_url_requester
-  end
 end
