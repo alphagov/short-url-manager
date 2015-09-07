@@ -17,7 +17,7 @@ feature "Short URL manager finds information on short_url requests" do
     end
 
     visit "/"
-    click_on "Manage short URL requests"
+    click_on "View pending requests"
 
     expect(page).to have_content "/ministry-of-beards"
     expect(page).to have_content "/government/organisations/ministry-of-beards"
@@ -56,6 +56,6 @@ feature "Short URL manager finds information on short_url requests" do
   scenario "User without manage_short_urls permission sees no option to manage short_url requests" do
     login_as create(:user, permissions: ['signon'])
     visit "/"
-    expect(page).to have_no_content('Manage short URL requests')
+    expect(page).to have_no_content('View pending requests')
   end
 end
