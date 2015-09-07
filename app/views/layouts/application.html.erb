@@ -12,6 +12,7 @@
 <% end %>
 
 <% content_for :content do %>
+
   <%- unless flash.empty? -%>
     <ul class="flash-messages">
       <% flash.each do |type, message| %>
@@ -19,6 +20,14 @@
       <% end %>
     </ul>
   <%- end -%>
+
+  <% breadcrumbs.tap do |links| %>
+    <% if links.any? %>
+      <ul class='breadcrumb'>
+        <% links.each do |link| %><%= crumb_li(link.text, link.url, link.current?) %><% end %>
+      </ul>
+    <% end %>
+  <% end %>
 
   <%= yield %>
 <% end %>

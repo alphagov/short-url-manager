@@ -1,10 +1,11 @@
+<% breadcrumb :short_url_request, @short_url_request %>
+
 <h1>Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
 <%= render 'short_url_request_data', short_url_request: @short_url_request %>
 
 <% if @short_url_request.state == 'pending' %>
-  <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success" %>
-  <%= link_to "Reject", new_rejection_short_url_request_path(@short_url_request), class: "btn btn-danger" %>
+  <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success add-right-margin" %>
+  <%= link_to "Reject", new_rejection_short_url_request_path(@short_url_request), class: "btn btn-danger add-right-margin" %>
 <% end %>
 <%= link_to "Edit", edit_short_url_request_path, class: "btn btn-default" %>
-<%= link_to "Back", short_url_requests_path, class: "btn btn-default" %>

@@ -33,10 +33,10 @@
     <div class="form-group">
       <% if @short_url_request.new_record? %>
         <%= f.submit "Submit request", class: 'btn btn-success' %>
-        <%= link_to "Cancel", '/', class: "btn btn-default" %>
+        <%= link_to "Cancel", '/', class: "btn btn-default add-left-margin" %>
       <% else %>
         <%= f.submit "Update", class: 'btn btn-success' %>
-        <%= link_to "Cancel", short_url_requests_path, class: "btn btn-default" %>
+        <%= link_to "Cancel", short_url_requests_path, class: "btn btn-default add-left-margin" %>
       <% end %>
     </div>
   </fieldset>
