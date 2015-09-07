@@ -19,7 +19,7 @@ feature "As a publisher, I can request a short URL" do
     select "Ministry of Beards", from: "Organisation"
     fill_in "Reason",        with: reason    = "Because of the wombats"
 
-    click_on "Submit this request"
+    click_on "Submit request"
 
     expect(page).to have_content "Your request has been made."
 

@@ -65,7 +65,7 @@ feature "Short URL manager responds to short URL requests" do
     click_on "Edit"
 
     fill_in "Target URL", with: "/government/organisations/ministry-of-long-hair"
-    click_on "Submit this request"
+    click_on "Update"
 
     expect(page).to have_content("Your edit was successful.")
   end
