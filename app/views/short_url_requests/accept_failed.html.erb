@@ -1,5 +1,5 @@
+<% breadcrumb :short_url_request_accepted_failed, @short_url_request %>
+
 <h1>The redirect could not be published</h1>
 
 <%= render_errors_for @short_url_request.redirect, leading_message: "The short URL could not be created for the following reasons:" %>
-
-<%= link_to "Back", short_url_requests_path, class: "btn btn-default" %>

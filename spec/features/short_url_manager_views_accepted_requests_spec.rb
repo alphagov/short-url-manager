@@ -20,7 +20,7 @@ feature "Short URL manager views accepted short url requests" do
     end
 
     visit "/"
-    click_on "View all accepted short URLs managed by this app"
+    click_on "View live short URLs"
 
     expect(page).to have_content "/ministry-of-beards"
     expect(page).to have_content "/government/organisations/ministry-of-beards"

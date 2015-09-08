@@ -1,7 +1,7 @@
 class ShortUrlRequestsController < ApplicationController
   before_filter :authorise_as_short_url_requester!, only: [:new, :create]
-  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls]
-  before_filter :get_short_url_request, only: [:show, :accept, :new_rejection, :reject]
+  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls, :edit, :update]
+  before_filter :get_short_url_request, only: [:edit, :update, :show, :accept, :new_rejection, :reject]
 
   def index
     @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
@@ -50,6 +50,18 @@ class ShortUrlRequestsController < ApplicationController
     redirect_to short_url_requests_path
   end
 
+  def edit
+  end
+
+  def update
+    if @short_url_request.update_attributes(update_short_url_request_params)
+      flash[:success] = "Your edit was successful."
+      redirect_to short_url_request_path(@short_url_request)
+    else
+      render 'edit'
+    end
+  end
+
   def organisations
     @organisations ||= Organisation.all.order_by([:title, 'asc'])
   end
@@ -63,6 +75,10 @@ private
   end
 
   def create_short_url_request_params
-    @create_short_url_request_params ||= params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug)
+    params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug)
+  end
+
+  def update_short_url_request_params
+    params[:short_url_request].permit(:to_path, :reason, :organisation_slug)
   end
 end

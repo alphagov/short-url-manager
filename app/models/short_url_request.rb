@@ -21,6 +21,8 @@ class ShortUrlRequest
   before_validation :retreive_organisation_title, unless: ->{ organisation_title.present? }
   before_validation :strip_whitespace, :only => [:from_path, :to_path]
 
+  after_update :republish_redirect!, if: -> { should_republish_redirect? }
+
   scope :pending, -> { where(state: "pending") }
 
   def accept!
@@ -39,6 +41,11 @@ class ShortUrlRequest
                       rejection_reason: reason
     Notifier.short_url_request_rejected(self).deliver_now
     true
+  end
+
+  def republish_redirect!
+    # Rely on the before_save hook on Redirect to republish
+    redirect.update_attributes(from_path: from_path, to_path: to_path)
   end
 
   def pending?
@@ -61,5 +68,9 @@ private
   def strip_whitespace
     self.from_path = self.from_path.strip
     self.to_path = self.to_path.strip
+  end
+
+  def should_republish_redirect?
+    accepted? && (from_path_changed? || to_path_changed?)
   end
 end

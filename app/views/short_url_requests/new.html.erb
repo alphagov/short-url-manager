@@ -1,37 +1,7 @@
+<% breadcrumb :new_short_url_request %>
+
 <h1 class="page-title-with-border">Request a short URL</h1>
 
 <p>If you are not familiar with requesting short URLs, please read <a href="https://www.gov.uk/guidance/contact-the-government-digital-service/request-a-thing#short-url">this guidance</a> first.</p>
 
-<%= form_for @short_url_request, url: { action: :create } do |f| %>
-  <%= render_errors_for @short_url_request, leading_message: "Your request for a short URL could not be made for the following reasons:" %>
-  <fieldset>
-    <div class="form-group">
-      <%= f.label :from_path, 'Short URL' %>
-      <%= f.text_field :from_path, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :to_path, 'Target URL' %>
-      <%= f.text_field :to_path, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the path to redirect the user to. Please specify it as a relative path (eg. "/government/publications/what-hmrc-does-to-prevent-tax-evasion").</p>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :organisation_slug, "Organisation" %>
-      <%= f.select :organisation_slug, options_for_select(organisations.map {|org| [org.title, org.slug] }, @short_url_request.organisation_slug), {}, class: 'form-control input-md-6' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :reason %>
-      <%= f.text_area :reason, class: 'form-control input-md-8' %>
-      <p class="help-block">Please explain the reason for this request, as requests without a clear and valid reason will be denied. Please also include any other information relevant to this request such as Zendesk ticket numbers.</p>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="form-group">
-      <%= f.submit "Make this request", class: 'btn btn-success' %>
-    </div>
-  </fieldset>
-<%- end -%>
+<%= render :partial => 'form' %>

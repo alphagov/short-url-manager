@@ -1,6 +1,10 @@
 require 'rails_helper'
+require 'gds_api/test_helpers/publishing_api'
 
 describe ShortUrlRequest do
+  include GdsApi::TestHelpers::PublishingApi
+  include PublishingApiHelper
+
   describe "validations:" do
     specify { expect(build :short_url_request).to be_valid }
     specify { expect(build :short_url_request, from_path: '').to_not be_valid }
@@ -148,6 +152,40 @@ describe ShortUrlRequest do
 
       specify { expect(build(:short_url_request, state: 'rejected').rejected?).to be true }
       specify { expect(build(:short_url_request, state: 'accepted').rejected?).to be false }
+    end
+  end
+
+  describe "updating the Redirect" do
+    before { stub_default_publishing_api_put }
+
+    context "an accepted request" do
+      let!(:accepted_request) do
+        create(:short_url_request, from_path: "/ministry-of-hair",
+                                   to_path: "/government/organisations/ministry-of-hair",
+                                   state: "accepted")
+      end
+      let!(:redirect) do
+        create(:redirect, short_url_request: accepted_request,
+                          from_path: accepted_request.from_path,
+                          to_path: accepted_request.to_path)
+      end
+
+      it "should update the Redirect and thereby trigger a request to Publishing API" do
+        accepted_request.update(to_path: "/hairspray")
+        assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/hairspray"))
+      end
+    end
+
+    context "a request that hasn't been accepted" do
+      let!(:request) do
+        create(:short_url_request, from_path: "/ministry-of-hair",
+                                   to_path: "/government/organisations/ministry-of-hair")
+      end
+
+      it "should not trigger a request to Publishing API" do
+        request.update(to_path: "/hairspray")
+        expect(WebMock).to have_not_requested :any, /.*/
+      end
     end
   end
 end
