@@ -36,7 +36,7 @@
         <%= link_to "Cancel", '/', class: "btn btn-default add-left-margin" %>
       <% else %>
         <%= f.submit "Update", class: 'btn btn-success' %>
-        <%= link_to "Cancel", short_url_requests_path, class: "btn btn-default add-left-margin" %>
+        <%= link_to "Cancel", short_url_request_path(@short_url_request), class: "btn btn-default add-left-margin" %>
       <% end %>
     </div>
   </fieldset>
