@@ -18,7 +18,7 @@ class ShortUrlRequest
   validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
   validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
 
-  before_validation :retreive_organisation_title, unless: ->{ organisation_title.present? }
+  before_validation :retreive_organisation_title, if: ->{ organisation_slug_changed? }
   before_validation :strip_whitespace, :only => [:from_path, :to_path]
 
   after_update :republish_redirect!, if: -> { should_republish_redirect? }
