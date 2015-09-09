@@ -8,6 +8,10 @@ FactoryGirl.define do
     sequence(:organisation_title) { |n| "Organisation #{n}" }
     association :requester, factory: :short_url_requester
 
+    after(:build) do |short_url_request|
+      create(:organisation, slug: short_url_request.organisation_slug, title: short_url_request.organisation_title)
+    end
+
     trait :pending do
       state 'pending'
     end
