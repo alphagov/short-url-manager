@@ -75,7 +75,7 @@ describe ShortUrlRequest do
     describe "accept!" do
       let(:redirect_creation_successful?) { true }
       let(:new_short_url) {
-        new_short_url = double(:short_url, assign_attributes: nil)
+        new_short_url = double(:short_url, assign_attributes: nil, persisted?: false)
         allow(new_short_url).to receive(:save).and_return(redirect_creation_successful?)
         new_short_url
       }
@@ -126,13 +126,18 @@ describe ShortUrlRequest do
 
       before do
         stub_default_publishing_api_put
+
+        @existing_url_request = FactoryGirl.create(:short_url_request,
+          from_path: short_url_request.from_path,
+        )
         @existing_redirect = FactoryGirl.create(:redirect,
           to_path: "/some/existing/path",
           from_path: short_url_request.from_path,
+          short_url_request: @existing_url_request,
         )
       end
 
-      it "should update the existing redirect" do
+      it "updates the existing redirect" do
         result = nil
         expect {
           result = short_url_request.accept!
@@ -140,6 +145,14 @@ describe ShortUrlRequest do
 
         expect(result).to eq(true)
         expect(@existing_redirect.reload.to_path).to eq(short_url_request.to_path)
+      end
+
+      it "deletes the old short URL request" do
+        short_url_request.accept!
+
+        expect {
+          @existing_url_request.reload
+        }.to raise_error(Mongoid::Errors::DocumentNotFound)
       end
     end
 

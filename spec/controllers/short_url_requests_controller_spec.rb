@@ -202,9 +202,14 @@ describe ShortUrlRequestsController do
     context "a redirect already exists with that from_path in the request" do
       before do
         stub_default_publishing_api_put
+
+        existing_url_request = FactoryGirl.create(:short_url_request,
+          from_path: short_url_request.from_path,
+        )
         @existing_redirect = FactoryGirl.create(:redirect,
           to_path: "/some/existing/path",
           from_path: short_url_request.from_path,
+          short_url_request: existing_url_request,
         )
       end
 

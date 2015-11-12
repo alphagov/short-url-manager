@@ -27,6 +27,9 @@ class ShortUrlRequest
 
   def accept!
     short_url = Redirect.find_or_initialize_by(from_path: from_path)
+
+    short_url.short_url_request.destroy if short_url.persisted?
+
     short_url.assign_attributes(to_path: to_path, short_url_request: self)
 
     if short_url.save
