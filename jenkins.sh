@@ -9,4 +9,9 @@ export GOVUK_CONTENT_SCHEMAS_PATH=tmp/govuk-content-schemas
 
 export RAILS_ENV=test
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-bundle exec rake --trace
+
+if [ -z "$VALIDATE_SCHEMA" ]; then
+  bundle exec rake --trace
+else
+  bundle exec rake validate --trace
+fi
