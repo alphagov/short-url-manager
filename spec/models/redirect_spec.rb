@@ -30,6 +30,21 @@ describe Redirect do
       let(:non_factory_attrs) { { to_path: 'http://www.somewhere.com/a-path' } }
       specify { expect(instance).to_not be_valid }
     end
+
+    context "with a duplicate `from_path`" do
+      before do
+        stub_default_publishing_api_put
+        @existing_redirect = FactoryGirl.create(:redirect)
+      end
+
+      let(:non_factory_attrs) {
+        {
+          from_path: @existing_redirect.from_path
+        }
+      }
+
+      specify { expect(instance).to_not be_valid }
+    end
   end
 
   describe "posting to publishing API" do
