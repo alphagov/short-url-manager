@@ -20,19 +20,10 @@ class Redirect
 
 private
   def create_redirect_in_publishing_api
-    api_params = {
-      "content_id" => content_id,
-      "base_path" => from_path,
-      "format" => "redirect",
-      "publishing_app" => "short-url-manager",
-      "update_type" => "major",
-      "redirects" => [
-        { "path" => from_path, "type" => "exact", "destination" => to_path }
-      ]
-    }
-    publishing_api.put_content_item(from_path, api_params)
+    payload = Presenters::PublishingAPI.present(self)
+    publishing_api.put_content_item(from_path, payload)
   rescue GdsApi::HTTPErrorResponse => e
-    Airbrake.notify_or_ignore(e, :params => api_params)
+    Airbrake.notify_or_ignore(e, :params => payload)
     errors.add(:base, "An error posting to the publishing API prevented this redirect from being created: #{e}")
     false # Do not continue to save
   end
