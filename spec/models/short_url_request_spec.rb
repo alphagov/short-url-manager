@@ -75,7 +75,7 @@ describe ShortUrlRequest do
     describe "accept!" do
       let(:redirect_creation_successful?) { true }
       let(:new_short_url) {
-        new_short_url = double
+        new_short_url = double(:short_url, assign_attributes: nil)
         allow(new_short_url).to receive(:save).and_return(redirect_creation_successful?)
         new_short_url
       }
@@ -86,7 +86,8 @@ describe ShortUrlRequest do
       let!(:return_value) { short_url_request.accept! }
 
       it "should create a related Redirect, copying :to_path and :from_path attributes" do
-        expect(Redirect).to have_received(:new).with(hash_including(to_path: short_url_request.to_path, from_path: short_url_request.from_path))
+        expect(Redirect).to have_received(:new).with(hash_including(from_path: short_url_request.from_path))
+        expect(new_short_url).to have_received(:assign_attributes).with(hash_including(to_path: short_url_request.to_path))
         expect(new_short_url).to have_received(:save)
       end
 
@@ -117,6 +118,28 @@ describe ShortUrlRequest do
         it "should not have sent a notification" do
           expect(Notifier).to_not have_received(:short_url_request_accepted)
         end
+      end
+    end
+
+    context "when accepting a redirect when one already exists for that from_path" do
+      let!(:short_url_request) { create(:short_url_request, :pending) }
+
+      before do
+        stub_default_publishing_api_put
+        @existing_redirect = FactoryGirl.create(:redirect,
+          to_path: "/some/existing/path",
+          from_path: short_url_request.from_path,
+        )
+      end
+
+      it "should update the existing redirect" do
+        result = nil
+        expect {
+          result = short_url_request.accept!
+        }.to_not change(Redirect, :count)
+
+        expect(result).to eq(true)
+        expect(@existing_redirect.reload.to_path).to eq(short_url_request.to_path)
       end
     end
 
