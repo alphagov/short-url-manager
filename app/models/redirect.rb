@@ -1,9 +1,11 @@
 require 'gds_api/publishing_api'
+require "securerandom"
 
 class Redirect
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  field :content_id, type: String
   field :from_path, type: String
   field :to_path, type: String
 
@@ -14,10 +16,12 @@ class Redirect
   validates :from_path, uniqueness: true
 
   before_save :create_redirect_in_publishing_api
+  after_initialize :ensure_presence_of_content_id
 
 private
   def create_redirect_in_publishing_api
     api_params = {
+      "content_id" => content_id,
       "base_path" => from_path,
       "format" => "redirect",
       "publishing_app" => "short-url-manager",
@@ -35,5 +39,9 @@ private
 
   def publishing_api
     @publishing_api ||= GdsApi::PublishingApi.new(Plek.current.find('publishing-api'))
+  end
+
+  def ensure_presence_of_content_id
+    self.content_id ||= SecureRandom.uuid
   end
 end

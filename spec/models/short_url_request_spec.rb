@@ -208,7 +208,7 @@ describe ShortUrlRequest do
 
       it "should update the Redirect and thereby trigger a request to Publishing API" do
         accepted_request.update(to_path: "/hairspray")
-        assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/hairspray"))
+        assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/hairspray", redirect.content_id))
       end
     end
 

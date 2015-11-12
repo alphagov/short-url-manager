@@ -49,7 +49,8 @@ feature "Short URL manager responds to short URL requests" do
 
     expect(page).to have_content("The redirect has been published")
 
-    assert_publishing_api_put_item('/ministry-of-beards', publishing_api_redirect_hash("/ministry-of-beards", "/government/organisations/ministry-of-beards"))
+    redirect_content_id = pending_request.reload.redirect.content_id
+    assert_publishing_api_put_item('/ministry-of-beards', publishing_api_redirect_hash("/ministry-of-beards", "/government/organisations/ministry-of-beards", redirect_content_id))
 
     expect(ActionMailer::Base.deliveries.count).to eql 1
     mail = ActionMailer::Base.deliveries.last
@@ -88,6 +89,6 @@ feature "Short URL manager responds to short URL requests" do
     accepted_request.reload
     expect(accepted_request.organisation_slug).to eql("full-english")
     expect(accepted_request.organisation_title).to eql("Department of Full English Breakfasts")
-    assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/government/organisations/ministry-of-long-hair"))
+    assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/government/organisations/ministry-of-long-hair", redirect_for_accepted_request.content_id))
   end
 end

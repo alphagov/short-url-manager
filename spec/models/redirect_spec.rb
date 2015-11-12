@@ -1,9 +1,23 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api'
+require "securerandom"
 
 describe Redirect do
   include GdsApi::TestHelpers::PublishingApi
   include PublishingApiHelper
+
+  describe "content_id attribute" do
+    it "generates its own content ID on creation" do
+      expect(subject.content_id).to be_present
+    end
+
+    it "does not overwrite a provided content ID" do
+      content_id = SecureRandom.uuid
+      redirect = described_class.new(content_id: content_id)
+
+      expect(redirect.content_id).to eq(content_id)
+    end
+  end
 
   describe "validations" do
     let(:non_factory_attrs) { {} }
@@ -61,7 +75,8 @@ describe Redirect do
         let(:redirect) { build :redirect }
 
         it "should post a redirect content item to the publishing API" do
-          assert_publishing_api_put_item(redirect.from_path, publishing_api_redirect_hash(redirect.from_path, redirect.to_path))
+          redirect_hash = publishing_api_redirect_hash(redirect.from_path, redirect.to_path, redirect.content_id)
+          assert_publishing_api_put_item(redirect.from_path, redirect_hash)
         end
       end
 
