@@ -1,5 +1,5 @@
 module PublishingApiHelper
-  def publishing_api_redirect_hash(from_path, to_path)
+  def publishing_api_redirect_hash(from_path, to_path, content_id)
     {
       "base_path" => from_path,
       "format" => "redirect",

@@ -188,14 +188,36 @@ describe ShortUrlRequestsController do
       end
     end
 
-    context "redirects can't be created" do
-      before {
+    context "publishing api isn't available" do
+      before do
         publishing_api_isnt_available
         post :accept, id: short_url_request.id
-      }
+      end
 
       it "should render the accept_failed template" do
         expect(response).to render_template('short_url_requests/accept_failed')
+      end
+    end
+
+    context "a redirect already exists with that from_path in the request" do
+      before do
+        stub_default_publishing_api_put
+
+        existing_url_request = FactoryGirl.create(:short_url_request,
+          from_path: short_url_request.from_path,
+        )
+        @existing_redirect = FactoryGirl.create(:redirect,
+          to_path: "/some/existing/path",
+          from_path: short_url_request.from_path,
+          short_url_request: existing_url_request,
+        )
+      end
+
+      it "should update the existing redirect" do
+        post :accept, id: short_url_request.id
+
+        expect(response.status).to eq(200)
+        expect(@existing_redirect.reload.to_path).to eq(short_url_request.to_path)
       end
     end
   end

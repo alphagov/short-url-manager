@@ -16,6 +16,10 @@ to
 
 Currently this tool allows departmental users to request redirects within the scope of their department, eg, under `dwp` above. Future versions may add workflow for requesting/managing top level Short URLs, eg, `/ebola` to `/government/topical-events/ebola-government-response`.
 
+## Content Schema Validations
+
+You will need a copy of govuk-content-schemas on your file system. By default these should be in a sibling directory to your project. Alternatively, you can specify their location with the GOVUK_CONTENT_SCHEMAS_PATH environment variable.
+
 ## Permissions
 
 Users must be given sign on permissions to access and use the features of this tool. There are two kinds of permission:
