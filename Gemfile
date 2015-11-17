@@ -24,9 +24,9 @@ gem 'govuk_admin_template', '3.0.0'
 gem 'gds-sso', '~> 9.3.0'
 gem 'plek', '~> 1.8.1'
 gem 'gds-api-adapters', '20.1.1'
+gem 'rspec-rails', '~> 3.2.1'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.2.1'
   gem 'factory_girl_rails', '~> 4.4.1'
 
   gem 'simplecov', '~> 0.8.2', :require => false
