@@ -7,6 +7,8 @@ Rails.application.load_tasks
 
 task :default => :spec
 
-RSpec::Core::RakeTask.new(:validate) do |t|
-  t.pattern = "spec/presenters/publishing_api_presenter_spec.rb"
+if defined?(RSpec)
+  RSpec::Core::RakeTask.new(:validate) do |t|
+    t.pattern = "spec/presenters/publishing_api_presenter_spec.rb"
+  end
 end
