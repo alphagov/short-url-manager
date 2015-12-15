@@ -32,7 +32,8 @@ group :development, :test do
   gem 'simplecov', '~> 0.8.2', :require => false
   gem 'simplecov-rcov', '~> 0.2.3', :require => false
   gem 'capybara', '~> 2.4.1'
-  gem 'database_cleaner', '~> 1.3.0'
+  # NOTE: 1.5.0 has a bug with mongoid http://git.io/v02vQ
+  gem 'database_cleaner', '~> 1.4.0'
   gem 'webmock', '~> 1.18.0', :require => false
 
   gem 'byebug'
