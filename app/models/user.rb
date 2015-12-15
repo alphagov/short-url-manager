@@ -8,6 +8,8 @@ class User
   field :organisation_slug, type: String
   field :permissions, type: Array
   field :remotely_signed_out, type: Boolean, default: false
+  field :disabled, type: Boolean, default: false
+  field :organisation_content_id, type: String
 
   scope :short_url_managers, ->{ where(permissions: /manage_short_urls/) }
 

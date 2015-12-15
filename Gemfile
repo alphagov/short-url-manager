@@ -21,7 +21,7 @@ gem 'mlanett-redis-lock', '0.2.2' # Used by the Organisation importer as a locki
 gem 'gretel', '3.0.8'
 
 gem 'govuk_admin_template', '3.0.0'
-gem 'gds-sso', '~> 9.3.0'
+gem 'gds-sso', '~> 11.2'
 gem 'plek', '~> 1.8.1'
 gem 'gds-api-adapters', '20.1.1'
 
