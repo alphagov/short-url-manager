@@ -29,7 +29,10 @@ private
   end
 
   def publishing_api
-    @publishing_api ||= GdsApi::PublishingApi.new(Plek.current.find('publishing-api'))
+    @publishing_api ||= GdsApi::PublishingApi.new(
+      Plek.current.find('publishing-api'),
+      bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
+    )
   end
 
   def ensure_presence_of_content_id
