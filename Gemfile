@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.2'
+gem 'rails', '4.2.5.1'
 gem 'sass-rails', '~> 5.0.3'
 
 gem 'mongoid', '~> 4.0.0'
@@ -20,7 +20,7 @@ gem 'redis', '3.0.7', require: false # Used by the Organisation importer as a lo
 gem 'mlanett-redis-lock', '0.2.2' # Used by the Organisation importer as a locking mechanism
 gem 'gretel', '3.0.8'
 
-gem 'govuk_admin_template', '3.0.0'
+gem 'govuk_admin_template', '~> 4.1'
 gem 'gds-sso', '~> 11.2'
 gem 'plek', '~> 1.8.1'
 gem 'gds-api-adapters', '20.1.1'
