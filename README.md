@@ -21,7 +21,7 @@ Currently this tool allows departmental users to request redirects within the sc
 ## Dependencies
 * MongoDB - main data store
 * Redis - for distributed locking using
-  [mlanett-redis-lock](https://github.com/mlanett/redis-lock)
+  [mlanett/redis-lock](https://github.com/mlanett/redis-lock)
 * [alphagov/gds-sso](http://github.com/alphagov/gds-sso): Provides authentication OmniAuth adapter to allow apps to sign in via GOV.UK auth
 * [alphagov/publishing-api](http://github.com/alphagov/publishing-api): the central store of published content on GOV.UK. Once a redirect has been accepted, redirects are registered to this API.
 
@@ -41,7 +41,7 @@ $ bundle exec rake
 
 ## Content Schema Validations
 
-You will need a copy of govuk-content-schemas on your file system. By default these should be in a sibling directory to your project. Alternatively, you can specify their location with the GOVUK_CONTENT_SCHEMAS_PATH environment variable.
+You will need a copy of [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) on your file system. By default these should be in a sibling directory to your project. Alternatively, you can specify their location with the `GOVUK_CONTENT_SCHEMAS_PATH` environment variable.
 
 ## Permissions
 
