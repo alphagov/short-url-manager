@@ -23,7 +23,7 @@ Currently this tool allows departmental users to request redirects within the sc
 * Redis - for distributed locking using
   [mlanett-redis-lock](https://github.com/mlanett/redis-lock)
 * [alphagov/gds-sso](http://github.com/alphagov/gds-sso): Provides authentication OmniAuth adapter to allow apps to sign in via GOV.UK auth
-* [alphagov/publishing-api](http://github.com/alphagov/publishing-api): an alias of `publishing-api`, the central storage of published content on GOV.UK, once a redirect has been accepted, redirects are registered to this API.
+* [alphagov/publishing-api](http://github.com/alphagov/publishing-api): the central store of published content on GOV.UK. Once a redirect has been accepted, redirects are registered to this API.
 
 ## Running the application
 
