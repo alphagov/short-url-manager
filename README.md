@@ -1,6 +1,8 @@
-# Short URL Manager
+# Short URL manager
 
 Publishing tool to request, approve and create Short URLs on GOV.UK.
+
+##Technical documentation
 
 Short URLs are a short and easy to type URL that redirects to a piece of content at a much longer URL.
 
@@ -16,19 +18,12 @@ to
 
 Currently this tool allows departmental users to request redirects within the scope of their department, eg, under `dwp` above. Future versions may add workflow for requesting/managing top level Short URLs, eg, `/ebola` to `/government/topical-events/ebola-government-response`.
 
-## Content Schema Validations
-
-You will need a copy of govuk-content-schemas on your file system. By default these should be in a sibling directory to your project. Alternatively, you can specify their location with the GOVUK_CONTENT_SCHEMAS_PATH environment variable.
-
-## Permissions
-
-Users must be given sign on permissions to access and use the features of this tool. There are two kinds of permission:
-- `request_short_urls`: Can complete a form to request a new Short URL, which must be approved before being made
-- `manage_short_urls`: Can approve requests for Short URLs, and create the redirects on GOV.UK
-
 ## Dependencies
+* MongoDB - main data store
+* Redis - for distributed locking using
+  [mlanett/redis-lock](https://github.com/mlanett/redis-lock)
 * [alphagov/gds-sso](http://github.com/alphagov/gds-sso): Provides authentication OmniAuth adapter to allow apps to sign in via GOV.UK auth
-* [alphagov/content-store](http://github.com/alphagov/content-store): an alias of `publishing-api`, the central storage of published content on GOV.UK, once a redirect has been accepted, redirects are registered to this API.
+* [alphagov/publishing-api](http://github.com/alphagov/publishing-api): the central store of published content on GOV.UK. Once a redirect has been accepted, redirects are registered to this API.
 
 ## Running the application
 
@@ -43,3 +38,17 @@ If you are using the GDS development virtual machine then the application will b
 ```
 $ bundle exec rake
 ```
+
+## Content Schema Validations
+
+You will need a copy of [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) on your file system. By default these should be in a sibling directory to your project. Alternatively, you can specify their location with the `GOVUK_CONTENT_SCHEMAS_PATH` environment variable.
+
+## Permissions
+
+Users must be given sign on permissions to access and use the features of this tool. There are two kinds of permission:
+- `request_short_urls`: Can complete a form to request a new Short URL, which must be approved before being made
+- `manage_short_urls`: Can approve requests for Short URLs, and create the redirects on GOV.UK
+
+## Licence
+
+[MIT License](LICENCE)
