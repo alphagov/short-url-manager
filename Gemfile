@@ -22,8 +22,8 @@ gem 'gretel', '3.0.8'
 
 gem 'govuk_admin_template', '~> 4.1'
 gem 'gds-sso', '~> 11.2'
-gem 'plek', '~> 1.8.1'
-gem 'gds-api-adapters', '20.1.1'
+gem 'plek', '~> 1.9.0'
+gem 'gds-api-adapters', '~> 30.5'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.2.1'
