@@ -1,9 +1,9 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 require "securerandom"
 
 describe Redirect do
-  include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
   describe "content_id attribute" do
@@ -47,7 +47,7 @@ describe Redirect do
 
     context "with a duplicate `from_path`" do
       before do
-        stub_default_publishing_api_put
+        stub_any_publishing_api_call
         @existing_redirect = FactoryGirl.create(:redirect)
       end
 
@@ -67,7 +67,7 @@ describe Redirect do
 
     context "when saving and the publishing api is available" do
       before {
-        stub_default_publishing_api_put
+        stub_any_publishing_api_call
         redirect.save
       }
 
@@ -76,7 +76,8 @@ describe Redirect do
 
         it "should post a redirect content item to the publishing API" do
           redirect_hash = publishing_api_redirect_hash(redirect.from_path, redirect.to_path, redirect.content_id)
-          assert_publishing_api_put_item(redirect.from_path, redirect_hash)
+          assert_publishing_api_put_content(redirect.content_id, redirect_hash)
+          assert_publishing_api_publish(redirect.content_id)
         end
       end
 

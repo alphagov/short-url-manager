@@ -1,8 +1,8 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 
 describe ShortUrlRequest do
-  include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
   describe "validations:" do
@@ -125,7 +125,7 @@ describe ShortUrlRequest do
       let!(:short_url_request) { create(:short_url_request, :pending) }
 
       before do
-        stub_default_publishing_api_put
+        stub_any_publishing_api_call
 
         @existing_url_request = FactoryGirl.create(:short_url_request,
           from_path: short_url_request.from_path,
@@ -192,7 +192,7 @@ describe ShortUrlRequest do
   end
 
   describe "updating the Redirect" do
-    before { stub_default_publishing_api_put }
+    before { stub_any_publishing_api_call }
 
     context "an accepted request" do
       let!(:accepted_request) do
@@ -208,7 +208,9 @@ describe ShortUrlRequest do
 
       it "should update the Redirect and thereby trigger a request to Publishing API" do
         accepted_request.update(to_path: "/hairspray")
-        assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/hairspray", redirect.content_id))
+        assert_publishing_api_put_content(redirect.content_id, publishing_api_redirect_hash("/ministry-of-hair", "/hairspray", redirect.content_id))
+        # publish has already been called once for the original redirect.
+        assert_publishing_api_publish(redirect.content_id, nil, 2)
       end
     end
 

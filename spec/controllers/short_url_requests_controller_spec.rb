@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 
 describe ShortUrlRequestsController do
   let(:user) { create(:user, permissions: ['signon', 'request_short_urls', 'manage_short_urls']) }
@@ -169,13 +169,13 @@ describe ShortUrlRequestsController do
   end
 
   describe "#accept" do
-    include GdsApi::TestHelpers::PublishingApi
+    include GdsApi::TestHelpers::PublishingApiV2
 
     let!(:short_url_request) { create :short_url_request }
 
     context "redirects can be created without problem" do
       before {
-        stub_default_publishing_api_put
+        stub_any_publishing_api_call
         post :accept, id: short_url_request.id
       }
 
@@ -201,7 +201,7 @@ describe ShortUrlRequestsController do
 
     context "a redirect already exists with that from_path in the request" do
       before do
-        stub_default_publishing_api_put
+        stub_any_publishing_api_call
 
         existing_url_request = FactoryGirl.create(:short_url_request,
           from_path: short_url_request.from_path,
