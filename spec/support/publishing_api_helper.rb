@@ -1,8 +1,10 @@
 module PublishingApiHelper
   def publishing_api_redirect_hash(from_path, to_path, content_id)
     {
+      "content_id" => content_id,
       "base_path" => from_path,
       "format" => "redirect",
+      "publishing_app" => "short-url-manager",
       "update_type" => "major",
       "redirects" => [
         {"path" => from_path, "type" => "exact", "destination" => to_path}

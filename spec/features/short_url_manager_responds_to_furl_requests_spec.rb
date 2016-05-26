@@ -1,12 +1,12 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 
 feature "Short URL manager responds to short URL requests" do
-  include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
   background do
-    stub_default_publishing_api_put
+    stub_any_publishing_api_call
     login_as create(:user, permissions: ['signon', 'manage_short_urls'])
   end
 
@@ -50,7 +50,7 @@ feature "Short URL manager responds to short URL requests" do
     expect(page).to have_content("The redirect has been published")
 
     redirect_content_id = pending_request.reload.redirect.content_id
-    assert_publishing_api_put_item('/ministry-of-beards', publishing_api_redirect_hash("/ministry-of-beards", "/government/organisations/ministry-of-beards", redirect_content_id))
+    assert_publishing_api_put_content(redirect_content_id)
 
     expect(ActionMailer::Base.deliveries.count).to eql 1
     mail = ActionMailer::Base.deliveries.last
@@ -81,7 +81,8 @@ feature "Short URL manager responds to short URL requests" do
     click_on "Ministry of Hair"
     click_on "Edit"
 
-    fill_in "Target URL", with: "/government/organisations/ministry-of-long-hair"
+    target_url = "/government/organisations/ministry-of-long-hair"
+    fill_in "Target URL", with: target_url
     select "Department of Full English Breakfasts", from: "Organisation"
     click_on "Update"
 
@@ -89,6 +90,8 @@ feature "Short URL manager responds to short URL requests" do
     accepted_request.reload
     expect(accepted_request.organisation_slug).to eql("full-english")
     expect(accepted_request.organisation_title).to eql("Department of Full English Breakfasts")
-    assert_publishing_api_put_item('/ministry-of-hair', publishing_api_redirect_hash("/ministry-of-hair", "/government/organisations/ministry-of-long-hair", redirect_for_accepted_request.content_id))
+    assert_publishing_api_put_content(redirect_for_accepted_request.content_id, publishing_api_redirect_hash('/ministry-of-hair', target_url, accepted_request.redirect.content_id))
+    # publish has already been called once for the original redirect.
+    assert_publishing_api_publish(redirect_for_accepted_request.content_id, nil, 2)
   end
 end

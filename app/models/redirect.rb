@@ -1,4 +1,4 @@
-require 'gds_api/publishing_api'
+require 'gds_api/publishing_api_v2'
 require "securerandom"
 
 class Redirect
@@ -21,7 +21,8 @@ class Redirect
 private
   def create_redirect_in_publishing_api
     payload = Presenters::PublishingAPI.present(self)
-    publishing_api.put_content_item(from_path, payload)
+    publishing_api.put_content(content_id, payload)
+    publishing_api.publish(content_id, :major)
   rescue GdsApi::HTTPErrorResponse => e
     Airbrake.notify_or_ignore(e, :params => payload)
     errors.add(:base, "An error posting to the publishing API prevented this redirect from being created: #{e}")
@@ -29,7 +30,7 @@ private
   end
 
   def publishing_api
-    @publishing_api ||= GdsApi::PublishingApi.new(
+    @publishing_api ||= GdsApi::PublishingApiV2.new(
       Plek.current.find('publishing-api'),
       bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
     )
