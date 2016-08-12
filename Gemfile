@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.1'
+gem 'rails', '~> 4.0'
 gem 'sass-rails', '~> 5.0.3'
 
 gem 'mongoid', '~> 4.0.0'
