@@ -94,4 +94,26 @@ feature "Short URL manager responds to short URL requests" do
     # publish has already been called once for the original redirect.
     assert_publishing_api_publish(redirect_for_accepted_request.content_id, nil, 2)
   end
+
+  context "when presented with a request that matches an existing redirect short URL" do
+    let!(:pending_request_for_existing_short_url) do
+      create(:short_url_request,
+             :pending,
+             organisation_title: "Ministry of Hair",
+             from_path: "/ministry-of-hair",
+      )
+    end
+
+    scenario "Short URL manager is shown a warning message" do
+      visit short_url_requests_path
+
+      click_on "Ministry of Hair"
+
+      within("#existing-redirect-warning") do
+        expect(page).to have_content accepted_request.from_path
+        expect(page).to have_content accepted_request.to_path
+        expect(page).to have_content "Accepting this request will overwrite that."
+      end
+    end
+  end
 end

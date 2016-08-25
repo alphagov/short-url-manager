@@ -8,6 +8,7 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def show
+    @existing_redirect = Redirect.where(from_path: @short_url_request.from_path).first
   end
 
   def list_short_urls

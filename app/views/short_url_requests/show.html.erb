@@ -2,6 +2,10 @@
 
 <h1>Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
+<% if @short_url_request.state == 'pending' && @existing_redirect.present? %>
+  <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
+<% end %>
+
 <%= render 'short_url_request_data', short_url_request: @short_url_request %>
 
 <% if @short_url_request.state == 'pending' %>
