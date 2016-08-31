@@ -1,0 +1,31 @@
+<%= form_for @short_url_request do |f| %>
+  <%= f.hidden_field :from_path %>
+  <%= f.hidden_field :to_path %>
+  <%= f.hidden_field :organisation_slug %>
+  <%= f.hidden_field :reason %>
+  <%= f.hidden_field :confirmed, value: true %>
+  <% if would_overwrite_existing?(@short_url_request) %>
+    <h1>Redirects for that Short URL already exist!</h1>
+  <% else %>
+    <h1>A short URL already redirects to that content</h1>
+  <% end %>
+  <p>These short URLs are already live on GOV.UK:</p>
+  <ul>
+    <% @short_url_request.duplicates.each do |dupe| %>
+      <li>
+        <code><%= dupe.from_path %></code> redirecting to <code><%= dupe.to_path %></code>
+      </li>
+    <% end %>
+  </ul>
+  <p>
+    You requested to redirect <code><%= @short_url_request.from_path %></code>
+    to <code><%= @short_url_request.to_path %>.</code>
+  </p>
+  <% if would_overwrite_existing?(@short_url_request) %>
+    <p>If your request is accepted, it will overwrite the existing short URL.</p>
+  <% else %>
+    <p>Do you want another short URL to redirect to that content?</p>
+  <% end %>
+  <%= f.submit 'Yes, I still want to request this short URL', class: 'btn btn-success' %>
+  <%= link_to "Cancel", '/', class: "btn btn-default add-left-margin" %>
+<% end %>

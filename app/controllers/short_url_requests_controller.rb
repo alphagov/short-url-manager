@@ -24,12 +24,16 @@ class ShortUrlRequestsController < ApplicationController
     @short_url_request.requester = current_user
     @short_url_request.contact_email = current_user.email
 
-    if @short_url_request.save
-      Notifier.short_url_requested(@short_url_request).deliver_now
-      flash[:success] = "Your request has been made."
-      redirect_to root_path
+    if @short_url_request.duplicate? && !@short_url_request.confirmed
+      render 'confirmation'
     else
-      render 'new'
+      if @short_url_request.save
+        Notifier.short_url_requested(@short_url_request).deliver_now
+        flash[:success] = "Your request has been made."
+        redirect_to root_path
+      else
+        render 'new'
+      end
     end
   end
 
@@ -76,7 +80,7 @@ private
   end
 
   def create_short_url_request_params
-    params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug)
+    params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug, :confirmed)
   end
 
   def update_short_url_request_params

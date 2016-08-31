@@ -25,6 +25,16 @@ class ShortUrlRequest
 
   scope :pending, -> { where(state: "pending") }
 
+  attr_accessor :confirmed
+
+  def duplicates
+    @duplicates ||= Redirect.or({from_path: from_path}, {to_path: to_path})
+  end
+
+  def duplicate?
+    duplicates.any?
+  end
+
   def accept!
     short_url = Redirect.find_or_initialize_by(from_path: from_path)
 

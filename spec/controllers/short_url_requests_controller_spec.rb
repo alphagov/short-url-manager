@@ -111,11 +111,6 @@ describe ShortUrlRequestsController do
 
   describe "#create" do
     let!(:organisation) { create :organisation }
-    before {
-      unless self.class.metadata[:without_first_posting]
-        post :create, params
-      end
-    }
 
     context "with valid params" do
       let(:params) { {
@@ -128,6 +123,7 @@ describe ShortUrlRequestsController do
       } }
 
       it "should create a short_url_request" do
+        post :create, params
         short_url_request = ShortUrlRequest.last
         expect(short_url_request).to_not be_nil
         expect(short_url_request.from_path).to          eql params[:short_url_request][:from_path]
@@ -139,19 +135,52 @@ describe ShortUrlRequestsController do
       end
 
       it "should associate the current user with the short_url_request" do
+        post :create, params
         expect(ShortUrlRequest.last.requester).to eql user
       end
 
       it "should redirect to the dashboard with a flash message" do
+        post :create, params
         expect(response).to redirect_to root_path
         expect(flash).not_to be_empty
       end
 
-      it "should send a short_url_requested notificaiton", without_first_posting: true do
+      it "should send a short_url_requested notification" do
         mock_mail = double
         expect(mock_mail).to receive(:deliver_now)
         expect(Notifier).to receive(:short_url_requested).with(kind_of(ShortUrlRequest)).and_return(mock_mail)
         post :create, params
+      end
+
+      context "when an existing redirect already exists" do
+        include GdsApi::TestHelpers::PublishingApiV2
+
+        before do
+          stub_any_publishing_api_call
+          create(:redirect, from_path: params[:short_url_request][:from_path])
+        end
+
+        it "does not create a short_url_request" do
+          post :create, params
+          expect(ShortUrlRequest.count).to eq(0)
+        end
+
+        context "and the request is confirmed" do
+          let(:params) { {
+            short_url_request: {
+              from_path: "/a-friendly-url",
+              to_path: "/somewhere/a-document",
+              reason: "Because wombles",
+              organisation_slug: organisation.slug,
+              confirmed: true,
+            }
+          } }
+
+          it "creates a short url request" do
+            post :create, params
+            expect(ShortUrlRequest.count).to eq(1)
+          end
+        end
       end
     end
 
@@ -162,6 +191,8 @@ describe ShortUrlRequestsController do
           to_path: ''
         }
       } }
+
+      before { post :create, params }
 
       specify { expect(response).to render_template('short_url_requests/new') }
       specify { expect(ShortUrlRequest.count).to eql 0 }
