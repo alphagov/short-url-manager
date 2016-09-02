@@ -20,38 +20,36 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def create
-    @short_url_request = ShortUrlRequest.new(create_short_url_request_params)
-    @short_url_request.requester = current_user
-    @short_url_request.contact_email = current_user.email
-
-    if @short_url_request.duplicate? && !@short_url_request.confirmed
-      render 'confirmation'
-    else
-      if @short_url_request.save
-        Notifier.short_url_requested(@short_url_request).deliver_now
+    Commands::ShortUrlRequests::Create.new(create_short_url_request_params, current_user).call(
+      success: -> (url_request) {
         flash[:success] = "Your request has been made."
         redirect_to root_path
-      else
+      },
+      failure: -> (url_request) {
+        @short_url_request = url_request
         render 'new'
-      end
-    end
+      },
+      confirmation_required: -> (url_request) {
+        @short_url_request = url_request
+        render 'confirmation'
+      }
+    )
   end
 
   def accept
-    if !@short_url_request.accept!
-      render template: 'short_url_requests/accept_failed'
-    end
+    Commands::ShortUrlRequests::Accept.new(@short_url_request).call(
+      failure: -> () { render 'short_url_requests/accept_failed' }
+    )
   end
 
   def new_rejection
   end
 
   def reject
-    if @short_url_request.reject!(params[:short_url_request].try(:[], :rejection_reason))
-      flash[:success] = "The short URL request has been rejected, and the requester has been notified."
-    else
-      flash[:error] = "The short URL request could not be rejected."
-    end
+    rejection_params = params.require(:short_url_request).permit(:rejection_reason)
+    Commands::ShortUrlRequests::Reject.new(@short_url_request, rejection_params[:rejection_reason]).call
+    flash[:success] = "The short URL request has been rejected, and the requester has been notified."
+
     redirect_to short_url_requests_path
   end
 
@@ -59,12 +57,13 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def update
-    if @short_url_request.update_attributes(update_short_url_request_params)
-      flash[:success] = "Your edit was successful."
-      redirect_to short_url_request_path(@short_url_request)
-    else
-      render 'edit'
-    end
+    Commands::ShortUrlRequests::Update.new(update_short_url_request_params, @short_url_request).call(
+      success: -> () {
+        flash[:success] = "Your edit was successful."
+        redirect_to short_url_request_path(@short_url_request)
+      },
+      failure: -> () { render 'edit' }
+    )
   end
 
   def organisations

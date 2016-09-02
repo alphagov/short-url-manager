@@ -11,7 +11,7 @@
   <% end %>
   <p>These short URLs are already live on GOV.UK:</p>
   <ul>
-    <% @short_url_request.duplicates.each do |dupe| %>
+    <% @short_url_request.similar_redirects.each do |dupe| %>
       <li>
         <code><%= dupe.from_path %></code> redirecting to <code><%= dupe.to_path %></code>
       </li>

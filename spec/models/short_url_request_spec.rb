@@ -1,8 +1,6 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
 
 describe ShortUrlRequest do
-  include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
   describe "validations:" do
@@ -63,167 +61,14 @@ describe ShortUrlRequest do
     end
   end
 
-  describe "state changes" do
-    let(:stub_mail) { double }
-    def stub_notification(type)
-      allow(stub_mail).to receive(:deliver_now)
-      allow(Notifier).to receive(type).and_return(stub_mail)
-    end
+  describe "boolean convienience methods" do
+    specify { expect(build(:short_url_request, state: 'pending').pending?).to be true }
+    specify { expect(build(:short_url_request, state: 'accepted').pending?).to be false }
 
-    let(:short_url_request) { create :short_url_request, :pending }
+    specify { expect(build(:short_url_request, state: 'accepted').accepted?).to be true }
+    specify { expect(build(:short_url_request, state: 'rejected').accepted?).to be false }
 
-    describe "accept!" do
-      let(:redirect_creation_successful?) { true }
-      let(:new_short_url) {
-        new_short_url = double(:short_url, assign_attributes: nil, persisted?: false)
-        allow(new_short_url).to receive(:save).and_return(redirect_creation_successful?)
-        new_short_url
-      }
-      before {
-        stub_notification(:short_url_request_accepted)
-        allow(Redirect).to receive(:new).and_return(new_short_url)
-      }
-      let!(:return_value) { short_url_request.accept! }
-
-      it "should create a related Redirect, copying :to_path and :from_path attributes" do
-        expect(Redirect).to have_received(:new).with(hash_including(from_path: short_url_request.from_path))
-        expect(new_short_url).to have_received(:assign_attributes).with(hash_including(to_path: short_url_request.to_path))
-        expect(new_short_url).to have_received(:save)
-      end
-
-      it "should return true, indicating that the state change was successful" do
-        expect(return_value).to equal true
-      end
-
-      it "should have set the state to 'accepted'" do
-        expect(short_url_request.reload.state).to eql 'accepted'
-      end
-
-      it "should have sent a notification" do
-        expect(Notifier).to have_received(:short_url_request_accepted).with(short_url_request)
-        expect(stub_mail).to have_received(:deliver_now)
-      end
-
-      context "when the redirect can't be created for some reason" do
-        let(:redirect_creation_successful?) { false }
-
-        it "should not have updated the state" do
-          expect(short_url_request.state).to eql 'pending'
-        end
-
-        it "should return false, indicating that the state change wasn't successful" do
-          expect(return_value).to eql false
-        end
-
-        it "should not have sent a notification" do
-          expect(Notifier).to_not have_received(:short_url_request_accepted)
-        end
-      end
-    end
-
-    context "when accepting a redirect when one already exists for that from_path" do
-      let!(:short_url_request) { create(:short_url_request, :pending) }
-
-      before do
-        stub_any_publishing_api_call
-
-        @existing_url_request = FactoryGirl.create(:short_url_request,
-          from_path: short_url_request.from_path,
-        )
-        @existing_redirect = FactoryGirl.create(:redirect,
-          to_path: "/some/existing/path",
-          from_path: short_url_request.from_path,
-          short_url_request: @existing_url_request,
-        )
-      end
-
-      it "updates the existing redirect" do
-        result = nil
-        expect {
-          result = short_url_request.accept!
-        }.to_not change(Redirect, :count)
-
-        expect(result).to eq(true)
-        expect(@existing_redirect.reload.to_path).to eq(short_url_request.to_path)
-      end
-
-      it "deletes the old short URL request" do
-        short_url_request.accept!
-
-        expect {
-          @existing_url_request.reload
-        }.to raise_error(Mongoid::Errors::DocumentNotFound)
-      end
-    end
-
-    describe "reject!" do
-      before { stub_notification(:short_url_request_rejected) }
-
-      it "should set the state to rejected, and store the given reason" do
-        short_url_request.reject!("A reason")
-        short_url_request.reload
-
-        expect(short_url_request.state).to eql "rejected"
-        expect(short_url_request.rejection_reason).to eql "A reason"
-      end
-
-      it "should return true, indicating that the state chage was successful" do
-        expect(short_url_request.reject!).to equal true
-      end
-
-      it "should have sent a notification" do
-        short_url_request.reject!
-
-        expect(Notifier).to have_received(:short_url_request_rejected).with(short_url_request)
-        expect(stub_mail).to have_received(:deliver_now)
-      end
-    end
-
-    describe "boolean convienience methods" do
-      specify { expect(build(:short_url_request, state: 'pending').pending?).to be true }
-      specify { expect(build(:short_url_request, state: 'accepted').pending?).to be false }
-
-      specify { expect(build(:short_url_request, state: 'accepted').accepted?).to be true }
-      specify { expect(build(:short_url_request, state: 'rejected').accepted?).to be false }
-
-      specify { expect(build(:short_url_request, state: 'rejected').rejected?).to be true }
-      specify { expect(build(:short_url_request, state: 'accepted').rejected?).to be false }
-    end
-  end
-
-  describe "updating the Redirect" do
-    before { stub_any_publishing_api_call }
-
-    context "an accepted request" do
-      let!(:accepted_request) do
-        create(:short_url_request, from_path: "/ministry-of-hair",
-                                   to_path: "/government/organisations/ministry-of-hair",
-                                   state: "accepted")
-      end
-      let!(:redirect) do
-        create(:redirect, short_url_request: accepted_request,
-                          from_path: accepted_request.from_path,
-                          to_path: accepted_request.to_path)
-      end
-
-      it "should update the Redirect and thereby trigger a request to Publishing API" do
-        accepted_request.update(to_path: "/hairspray")
-        assert_publishing_api_put_content(redirect.content_id, publishing_api_redirect_hash("/ministry-of-hair", "/hairspray", redirect.content_id))
-        # publish has already been called once for the original redirect.
-        assert_publishing_api_publish(redirect.content_id, nil, 2)
-      end
-    end
-
-    context "a request that hasn't been accepted" do
-      let!(:request) do
-        create(:short_url_request, from_path: "/ministry-of-hair",
-                                   to_path: "/government/organisations/ministry-of-hair")
-      end
-
-      it "should not trigger a request to Publishing API" do
-        request.update(to_path: "/hairspray")
-        expect(WebMock).to have_not_requested :any, /.*/
-      end
-    end
+    specify { expect(build(:short_url_request, state: 'rejected').rejected?).to be true }
+    specify { expect(build(:short_url_request, state: 'accepted').rejected?).to be false }
   end
 end

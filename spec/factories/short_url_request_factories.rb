@@ -17,6 +17,12 @@ FactoryGirl.define do
     end
     trait :accepted do
       state 'accepted'
+
+      after(:create) do |request|
+        request.redirect = create(:redirect,
+                                  from_path: request.from_path,
+                                  to_path: request.to_path)
+      end
     end
     trait :rejected do
       state 'rejected'
