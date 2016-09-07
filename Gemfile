@@ -34,5 +34,6 @@ group :development, :test do
   gem 'webmock', '~> 2.1.0', :require => false
 
   gem 'byebug'
+  gem 'pry'
   gem 'govuk-content-schema-test-helpers'
 end
