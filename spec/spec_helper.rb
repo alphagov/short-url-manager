@@ -23,9 +23,12 @@ SimpleCov.start 'rails'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.before :each do
+  config.before :suite do
     DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
+    DatabaseCleaner.clean
+  end
+
+  config.before :each do
     ActionMailer::Base.deliveries = []
   end
 
