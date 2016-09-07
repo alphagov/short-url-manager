@@ -73,7 +73,7 @@ describe Commands::ShortUrlRequests::Create do
     end
   end
 
-  context "when a short url already exists" do
+  context "when a similar short url already exists" do
     let(:params) {
       {
         from_path: "/a-friendly-url",
@@ -84,7 +84,7 @@ describe Commands::ShortUrlRequests::Create do
     }
 
     before do
-      create(:redirect, params.slice(:from_path, :to_path))
+      create(:redirect, params.slice(:from_path))
     end
 
     it "calls the confirmation_required callback" do
@@ -95,6 +95,27 @@ describe Commands::ShortUrlRequests::Create do
       )
 
       expect(confirmation_required).to have_received(:call).once.with(instance_of(ShortUrlRequest))
+    end
+
+    context "with invalid data" do
+      let(:params) {
+        {
+          from_path: "/a-friendly-url",
+          to_path: "",
+          reason: "Because wombles",
+          organisation_slug: nil,
+        }
+      }
+
+      it "calls the failure callback" do
+        command.call(
+          success: success,
+          failure: failure,
+          confirmation_required: confirmation_required,
+        )
+
+        expect(failure).to have_received(:call).once.with(instance_of(ShortUrlRequest))
+      end
     end
 
     context "with confirmation" do

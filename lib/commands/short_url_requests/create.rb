@@ -7,7 +7,9 @@ class Commands::ShortUrlRequests::Create
   def call(success:, confirmation_required:, failure:)
     url_request = create_object(params, requester)
 
-    if requires_confirmation?(url_request)
+    if !url_request.valid?
+      failure.call(url_request)
+    elsif requires_confirmation?(url_request)
       confirmation_required.call(url_request)
     elsif url_request.save
       Notifier.short_url_requested(url_request).deliver_now

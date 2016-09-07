@@ -17,6 +17,7 @@ class ShortUrlRequest
   validates :state, :from_path, :to_path, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
   validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
   validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
+  validate :not_already_live
 
   before_validation :retrieve_organisation_title, if: ->{ organisation_slug_changed? }
   before_validation :strip_whitespace, :only => [:from_path, :to_path]
@@ -42,6 +43,13 @@ class ShortUrlRequest
   end
 
 private
+  def not_already_live
+    if Redirect.where(from_path: from_path, to_path: to_path).present?
+      errors.add(:base, 'The specified Short URL already redirects to the specified Target URL')
+      false
+    end
+  end
+
   def retrieve_organisation_title
     self.organisation_title = Organisation.where(slug: organisation_slug).first.try(:title)
   end
