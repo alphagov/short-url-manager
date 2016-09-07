@@ -31,6 +31,14 @@ describe ShortUrlRequest do
       expect(from_path_stripped_whitespace.from_path).to eq('/a-path')
       expect(to_path_stripped_whitespace.to_path).to eq('/b-path')
     end
+
+    context "with a pre-existing redirect" do
+      before { create(:redirect, from_path: '/a-path', to_path: '/b-path') }
+
+      it "is invalid" do
+        expect(build :short_url_request, from_path: '/a-path', to_path: '/b-path').not_to be_valid
+      end
+    end
   end
 
   describe "scopes" do
