@@ -3,20 +3,13 @@ require 'rails_helper'
 describe ShortUrlRequest do
   include PublishingApiHelper
 
+  include_examples "ShortUrlValidations"
+
   describe "validations:" do
     specify { expect(build :short_url_request).to be_valid }
-    specify { expect(build :short_url_request, from_path: '').to_not be_valid }
-    specify { expect(build :short_url_request, to_path: '').to_not be_valid }
     specify { expect(build :short_url_request, reason: '').to_not be_valid }
     specify { expect(build :short_url_request, organisation_title: '').to_not be_valid }
     specify { expect(build :short_url_request, organisation_slug: '').to_not be_valid }
-
-    it "should be invalid when from_path is not a relative path" do
-      expect(build :short_url_request, from_path: 'http://www.somewhere.com/a-path').to_not be_valid
-    end
-    it "should be invalid when to_path is not a relative path" do
-      expect(build :short_url_request, to_path: 'http://www.somewhere.com/a-path').to_not be_valid
-    end
 
     it "should allow 'pending', 'accepted' and 'rejected' as acceptable state values" do
       expect(build :short_url_request, state: 'pending').to be_valid

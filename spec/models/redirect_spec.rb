@@ -6,6 +6,8 @@ describe Redirect do
   include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
+  include_examples "ShortUrlValidations"
+
   describe "content_id attribute" do
     it "generates its own content ID on creation" do
       expect(subject.content_id).to be_present
@@ -24,26 +26,6 @@ describe Redirect do
     let(:instance) { build(:redirect, non_factory_attrs) }
 
     specify { expect(instance).to be_valid }
-
-    context "without from_path" do
-      let(:non_factory_attrs) { { from_path: '' } }
-      specify { expect(instance).to_not be_valid }
-    end
-
-    context "when 'from_path' is present, but is not a relative path" do
-      let(:non_factory_attrs) { { from_path: 'http://www.somewhere.com/a-path' } }
-      specify { expect(instance).to_not be_valid }
-    end
-
-    context "without to_path" do
-      let(:non_factory_attrs) { { to_path: '' } }
-      specify { expect(instance).to_not be_valid }
-    end
-
-    context "when 'to_path' is present, but is not a relative path" do
-      let(:non_factory_attrs) { { to_path: 'http://www.somewhere.com/a-path' } }
-      specify { expect(instance).to_not be_valid }
-    end
 
     context "with a duplicate `from_path`" do
       before do
