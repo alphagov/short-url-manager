@@ -1,6 +1,7 @@
 class ShortUrlRequest
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ShortUrlValidations
 
   field :state, type: String, default: 'pending'
   field :from_path, type: String
@@ -14,8 +15,7 @@ class ShortUrlRequest
   belongs_to :requester, class_name: "User"
   has_one :redirect
 
-  validates :state, :from_path, :to_path, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
-  validates :from_path, :to_path, format: { with: /\A\//, message: 'must be specified as a relative path (eg. "/hmrc/tax-returns")' }, allow_blank: true
+  validates :state, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
   validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
   validate :not_already_live
 
