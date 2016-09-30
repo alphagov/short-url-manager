@@ -6,7 +6,7 @@ describe Redirect do
   include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
-  include_examples "ShortUrlValidations"
+  include_examples "ShortUrlValidations", :redirect
 
   describe "content_id attribute" do
     it "generates its own content ID on creation" do
