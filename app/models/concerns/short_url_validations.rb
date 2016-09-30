@@ -15,7 +15,7 @@ module ShortUrlValidations
 
   def govuk_campaign_url?(path)
     uri = URI.parse(path)
-    uri.host =~ /\A.+\.campaign\.gov\.uk\z/i && ['http', 'https'].include?(uri.scheme)
+    uri.host =~ /\A.+\.campaign\.gov\.uk\z/i && uri.scheme == 'https'
   rescue
     false
   end

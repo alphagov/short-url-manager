@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ShortUrlRequest do
   include PublishingApiHelper
 
-  include_examples "ShortUrlValidations"
+  include_examples "ShortUrlValidations", :short_url_request
 
   describe "validations:" do
     specify { expect(build :short_url_request).to be_valid }
