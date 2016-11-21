@@ -72,4 +72,36 @@ describe ShortUrlRequest do
     specify { expect(build(:short_url_request, state: 'rejected').rejected?).to be true }
     specify { expect(build(:short_url_request, state: 'accepted').rejected?).to be false }
   end
+
+  describe '#similar_requests' do
+    let(:from_path) { '/my-short-path' }
+    let(:subject) { create(:short_url_request, from_path: from_path, to_path: '/a/long-version/of/my-short-path') }
+
+    it 'includes other requests for the same from_path' do
+      same_from_path = create(:short_url_request, from_path: from_path, to_path: '/a/different-place')
+      expect(subject.similar_requests).to include same_from_path
+    end
+
+    it 'does not include other requests for the a different from_path' do
+      different_from_path = create(:short_url_request, from_path: '/a-different-path', to_path: '/a/long-version/of/a-different-path')
+      expect(subject.similar_requests).not_to include different_from_path
+    end
+
+    it 'does not include itself' do
+      expect(subject.similar_requests).not_to include subject
+    end
+
+    it 'does not include other requests with the same to_path' do
+      same_to_path = create(:short_url_request, from_path: '/a-different-path', to_path: subject.to_path)
+      expect(subject.similar_requests).not_to include same_to_path
+    end
+
+    it 'includes other requests in creation order, oldest first' do
+      duplicate_1 = create(:short_url_request, from_path: from_path, to_path: '/a/different-place', created_at: 5.days.ago)
+      duplicate_2 = create(:short_url_request, from_path: from_path, to_path: '/a/different-place', created_at: 10.days.ago)
+      duplicate_3 = create(:short_url_request, from_path: from_path, to_path: '/a/different-place', created_at: 8.days.ago)
+
+      expect(subject.similar_requests).to eq [duplicate_2, duplicate_3, duplicate_1]
+    end
+  end
 end

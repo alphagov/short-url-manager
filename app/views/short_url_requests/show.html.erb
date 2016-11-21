@@ -6,7 +6,24 @@
   <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
 <% end %>
 
-<%= render 'short_url_request_data', short_url_request: @short_url_request %>
+<%= render 'short_url_request_data', short_url_request: @short_url_request, show_short_url: true %>
+
+<div class="panel panel-default other-requests">
+  <div class="panel-heading">
+    <h2>Other requests for this short URL</h2>
+  </div>
+  <div class="panel-body">
+    <% if @short_url_request.similar_requests.any? %>
+      <ol>
+        <% @short_url_request.similar_requests.each do |similar_request| %>
+          <li><%= render 'short_url_request_data', short_url_request: similar_request, show_short_url: false %></li>
+        <% end %>
+      </ol>
+    <% else %>
+      <p>None</p>
+    <% end %>
+  </div>
+</div>
 
 <% if @short_url_request.state == 'pending' %>
   <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success add-right-margin" %>
