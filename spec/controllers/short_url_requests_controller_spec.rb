@@ -44,7 +44,7 @@ describe ShortUrlRequestsController do
 
     context "with 45 short_url_requests" do
       let!(:short_url_requests) { 45.times.map { |n| create :short_url_request, :pending, created_at: n.days.ago } }
-      before { get :index, params }
+      before { get :index, params: params }
 
       context "page param is not given" do
         let(:params) { {} }
@@ -80,13 +80,13 @@ describe ShortUrlRequestsController do
       let!(:short_url_request) { create :short_url_request }
 
       context "when requesting a short_url_request which exists" do
-        before { get :show, id: short_url_request.id }
+        before { get :show, params: { id: short_url_request.id } }
 
         specify { expect(assigns(:short_url_request)).to eql short_url_request }
       end
 
       context "when requesting a short_url_request which doesn't exist" do
-        before { get :show, id: "1234567890" }
+        before { get :show, params: { id: "1234567890" } }
 
         specify { expect(response.status).to eql 404 }
       end
@@ -123,7 +123,7 @@ describe ShortUrlRequestsController do
       } }
 
       it "should create a short_url_request" do
-        post :create, params
+        post :create, params: params
         short_url_request = ShortUrlRequest.last
         expect(short_url_request).to_not be_nil
         expect(short_url_request.from_path).to          eql params[:short_url_request][:from_path]
@@ -135,12 +135,12 @@ describe ShortUrlRequestsController do
       end
 
       it "should associate the current user with the short_url_request" do
-        post :create, params
+        post :create, params: params
         expect(ShortUrlRequest.last.requester).to eql user
       end
 
       it "should redirect to the dashboard with a flash message" do
-        post :create, params
+        post :create, params: params
         expect(response).to redirect_to root_path
         expect(flash).not_to be_empty
       end
@@ -149,7 +149,7 @@ describe ShortUrlRequestsController do
         mock_mail = double
         expect(mock_mail).to receive(:deliver_now)
         expect(Notifier).to receive(:short_url_requested).with(kind_of(ShortUrlRequest)).and_return(mock_mail)
-        post :create, params
+        post :create, params: params
       end
 
       context "when an existing redirect already exists" do
@@ -161,7 +161,7 @@ describe ShortUrlRequestsController do
         end
 
         it "does not create a short_url_request" do
-          post :create, params
+          post :create, params: params
           expect(ShortUrlRequest.count).to eq(0)
         end
 
@@ -177,7 +177,7 @@ describe ShortUrlRequestsController do
           } }
 
           it "creates a short url request" do
-            post :create, params
+            post :create, params: params
             expect(ShortUrlRequest.count).to eq(1)
           end
         end
@@ -192,7 +192,7 @@ describe ShortUrlRequestsController do
         }
       } }
 
-      before { post :create, params }
+      before { post :create, params: params }
 
       specify { expect(response).to render_template('short_url_requests/new') }
       specify { expect(ShortUrlRequest.count).to eql 0 }
@@ -207,7 +207,7 @@ describe ShortUrlRequestsController do
     context "redirects can be created without problem" do
       before {
         stub_any_publishing_api_call
-        post :accept, id: short_url_request.id
+        post :accept, params: { id: short_url_request.id }
       }
 
       it "should assign the ShortUrlRequest" do
@@ -222,7 +222,7 @@ describe ShortUrlRequestsController do
     context "publishing api isn't available" do
       before do
         publishing_api_isnt_available
-        post :accept, id: short_url_request.id
+        post :accept, params: { id: short_url_request.id }
       end
 
       it "should render the accept_failed template" do
@@ -245,7 +245,7 @@ describe ShortUrlRequestsController do
       end
 
       it "should update the existing redirect" do
-        post :accept, id: short_url_request.id
+        post :accept, params: { id: short_url_request.id }
 
         expect(response.status).to eq(200)
         expect(@existing_redirect.reload.to_path).to eq(short_url_request.to_path)
@@ -256,7 +256,7 @@ describe ShortUrlRequestsController do
   describe "new_rejection" do
     let!(:short_url_request) { create :short_url_request }
     before {
-      get :new_rejection, id: short_url_request.id
+      get :new_rejection, params: { id: short_url_request.id }
     }
 
     it "should assign the short_url_request" do
@@ -268,7 +268,7 @@ describe ShortUrlRequestsController do
     let!(:short_url_request) { create :short_url_request }
     let(:rejection_reason) { "Don't like it!" }
     before {
-      post :reject, id: short_url_request.id, short_url_request: { rejection_reason: rejection_reason }
+      post :reject, params: { id: short_url_request.id, short_url_request: { rejection_reason: rejection_reason } }
     }
 
     it "should reject the short_url request, passing in the given reason" do
@@ -285,7 +285,7 @@ describe ShortUrlRequestsController do
     let!(:short_url_request) { create :short_url_request }
 
     it 'displays the form' do
-      get :edit, id: short_url_request.id
+      get :edit, params: { id: short_url_request.id }
       expect(response.status).to eql(200)
     end
   end
@@ -305,7 +305,7 @@ describe ShortUrlRequestsController do
       end
 
       it 'saves the changes' do
-        put :update, id: short_url_request.id, short_url_request: params
+        put :update, params: { id: short_url_request.id, short_url_request: params }
         expect(response).to redirect_to(short_url_request_path(short_url_request))
 
         short_url_request.reload
@@ -324,7 +324,7 @@ describe ShortUrlRequestsController do
       end
 
       it 'rejects changes to the from_path' do
-        put :update, id: short_url_request.id, short_url_request: params
+        put :update, params: { id: short_url_request.id, short_url_request: params }
 
         short_url_request.reload
         expect(short_url_request.from_path).to eql("/original")

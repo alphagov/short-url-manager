@@ -24,6 +24,7 @@ gem 'plek', '~> 1.12.0'
 gem 'gds-api-adapters', '~> 34.1'
 
 group :development, :test do
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5.2'
   gem 'factory_girl_rails', '~> 4.7.0'
 
