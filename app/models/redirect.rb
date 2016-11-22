@@ -10,7 +10,7 @@ class Redirect
   field :from_path, type: String
   field :to_path, type: String
 
-  belongs_to :short_url_request
+  belongs_to :short_url_request, required: false
 
   validates :from_path, uniqueness: true
 
