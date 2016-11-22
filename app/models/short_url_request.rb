@@ -23,6 +23,7 @@ class ShortUrlRequest
   before_validation :strip_whitespace, :only => [:from_path, :to_path]
 
   scope :pending, -> { where(state: "pending") }
+  scope :accepted, -> { where(state: "accepted") }
 
   attr_accessor :confirmed
 

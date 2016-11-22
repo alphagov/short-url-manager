@@ -36,7 +36,7 @@ describe ShortUrlRequest do
   end
 
   describe "scopes" do
-    describe "pending" do
+    describe ".pending" do
       context "with short_url_requests in different states" do
         let!(:pending_short_url_request) { create(:short_url_request, :pending) }
         let!(:accepted_short_url_request) { create(:short_url_request, :accepted) }
@@ -45,6 +45,19 @@ describe ShortUrlRequest do
 
         it "should only include pending requests" do
           expect(ShortUrlRequest.pending).to be == [pending_short_url_request]
+        end
+      end
+    end
+
+    describe ".accepted" do
+      context "with short_url_requests in different states" do
+        let!(:pending_short_url_request) { create(:short_url_request, :pending) }
+        let!(:accepted_short_url_request) { create(:short_url_request, :accepted) }
+        let!(:rejected_short_url_request) { create(:short_url_request, :rejected) }
+        let!(:superseded_short_url_request) { create(:short_url_request, :superseded) }
+
+        it "should only include accepted requests" do
+          expect(ShortUrlRequest.accepted).to be == [accepted_short_url_request]
         end
       end
     end

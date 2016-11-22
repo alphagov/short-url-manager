@@ -13,6 +13,7 @@ feature "Short URL manager views accepted short url requests" do
 
     create :short_url_request, :pending, from_path: "/from/pending"
     create :short_url_request, :rejected, from_path: "/from/rejected"
+    create :short_url_request, :superseded, from_path: "/from/superseded"
 
     40.times do |n|
       create :short_url_request, :accepted, from_path: "/from/path/#{n+2}",
@@ -28,6 +29,7 @@ feature "Short URL manager views accepted short url requests" do
 
     expect(page).to have_no_content "/from/pending"
     expect(page).to have_no_content "/from/rejected"
+    expect(page).to have_no_content "/from/superseded"
 
     expect(page).to have_content "/from/path/2"
     expect(page).to have_content "/from/path/40"
