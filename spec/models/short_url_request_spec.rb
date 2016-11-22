@@ -11,10 +11,11 @@ describe ShortUrlRequest do
     specify { expect(build :short_url_request, organisation_title: '').to_not be_valid }
     specify { expect(build :short_url_request, organisation_slug: '').to_not be_valid }
 
-    it "should allow 'pending', 'accepted' and 'rejected' as acceptable state values" do
+    it "should allow 'pending', 'accepted', 'rejected', and 'superseded' as acceptable state values" do
       expect(build :short_url_request, state: 'pending').to be_valid
       expect(build :short_url_request, state: 'accepted').to be_valid
       expect(build :short_url_request, state: 'rejected').to be_valid
+      expect(build :short_url_request, state: 'superseded').to be_valid
       expect(build :short_url_request, state: 'liquid').to_not be_valid
     end
 
@@ -40,6 +41,7 @@ describe ShortUrlRequest do
         let!(:pending_short_url_request) { create(:short_url_request, :pending) }
         let!(:accepted_short_url_request) { create(:short_url_request, :accepted) }
         let!(:rejected_short_url_request) { create(:short_url_request, :rejected) }
+        let!(:superseded_short_url_request) { create(:short_url_request, :superseded) }
 
         it "should only include pending requests" do
           expect(ShortUrlRequest.pending).to be == [pending_short_url_request]
@@ -71,6 +73,9 @@ describe ShortUrlRequest do
 
     specify { expect(build(:short_url_request, state: 'rejected').rejected?).to be true }
     specify { expect(build(:short_url_request, state: 'accepted').rejected?).to be false }
+
+    specify { expect(build(:short_url_request, state: 'superseded').superseded?).to be true }
+    specify { expect(build(:short_url_request, state: 'accepted').superseded?).to be false }
   end
 
   describe '#similar_requests' do

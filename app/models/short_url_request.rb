@@ -16,7 +16,7 @@ class ShortUrlRequest
   has_one :redirect
 
   validates :state, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
-  validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
+  validates :state, inclusion: { in: %w(pending accepted rejected superseded) }, allow_blank: true
   validate :not_already_live
 
   before_validation :retrieve_organisation_title, if: ->{ organisation_slug_changed? }
@@ -44,6 +44,10 @@ class ShortUrlRequest
 
   def rejected?
     state == 'rejected'
+  end
+
+  def superseded?
+    state == 'superseded'
   end
 
 private
