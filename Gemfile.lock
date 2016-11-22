@@ -40,9 +40,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.0.0)
-      builder
-      multi_json
+    airbrake (5.5.0)
+      airbrake-ruby (~> 1.5)
+    airbrake-ruby (1.5.0)
     arel (7.1.4)
     autoprefixer-rails (6.4.1)
       execjs
@@ -291,7 +291,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 4.0.0)
+  airbrake (~> 5.5)
+  airbrake-ruby (= 1.5)
   byebug
   capybara (~> 2.8.1)
   database_cleaner (~> 1.5.3)
