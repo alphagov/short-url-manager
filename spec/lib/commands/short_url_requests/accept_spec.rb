@@ -17,7 +17,7 @@ describe Commands::ShortUrlRequests::Accept do
     it "changes request state to accepted" do
       command.call(failure: failure)
 
-      expect(url_request.state).to eq("accepted")
+      expect(url_request).to be_accepted
     end
   end
 
@@ -37,6 +37,20 @@ describe Commands::ShortUrlRequests::Accept do
       redirect.reload
 
       expect(redirect.short_url_request).to eq(url_request)
+    end
+
+    it "marks the existing request as superseded" do
+      command.call(failure: failure)
+      other_request.reload
+
+      expect(other_request).to be_superseded
+    end
+
+    it "marks the new request as accepted" do
+      command.call(failure: failure)
+      url_request.reload
+
+      expect(url_request).to be_accepted
     end
   end
 end
