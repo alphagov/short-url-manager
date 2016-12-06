@@ -2,7 +2,7 @@
 
 <h1>Reject this short URL request</h1>
 
-<%= render 'short_url_request_data', short_url_request: @short_url_request %>
+<%= render 'short_url_request_data', short_url_request: @short_url_request, show_short_url: true %>
 
 <%= form_for @short_url_request, url: { action: :reject }, method: :post do |f| %>
   <%= render_errors_for @short_url_request, leading_message: "The short URL request could not be rejected for the following reasons:" %>

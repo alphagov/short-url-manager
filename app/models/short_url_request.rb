@@ -16,18 +16,23 @@ class ShortUrlRequest
   has_one :redirect
 
   validates :state, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
-  validates :state, inclusion: { in: %w(pending accepted rejected) }, allow_blank: true
+  validates :state, inclusion: { in: %w(pending accepted rejected superseded) }, allow_blank: true
   validate :not_already_live
 
   before_validation :retrieve_organisation_title, if: ->{ organisation_slug_changed? }
   before_validation :strip_whitespace, :only => [:from_path, :to_path]
 
   scope :pending, -> { where(state: "pending") }
+  scope :accepted, -> { where(state: "accepted") }
 
   attr_accessor :confirmed
 
   def similar_redirects
-    @duplicates ||= Redirect.or({from_path: from_path}, {to_path: to_path})
+    @similar_redirects ||= Redirect.or({from_path: from_path}, {to_path: to_path})
+  end
+
+  def similar_requests
+    @similar_requests ||= ShortUrlRequest.where(from_path: from_path, :id.ne => self.id).order_by([:created_at, :asc])
   end
 
   def pending?
@@ -40,6 +45,10 @@ class ShortUrlRequest
 
   def rejected?
     state == 'rejected'
+  end
+
+  def superseded?
+    state == 'superseded'
   end
 
 private

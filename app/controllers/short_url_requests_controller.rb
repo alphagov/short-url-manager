@@ -12,7 +12,7 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def list_short_urls
-    @accepted_short_urls = ShortUrlRequest.all.where(state: 'accepted').order_by([:created_at, 'desc'])
+    @accepted_short_urls = ShortUrlRequest.accepted.order_by([:created_at, 'desc'])
   end
 
   def new

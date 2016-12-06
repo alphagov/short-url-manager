@@ -15,6 +15,7 @@ FactoryGirl.define do
     trait :pending do
       state 'pending'
     end
+
     trait :accepted do
       state 'accepted'
 
@@ -24,8 +25,13 @@ FactoryGirl.define do
                                   to_path: request.to_path)
       end
     end
+
     trait :rejected do
       state 'rejected'
+    end
+
+    trait :superseded do
+      state 'superseded'
     end
   end
 end

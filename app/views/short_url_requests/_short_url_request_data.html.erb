@@ -5,8 +5,10 @@
   <dt>Requested at:</dt>
   <dd><%= short_url_request.created_at.to_s(:govuk_date) %></dd>
 
-  <dt>Short URL:</dt>
-  <dd><%= short_url_request.from_path %></dd>
+  <% if show_short_url %>
+    <dt>Short URL:</dt>
+    <dd><%= short_url_request.from_path %></dd>
+  <% end %>
 
   <dt>Target URL:</dt>
   <dd><%= link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path) %></dd>
