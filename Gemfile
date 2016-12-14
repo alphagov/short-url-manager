@@ -1,16 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0'
+gem 'rails', '5.0.0.1'
 gem 'sass-rails', '~> 5.0'
 
-gem 'mongoid', '~> 4.0'
+gem 'mongoid', '6.0.2'
 gem 'mongoid_rails_migrations', '~> 1.0.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 3.0.2'
 
 gem 'unicorn', '~> 5.1.0'
-gem 'airbrake', '~> 4.0.0'
+gem 'airbrake', '~> 5.5'
+gem 'airbrake-ruby', '1.5'
 gem 'logstasher', '~> 0.5.3'
 gem 'whenever', '~> 0.9.2', :require => false
 gem 'will_paginate_mongoid', '~> 2.0.1'
@@ -19,11 +20,12 @@ gem 'mlanett-redis-lock', '0.2.7' # Used by the Organisation importer as a locki
 gem 'gretel', '3.0.9'
 
 gem 'govuk_admin_template', '~> 4.1'
-gem 'gds-sso', '~> 12.1'
+gem 'gds-sso', '~> 13.0.0'
 gem 'plek', '~> 1.12.0'
 gem 'gds-api-adapters', '~> 34.1'
 
 group :development, :test do
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5.2'
   gem 'factory_girl_rails', '~> 4.7.0'
 

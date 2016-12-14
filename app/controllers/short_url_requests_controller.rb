@@ -1,7 +1,7 @@
 class ShortUrlRequestsController < ApplicationController
-  before_filter :authorise_as_short_url_requester!, only: [:new, :create]
-  before_filter :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls, :edit, :update]
-  before_filter :get_short_url_request, only: [:edit, :update, :show, :accept, :new_rejection, :reject]
+  before_action :authorise_as_short_url_requester!, only: [:new, :create]
+  before_action :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls, :edit, :update]
+  before_action :get_short_url_request, only: [:edit, :update, :show, :accept, :new_rejection, :reject]
 
   def index
     @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
@@ -75,7 +75,7 @@ private
   def get_short_url_request
     @short_url_request = ShortUrlRequest.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound
-    render text: "Not found", status: 404
+    render plain: "Not found", status: 404
   end
 
   def create_short_url_request_params

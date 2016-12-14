@@ -10,7 +10,7 @@ class Redirect
   field :from_path, type: String
   field :to_path, type: String
 
-  belongs_to :short_url_request
+  belongs_to :short_url_request, required: false
 
   validates :from_path, uniqueness: true
 
@@ -23,9 +23,9 @@ private
     publishing_api.put_content(content_id, payload)
     publishing_api.publish(content_id, :major)
   rescue GdsApi::HTTPErrorResponse => e
-    Airbrake.notify_or_ignore(e, :params => payload)
+    Airbrake.notify(e, :params => payload)
     errors.add(:base, "An error posting to the publishing API prevented this redirect from being created: #{e}")
-    false # Do not continue to save
+    throw :abort # Do not continue to save
   end
 
   def publishing_api
