@@ -4,7 +4,8 @@ module Presenters
       {
         "content_id" => redirect.content_id,
         "base_path" => redirect.from_path,
-        "format" => "redirect",
+        "document_type" => "redirect",
+        "schema_name" => "redirect",
         "publishing_app" => "short-url-manager",
         "update_type" => "major",
         "redirects" => [
