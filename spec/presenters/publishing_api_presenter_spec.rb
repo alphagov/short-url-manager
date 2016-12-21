@@ -15,7 +15,8 @@ RSpec.describe Presenters::PublishingAPI do
     expect(presented).to eq(
       "content_id" => redirect.content_id,
       "base_path" => "/from/path",
-      "format" => "redirect",
+      "schema_name" => "redirect",
+      "document_type" => "redirect",
       "publishing_app" => "short-url-manager",
       "update_type" => "major",
       "redirects" => [
