@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 describe Notifier do
+  shared_examples_for "indicating the deployed environment via the subject line" do
+    it "includes an indicator of the deployed environment in the subject line" do
+      allow(Rails.application.config).to receive(:instance_name).and_return('testing-123')
+      expect(mail.subject).to match /^\[testing-123\] Short URL request/
+    end
+
+    it "does not include an indicator of the deployed environment in the subject line if it is blank (e.g. production)" do
+      allow(Rails.application.config).to receive(:instance_name).and_return('')
+      expect(mail.subject).to match /^Short URL request/
+    end
+  end
+
   describe 'short_url_requested' do
     let!(:users) { [ create(:short_url_manager) ] }
     let(:short_url_request_from_path) { "/somewhere" }
@@ -24,8 +36,10 @@ describe Notifier do
     end
 
     it "should set a subject showing the from and applicable organisation" do
-      expect(mail.subject).to eql "Short URL request for '#{short_url_request_from_path}' by #{short_url_request_organisation_title}"
+      expect(mail.subject).to match /#{Regexp.escape("Short URL request for '#{short_url_request_from_path}' by #{short_url_request_organisation_title}")}$/
     end
+
+    include_examples "indicating the deployed environment via the subject line"
 
     it "should include all relevant data in the body" do
       expect(mail).to have_body_content "From: #{short_url_request_from_path}"
@@ -67,8 +81,10 @@ describe Notifier do
     end
 
     it "should set a subject" do
-      expect(mail.subject).to eql "Short URL request approved"
+      expect(mail.subject).to match /Short URL request approved$/
     end
+
+    include_examples "indicating the deployed environment via the subject line"
 
     it "should address the user by name, and give the from path and to path in the email body" do
       expect(mail).to have_body_content "Mr Bigglesworth"
@@ -99,8 +115,10 @@ describe Notifier do
     end
 
     it "should set a subject" do
-      expect(mail.subject).to eql "Short URL request denied"
+      expect(mail.subject).to match /Short URL request denied$/
     end
+
+    include_examples "indicating the deployed environment via the subject line"
 
     it "should address the user by name, and give the from path and to path in the email body" do
       expect(mail).to have_body_content "Mr Bigglesworth"
