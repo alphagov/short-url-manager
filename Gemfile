@@ -38,4 +38,5 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'govuk-content-schema-test-helpers'
+  gem 'govuk-lint'
 end
