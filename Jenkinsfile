@@ -77,7 +77,7 @@ node('mongodb-2.4') {
     }
 
     stage("Run tests") {
-      govuk.runRakeTask("ci:setup:rspec default")
+      govuk.runRakeTask("default")
     }
 
     stage("Push release tag") {
