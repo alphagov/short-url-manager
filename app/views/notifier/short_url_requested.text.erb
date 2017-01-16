@@ -20,4 +20,4 @@ Reason:
 <%= @short_url_request.reason %>
 
 You can respond to this request here:
-<%= govuk_url_for(short_url_request_url(@short_url_request, only_path: true)) %>
+<%= short_url_manger_url_for(short_url_request_url(@short_url_request, only_path: true)) %>
