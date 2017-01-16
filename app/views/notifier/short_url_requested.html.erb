@@ -24,5 +24,6 @@
       <dt>Reason:</dt>
       <dd><%= @short_url_request.reason %></dd>
     </dl>
+    <p>You can respond to this request here: <%= link_to nil, govuk_url_for(short_url_request_url(@short_url_request, only_path: true)) %></p>
   </body>
 </html>
