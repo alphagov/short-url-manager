@@ -39,5 +39,4 @@ group :development, :test do
   gem 'pry'
   gem 'govuk-content-schema-test-helpers'
   gem 'govuk-lint'
-  gem 'ci_reporter_rspec'
 end
