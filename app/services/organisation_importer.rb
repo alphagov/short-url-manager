@@ -36,7 +36,7 @@ private
   end
 
   def redis
-    redis_config = YAML.load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result)
+    redis_config = Rails.application.config_for(:redis)
     Redis.new(redis_config.symbolize_keys)
   end
 end
