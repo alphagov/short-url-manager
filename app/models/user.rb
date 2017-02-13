@@ -11,7 +11,7 @@ class User
   field :disabled, type: Boolean, default: false
   field :organisation_content_id, type: String
 
-  scope :short_url_managers, ->{ where(permissions: /manage_short_urls/) }
+  scope :short_url_managers, -> { where(permissions: /manage_short_urls/) }
 
   def can_request_short_urls?
     permissions.include? 'request_short_urls'

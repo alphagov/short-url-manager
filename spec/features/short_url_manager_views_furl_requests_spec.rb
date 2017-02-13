@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Short URL manager finds information on short_url requests" do
   background do
-    login_as create(:user, permissions: ['signon', 'manage_short_urls'])
+    login_as create(:user, permissions: %w(signon manage_short_urls))
   end
 
   scenario "Short URL manager views the index of short_url requests and uses the pagination" do
@@ -12,7 +12,7 @@ feature "Short URL manager finds information on short_url requests" do
                           created_at: 10.minutes.ago
 
     40.times do |n|
-      create :short_url_request, from_path: "/from/path/#{n+2}",
+      create :short_url_request, from_path: "/from/path/#{n + 2}",
                             created_at: n.days.ago
     end
 

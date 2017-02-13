@@ -1,5 +1,5 @@
 class Commands::ShortUrlRequests::Reject
-  def initialize(url_request, reason=nil)
+  def initialize(url_request, reason = nil)
     @url_request = url_request
     @reason = reason
   end
@@ -10,5 +10,6 @@ class Commands::ShortUrlRequests::Reject
   end
 
 private
+
   attr_reader :url_request, :reason
 end

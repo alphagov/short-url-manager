@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
 private
+
   def authorise_as_short_url_requester!
     authorise_user!('request_short_urls')
   end

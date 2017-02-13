@@ -20,5 +20,6 @@ class Commands::ShortUrlRequests::Update
   end
 
 private
+
   attr_reader :params, :url_request
 end

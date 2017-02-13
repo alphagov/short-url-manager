@@ -22,5 +22,6 @@ class Commands::ShortUrlRequests::Accept
   end
 
 private
+
   attr_reader :url_request
 end

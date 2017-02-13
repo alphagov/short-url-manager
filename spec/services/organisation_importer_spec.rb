@@ -7,7 +7,7 @@ describe OrganisationImporter do
   context "The API responds with 2 pages of results" do
     before {
       org_slugs = ['wombats-of-wimbledon']
-      org_slugs.concat 49.times.map {|n| "organisation-#{n}"}
+      org_slugs.concat 49.times.map { |n| "organisation-#{n}" }
       organisations_api_has_organisations(org_slugs)
     }
 

@@ -4,8 +4,8 @@ feature "As a publisher, I can request a short URL" do
   background do
     create :organisation, title: 'Ministry of Magic', slug: 'ministry-of-magic'
     create :organisation, title: 'Ministry of Beards', slug: 'ministry-of-beards'
-    create :user, email: "short-url-manager-1@example.com", permissions: ['signon', 'manage_short_urls']
-    login_as create(:user, permissions: ['signon', 'request_short_urls'], name: "Gandalf", email: "gandalf@example.com", organisation_slug: "ministry-of-magic")
+    create :user, email: "short-url-manager-1@example.com", permissions: %w(signon manage_short_urls)
+    login_as create(:user, permissions: %w(signon request_short_urls), name: "Gandalf", email: "gandalf@example.com", organisation_slug: "ministry-of-magic")
   end
 
   scenario "Publisher requests a short_url, and short_url managers are notified" do
@@ -15,9 +15,9 @@ feature "As a publisher, I can request a short URL" do
     expect(page).to have_select "Organisation", selected: "Ministry of Magic"
 
     fill_in "Short URL",          with: from_path = "/some-friendly-url"
-    fill_in "Target URL",         with: to_path   = "/government/publications/some-random-publication"
-    select "Ministry of Beards", from: "Organisation"
-    fill_in "Reason",        with: reason    = "Because of the wombats"
+    fill_in "Target URL",         with: to_path = "/government/publications/some-random-publication"
+    select "Ministry of Beards",  from: "Organisation"
+    fill_in "Reason",             with: reason = "Because of the wombats"
 
     click_on "Submit request"
 

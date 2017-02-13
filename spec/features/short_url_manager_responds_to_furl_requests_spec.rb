@@ -7,7 +7,7 @@ feature "Short URL manager responds to short URL requests" do
 
   background do
     stub_any_publishing_api_call
-    login_as create(:user, permissions: ['signon', 'manage_short_urls'])
+    login_as create(:user, permissions: %w(signon manage_short_urls))
   end
 
   let!(:pending_request) do

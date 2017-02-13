@@ -10,7 +10,7 @@ class OrganisationImporter
   end
 
   def perform!
-    redis.lock("short_url_manager:#{Rails.env}:organisation_importer_lock", :life => 2.hours) do
+    redis.lock("short_url_manager:#{Rails.env}:organisation_importer_lock", life: 2.hours) do
       organisations_data = get_organisations_data
       Organisation.destroy_all
       organisations_data.each {|attrs|
@@ -22,6 +22,7 @@ class OrganisationImporter
   end
 
 private
+
   def get_organisations_data
     api_adapter.organisations.with_subsequent_pages.map {|result|
       {
