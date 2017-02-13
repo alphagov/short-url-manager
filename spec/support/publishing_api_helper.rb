@@ -8,7 +8,7 @@ module PublishingApiHelper
       "publishing_app" => "short-url-manager",
       "update_type" => "major",
       "redirects" => [
-        {"path" => from_path, "type" => "exact", "destination" => to_path}
+        { "path" => from_path, "type" => "exact", "destination" => to_path }
       ]
     }
   end

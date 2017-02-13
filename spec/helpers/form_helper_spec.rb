@@ -28,10 +28,12 @@ describe FormHelper do
     end
 
     describe "with errors" do
-      let(:errors) { [
-        [:attribute_1, "can't be blank"],
-        [:attribute_2, "can't be a small lemon"]
-      ] }
+      let(:errors) {
+        [
+          [:attribute_1, "can't be blank"],
+          [:attribute_2, "can't be a small lemon"]
+        ]
+      }
 
       describe "specific errors" do
         it "should render errors in a list" do

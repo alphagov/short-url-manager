@@ -2,12 +2,12 @@ require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
 
 describe ShortUrlRequestsController do
-  let(:user) { create(:user, permissions: ['signon', 'request_short_urls', 'manage_short_urls']) }
+  let(:user) { create(:user, permissions: %w(signon request_short_urls manage_short_urls)) }
   before { login_as user }
 
   describe "access control" do
     context "with a user without request_short_urls permission" do
-      let(:user) { create(:user, permissions: ['signon', 'manage_short_urls']) }
+      let(:user) { create(:user, permissions: %w(signon manage_short_urls)) }
 
       specify {
         expect_not_authorised(:get, :new)
@@ -16,7 +16,7 @@ describe ShortUrlRequestsController do
     end
 
     context "with a user without manage_short_urls permission" do
-      let(:user) { create(:user, permissions: ['signon', 'request_short_urls']) }
+      let(:user) { create(:user, permissions: %w(signon request_short_urls)) }
 
       specify {
         expect_not_authorised(:get, :index)
@@ -30,11 +30,13 @@ describe ShortUrlRequestsController do
 
   describe "#index" do
     context "with several short_url_requests requested at different times" do
-      let!(:short_url_requests) { [
-        create(:short_url_request, :pending, created_at: 10.days.ago),
-        create(:short_url_request, :pending, created_at: 5.days.ago),
-        create(:short_url_request, :pending, created_at: 15.days.ago)
-      ] }
+      let!(:short_url_requests) {
+        [
+          create(:short_url_request, :pending, created_at: 10.days.ago),
+          create(:short_url_request, :pending, created_at: 5.days.ago),
+          create(:short_url_request, :pending, created_at: 15.days.ago)
+        ]
+      }
       before { get :index }
 
       it "should order short_url_requests by created_at date with the most recent first" do
@@ -100,7 +102,7 @@ describe ShortUrlRequestsController do
 
     context "with a user with an organisation" do
       let!(:organisation) { create(:organisation) }
-      let(:user) { create(:user, permissions: ['signon', 'request_short_urls', 'manage_short_urls'], organisation_slug: organisation.slug) }
+      let(:user) { create(:user, permissions: %w(signon request_short_urls manage_short_urls), organisation_slug: organisation.slug) }
 
       it "should assign a new ShortUrlRequest with the organisation_slug set to the current user's organisaiton" do
         expect(assigns[:short_url_request]).to_not be_nil
@@ -113,14 +115,16 @@ describe ShortUrlRequestsController do
     let!(:organisation) { create :organisation }
 
     context "with valid params" do
-      let(:params) { {
-        short_url_request: {
-          from_path: "/a-friendly-url",
-          to_path: "/somewhere/a-document",
-          reason: "Because wombles",
-          organisation_slug: organisation.slug
+      let(:params) {
+        {
+          short_url_request: {
+            from_path: "/a-friendly-url",
+            to_path: "/somewhere/a-document",
+            reason: "Because wombles",
+            organisation_slug: organisation.slug
+          }
         }
-      } }
+      }
 
       it "should create a short_url_request" do
         post :create, params: params
@@ -166,15 +170,17 @@ describe ShortUrlRequestsController do
         end
 
         context "and the request is confirmed" do
-          let(:params) { {
-            short_url_request: {
-              from_path: "/a-friendly-url",
-              to_path: "/somewhere/a-document",
-              reason: "Because wombles",
-              organisation_slug: organisation.slug,
-              confirmed: true,
+          let(:params) {
+            {
+              short_url_request: {
+                from_path: "/a-friendly-url",
+                to_path: "/somewhere/a-document",
+                reason: "Because wombles",
+                organisation_slug: organisation.slug,
+                confirmed: true,
+              }
             }
-          } }
+          }
 
           it "creates a short url request" do
             post :create, params: params
@@ -185,12 +191,14 @@ describe ShortUrlRequestsController do
     end
 
     context "with invalid params" do
-      let (:params) { {
-        short_url_request: {
-          from_path: '',
-          to_path: ''
+      let(:params) {
+        {
+          short_url_request: {
+            from_path: '',
+            to_path: ''
+          }
         }
-      } }
+      }
 
       before { post :create, params: params }
 

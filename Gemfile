@@ -13,7 +13,7 @@ gem 'unicorn', '~> 5.1.0'
 gem 'airbrake', '~> 5.5'
 gem 'airbrake-ruby', '1.5'
 gem 'logstasher', '~> 0.5.3'
-gem 'whenever', '~> 0.9.2', :require => false
+gem 'whenever', '~> 0.9.2', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
 gem 'redis', '3.3.1', require: false # Used by the Organisation importer as a locking mechanism
 gem 'mlanett-redis-lock', '0.2.7' # Used by the Organisation importer as a locking mechanism
@@ -29,11 +29,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5.2'
   gem 'factory_girl_rails', '~> 4.7.0'
 
-  gem 'simplecov', '~> 0.12.0', :require => false
-  gem 'simplecov-rcov', '~> 0.2.3', :require => false
+  gem 'simplecov', '~> 0.12.0', require: false
+  gem 'simplecov-rcov', '~> 0.2.3', require: false
   gem 'capybara', '~> 2.8.1'
   gem 'database_cleaner', '~> 1.5.3'
-  gem 'webmock', '~> 2.1.0', :require => false
+  gem 'webmock', '~> 2.1.0', require: false
 
   gem 'byebug'
   gem 'pry'

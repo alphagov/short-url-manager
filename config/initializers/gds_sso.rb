@@ -16,7 +16,7 @@ if Rails.env.development?
   #
   GDS::SSO.test_user = User.find_or_create_by(email: 'user@test.example').tap do |u|
     u.name = 'Test User'
-    u.permissions = ['signin', 'manage_short_urls', 'request_short_urls']
+    u.permissions = %w(signin manage_short_urls request_short_urls)
     u.save!
   end
 end

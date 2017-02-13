@@ -19,8 +19,8 @@ class ShortUrlRequest
   validates :state, inclusion: { in: %w(pending accepted rejected superseded) }, allow_blank: true
   validate :not_already_live
 
-  before_validation :retrieve_organisation_title, if: ->{ organisation_slug_changed? }
-  before_validation :strip_whitespace, :only => [:from_path, :to_path]
+  before_validation :retrieve_organisation_title, if: -> { organisation_slug_changed? }
+  before_validation :strip_whitespace, only: [:from_path, :to_path]
 
   scope :pending, -> { where(state: "pending") }
   scope :accepted, -> { where(state: "accepted") }
@@ -28,7 +28,7 @@ class ShortUrlRequest
   attr_accessor :confirmed
 
   def similar_redirects
-    @similar_redirects ||= Redirect.or({from_path: from_path}, {to_path: to_path})
+    @similar_redirects ||= Redirect.or({ from_path: from_path }, to_path: to_path)
   end
 
   def similar_requests
@@ -52,6 +52,7 @@ class ShortUrlRequest
   end
 
 private
+
   def not_already_live
     if Redirect.where(from_path: from_path, to_path: to_path).present?
       errors.add(:base, 'The specified Short URL already redirects to the specified Target URL')

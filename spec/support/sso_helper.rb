@@ -17,26 +17,26 @@ module SSOControllerHelper
   def login_as(user)
     super #SSOFeatureHelper
     request.env['warden'] = double(
-      :authenticate! => true,
-      :authenticated? => true,
-      :user => user
+      authenticate!: true,
+      authenticated?: true,
+      user: user
     )
   end
 
   def logout
     super #SSOFeatureHelper
     request.env['warden'] = double(
-      :authenticate! => false,
-      :authenticated? => false,
-      :user => nil
+      authenticate!: false,
+      authenticated?: false,
+      user: nil
     )
   end
 
-  def expect_not_authorised(http_method, action, params={})
+  def expect_not_authorised(http_method, action, params = {})
     send(http_method, action, params: params)
     expect(response.status).to eql 403
   end
 end
 
-RSpec.configuration.include SSOControllerHelper, :type => :controller
-RSpec.configuration.include SSOFeatureHelper, :type => :feature
+RSpec.configuration.include SSOControllerHelper, type: :controller
+RSpec.configuration.include SSOFeatureHelper, type: :feature

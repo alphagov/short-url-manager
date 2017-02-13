@@ -20,6 +20,7 @@ class Commands::ShortUrlRequests::Create
   end
 
 private
+
   attr_reader :params, :requester
 
   def create_object(params, requester)

@@ -4,7 +4,7 @@ class ShortUrlRequestsController < ApplicationController
   before_action :get_short_url_request, only: [:edit, :update, :show, :accept, :new_rejection, :reject]
 
   def index
-    @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, 'desc']).paginate(page: (params[:page]), per_page: 40)
+    @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, 'desc']).paginate(page: params[:page], per_page: 40)
   end
 
   def show
@@ -21,7 +21,7 @@ class ShortUrlRequestsController < ApplicationController
 
   def create
     Commands::ShortUrlRequests::Create.new(create_short_url_request_params, current_user).call(
-      success: -> (url_request) {
+      success: -> (_url_request) {
         flash[:success] = "Your request has been made."
         redirect_to root_path
       },
@@ -72,6 +72,7 @@ class ShortUrlRequestsController < ApplicationController
   helper_method :organisations
 
 private
+
   def get_short_url_request
     @short_url_request = ShortUrlRequest.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound

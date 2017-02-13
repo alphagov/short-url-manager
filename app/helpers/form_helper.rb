@@ -7,6 +7,7 @@ module FormHelper
   end
 
 private
+
   def default_leading_error_message_for(model)
     "The #{model.class.name.underscore.humanize(capitalize: false)} could not be saved for the following reasons:"
   end

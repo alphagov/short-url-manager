@@ -5,10 +5,10 @@ FactoryGirl.define do
   end
 
   factory :short_url_requester, parent: :user do
-    permissions ['signon', 'request_short_urls']
+    permissions %w(signon request_short_urls)
   end
 
   factory :short_url_manager, parent: :user do
-    permissions ['signon', 'manage_short_urls']
+    permissions %w(signon manage_short_urls)
   end
 end
