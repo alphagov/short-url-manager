@@ -11,4 +11,8 @@ FactoryGirl.define do
   factory :short_url_manager, parent: :user do
     permissions %w(signon manage_short_urls)
   end
+
+  factory :short_url_requester_and_manager, parent: :user do
+    permissions %w(signon request_short_urls manage_short_urls)
+  end
 end

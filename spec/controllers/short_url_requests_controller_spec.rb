@@ -2,12 +2,12 @@ require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
 
 describe ShortUrlRequestsController do
-  let(:user) { create(:user, permissions: %w(signon request_short_urls manage_short_urls)) }
+  let(:user) { create(:short_url_requester_and_manager) }
   before { login_as user }
 
   describe "access control" do
     context "with a user without request_short_urls permission" do
-      let(:user) { create(:user, permissions: %w(signon manage_short_urls)) }
+      let(:user) { create(:short_url_manager) }
 
       specify {
         expect_not_authorised(:get, :new)
@@ -16,7 +16,7 @@ describe ShortUrlRequestsController do
     end
 
     context "with a user without manage_short_urls permission" do
-      let(:user) { create(:user, permissions: %w(signon request_short_urls)) }
+      let(:user) { create(:short_url_requester) }
 
       specify {
         expect_not_authorised(:get, :index)
@@ -102,7 +102,7 @@ describe ShortUrlRequestsController do
 
     context "with a user with an organisation" do
       let!(:organisation) { create(:organisation) }
-      let(:user) { create(:user, permissions: %w(signon request_short_urls manage_short_urls), organisation_slug: organisation.slug) }
+      let(:user) { create(:short_url_requester_and_manager, organisation_slug: organisation.slug) }
 
       it "should assign a new ShortUrlRequest with the organisation_slug set to the current user's organisaiton" do
         expect(assigns[:short_url_request]).to_not be_nil

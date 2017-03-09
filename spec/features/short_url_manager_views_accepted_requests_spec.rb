@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Short URL manager views accepted short url requests" do
   background do
-    login_as create(:user, permissions: %w(signon manage_short_urls))
+    login_as create(:short_url_manager)
   end
 
   scenario "Short URL manager the index of short_url requests" do
