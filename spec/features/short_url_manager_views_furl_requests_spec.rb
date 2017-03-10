@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Short URL manager finds information on short_url requests" do
   background do
-    login_as create(:user, permissions: %w(signon manage_short_urls))
+    login_as create(:short_url_manager)
   end
 
   scenario "Short URL manager views the index of short_url requests and uses the pagination" do
@@ -106,7 +106,7 @@ feature "Short URL manager finds information on short_url requests" do
   end
 
   scenario "User without manage_short_urls permission sees no option to manage short_url requests" do
-    login_as create(:user, permissions: ['signon'])
+    login_as create(:user)
     visit "/"
     expect(page).to have_no_content('View pending requests')
   end
