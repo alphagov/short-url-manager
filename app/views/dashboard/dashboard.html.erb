@@ -8,6 +8,6 @@
   <% end %>
   <% if current_user.can_manage_short_urls? %>
     <li class="list-group-item"><%= link_to "View pending requests", short_url_requests_path %></li>
-    <li class="list-group-item"><%= link_to "View live short URLs", list_short_urls_path %></li>
+    <li class="list-group-item"><%= link_to "View live redirect URLs and short URLs", list_short_urls_path %></li>
   <% end %>
 </ul>
