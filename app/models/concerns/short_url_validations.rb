@@ -9,7 +9,7 @@ module ShortUrlValidations
 
   def to_path_is_valid
     unless to_path.blank? || to_path =~ /\A\// || govuk_subdomain_url?(to_path)
-      errors.add(:to_path, 'must be a relative path (eg. "/hmrc/tax-returns") or a gov.uk campaign URL (eg. "https://my-campaign-title.campaign.gov.uk/an-optional-path")')
+      errors.add(:to_path, 'must be a relative path (eg. "/hmrc/tax-returns") or a gov.uk redirect URL (eg. "https://my-title.service.gov.uk/an-optional-path")')
     end
   end
 
