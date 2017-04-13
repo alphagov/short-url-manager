@@ -3,21 +3,21 @@
     <dt>State:</dt>
     <dd><%= @short_url_request.state.titleize %></dd>
   </dl>
-  <%= render_errors_for @short_url_request, leading_message: "Your request for a short URL could not be made for the following reasons:" %>
+  <%= render_errors_for @short_url_request, leading_message: "Your request for a URL redirect or short URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
       <%= f.label :from_path %>
       <%= f.text_field :from_path, disabled: @short_url_request.persisted?, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
+      <p class="help-block">This is the URL or the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
     </div>
 
     <div class="form-group">
       <%= f.label :to_path %>
       <%= f.text_field :to_path, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the path to redirect the user to. The following types of target URL are supported:</p>
+      <p class="help-block">This is the URL to redirect the user to. The following types of target URL are supported:</p>
       <ul class="help-block">
         <li>Internal gov.uk links, eg. <strong>/government/publications/what-hmrc-does-to-prevent-tax-evasion</strong></li>
-        <li>External gov.uk campaign links, eg. <strong>https://my-campaign-title.campaign.gov.uk/an-optional-path</strong></li>
+        <li>External gov.uk subdomain links, eg. <strong>https://my-title.external.gov.uk/an-optional-path</strong></li>
       </ul>
     </div>
 

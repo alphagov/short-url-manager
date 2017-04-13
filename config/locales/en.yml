@@ -23,6 +23,6 @@ en:
   mongoid:
     attributes:
       short_url_request:
-        from_path: 'Short URL'
+        from_path: 'From or Short URL'
         to_path: 'Target URL'
         organisation_slug: 'Organisation'

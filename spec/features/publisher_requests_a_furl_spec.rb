@@ -10,7 +10,7 @@ feature "As a publisher, I can request a short URL" do
 
   scenario "Publisher requests a short_url, and short_url managers are notified" do
     visit "/"
-    click_on "Request a new short URL"
+    click_on "Request a new URL redirect or short URL"
 
     expect(page).to have_select "Organisation", selected: "Ministry of Magic"
 
