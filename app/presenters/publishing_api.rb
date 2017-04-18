@@ -9,7 +9,7 @@ module Presenters
         "publishing_app" => "short-url-manager",
         "update_type" => "major",
         "redirects" => [
-          { "path" => redirect.from_path, "type" => redirect.route_type, "destination" => redirect.to_path }
+          { "path" => redirect.from_path, "type" => redirect.route_type, "segments_mode" => redirect.segments_mode, "destination" => redirect.to_path }
         ]
       }
     end
