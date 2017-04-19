@@ -59,20 +59,18 @@
       <%= f.select :segments_mode, options_for_select({ "Discard" => "ignore", "Keep" => "preserve" }, @short_url_request.segments_mode), {}, class: 'form-control input-md-6' %>
     </div>
 
-    <dt>Discard</dt>
-    <dd>
-      <dt>...using "Exact URL only"</dt>
-      <dd>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong></dd>
-      <dt>...using "URL and all pages under it"</dt>
-      <dd>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target</strong></dd>
-    </dd>
+    <h3>Help with Segments</h3>
+    <h4>Discard</h4>
+    <h5>Using "Exact URL only"</h5>
+    <p>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong></p>
+    <h5>Using "URL and all pages under it"</h5>
+    <p>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target</strong></p>
 
-    <dt>Keep</dt>
-    <dd>
-      <dt>...using "Exact URL only"</dt>
-      <dd>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target?q=123</strong></dd>
-      <dt>...using "URL and all pages under it"</dt>
-      <dd>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target/page/?q=123</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target/doe/a/deer</strong></dd>
-    </dd>
+
+    <h4>Keep</h4>
+    <h5>Using "Exact URL only"</h5>
+    <p>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target?q=123</strong></p>
+    <h5>Using "URL and all pages under it"</h5>
+    <p>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target/page/?q=123</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target/doe/a/deer</strong></p>
   </fieldset>
 <%- end -%>
