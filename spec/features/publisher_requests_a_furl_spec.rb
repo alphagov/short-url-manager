@@ -17,7 +17,7 @@ feature "As a publisher, I can request a short URL" do
     fill_in "From or short URL",  with: from_path = "/some-friendly-url"
     fill_in "Target URL",         with: to_path = "/government/publications/some-random-publication"
     select "Exact URL only",      from: "short_url_request_route_type"
-    select "ignore",              from: "Segments mode"
+    select "Discard",             from: "short_url_request_segments_mode"
     select "Ministry of Beards",  from: "Organisation"
     fill_in "Reason",             with: reason = "Because of the wombats"
 
