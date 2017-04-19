@@ -9,8 +9,8 @@ class Redirect
   field :content_id, type: String
   field :from_path, type: String
   field :to_path, type: String
-  field :route_type, type: String
-  field :segments_mode, type: String
+  field :route_type, type: String, default: 'exact'
+  field :segments_mode, type: String, default: 'ignore'
 
   belongs_to :short_url_request, required: false
 
