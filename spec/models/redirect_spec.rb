@@ -57,7 +57,7 @@ describe Redirect do
         let(:redirect) { build :redirect }
 
         it "should post a redirect content item to the publishing API" do
-          redirect_hash = publishing_api_redirect_hash(redirect.from_path, redirect.to_path, redirect.content_id, redirect.route_type, redirect.segments_mode)
+          redirect_hash = publishing_api_redirect_hash(redirect.from_path, redirect.to_path, redirect.content_id)
           assert_publishing_api_put_content(redirect.content_id, redirect_hash)
           assert_publishing_api_publish(redirect.content_id)
         end

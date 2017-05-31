@@ -1,6 +1,6 @@
 <% breadcrumb :short_url_request, @short_url_request %>
 
-<h1>URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
+<h1>Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
 <% if @short_url_request.state == 'pending' && @existing_redirect.present? %>
   <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
