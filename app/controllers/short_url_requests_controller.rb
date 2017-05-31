@@ -80,10 +80,10 @@ private
   end
 
   def create_short_url_request_params
-    params[:short_url_request].permit(:from_path, :to_path, :reason, :route_type, :organisation_slug, :confirmed)
+    params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug, :confirmed)
   end
 
   def update_short_url_request_params
-    params[:short_url_request].permit(:to_path, :reason, :route_type, :organisation_slug)
+    params[:short_url_request].permit(:to_path, :reason, :organisation_slug)
   end
 end

@@ -23,7 +23,6 @@ feature "Short URL manager responds to short URL requests" do
   let!(:accepted_request) do
     create(:short_url_request, from_path: "/ministry-of-hair",
                                to_path: "/government/organisations/ministry-of-hair",
-                               route_type: "exact",
                                reason: "Hair enables beards to exist",
                                contact_email: "hairy@example.com",
                                created_at: Time.zone.parse("2014-01-01 12:00:00"),
@@ -91,11 +90,7 @@ feature "Short URL manager responds to short URL requests" do
     accepted_request.reload
     expect(accepted_request.organisation_slug).to eql("full-english")
     expect(accepted_request.organisation_title).to eql("Department of Full English Breakfasts")
-    assert_publishing_api_put_content(redirect_for_accepted_request.content_id,
-                                      publishing_api_redirect_hash('/ministry-of-hair',
-                                                                   target_url,
-                                                                   accepted_request.redirect.content_id,
-                                                                   accepted_request.route_type))
+    assert_publishing_api_put_content(redirect_for_accepted_request.content_id, publishing_api_redirect_hash('/ministry-of-hair', target_url, accepted_request.redirect.content_id))
     # publish has already been called once for the original redirect.
     assert_publishing_api_publish(redirect_for_accepted_request.content_id, nil, 2)
   end

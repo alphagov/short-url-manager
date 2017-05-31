@@ -6,7 +6,6 @@ class ShortUrlRequest
   field :state, type: String, default: 'pending'
   field :from_path, type: String
   field :to_path, type: String
-  field :route_type, type: String, default: 'exact'
   field :reason, type: String
   field :contact_email, type: String
   field :organisation_slug, type: String
