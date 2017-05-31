@@ -3,7 +3,7 @@
     <dt>State:</dt>
     <dd><%= @short_url_request.state.titleize %></dd>
   </dl>
-  <%= render_errors_for @short_url_request, leading_message: "Your request for a URL redirect or short URL could not be made for the following reasons:" %>
+  <%= render_errors_for @short_url_request, leading_message: "Your request for a short URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
       <%= f.label :from_path %>

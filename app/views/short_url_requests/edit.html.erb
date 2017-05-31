@@ -3,10 +3,11 @@
 <%= content_for :page_title, 'Edit short URL' %>
   <h1 class="page-title-with-border">
     <% if @short_url_request.pending? %>
-      Edit URL redirect or short URL request
+      Edit short URL request
     <% else %>
-      Edit live URL redirect or short URL
+      Edit live short URL
     <% end %>
   </h1>
 
   <%= render :partial => 'form' %>
+
