@@ -24,7 +24,6 @@ feature "Short URL manager responds to short URL requests" do
     create(:short_url_request, from_path: "/ministry-of-hair",
                                to_path: "/government/organisations/ministry-of-hair",
                                route_type: "exact",
-                               segments_mode: "ignore",
                                reason: "Hair enables beards to exist",
                                contact_email: "hairy@example.com",
                                created_at: Time.zone.parse("2014-01-01 12:00:00"),
@@ -96,8 +95,7 @@ feature "Short URL manager responds to short URL requests" do
                                       publishing_api_redirect_hash('/ministry-of-hair',
                                                                    target_url,
                                                                    accepted_request.redirect.content_id,
-                                                                   accepted_request.route_type,
-                                                                   accepted_request.segments_mode))
+                                                                   accepted_request.route_type))
     # publish has already been called once for the original redirect.
     assert_publishing_api_publish(redirect_for_accepted_request.content_id, nil, 2)
   end

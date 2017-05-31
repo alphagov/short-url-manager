@@ -10,7 +10,6 @@ class Redirect
   field :from_path, type: String
   field :to_path, type: String
   field :route_type, type: String
-  field :segments_mode, type: String
 
   belongs_to :short_url_request, required: false
 
