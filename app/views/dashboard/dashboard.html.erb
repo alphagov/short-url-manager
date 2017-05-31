@@ -4,7 +4,7 @@
 
 <ul class="list-group col-md-6">
   <% if current_user.can_request_short_urls? %>
-    <li class="list-group-item"><%= link_to "Request a new URL redirect or short URL", new_short_url_request_path %></li>
+    <li class="list-group-item"><%= link_to "Request a new short URL", new_short_url_request_path %></li>
   <% end %>
   <% if current_user.can_manage_short_urls? %>
     <li class="list-group-item"><%= link_to "View pending requests", short_url_requests_path %></li>
