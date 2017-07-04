@@ -19,9 +19,9 @@ shared_examples_for "ShortUrlValidations" do |klass|
       expect(build(klass, to_path: '/a-path')).to be_valid
     end
 
-    it "may be a gov.uk campaign URL" do
-      expect(build(klass, to_path: 'https://my.campaign.gov.uk')).to be_valid
-      expect(build(klass, to_path: 'https://my.campaign.gov.uk/path')).to be_valid
+    it "may be a gov.uk subdomain URL" do
+      expect(build(klass, to_path: 'https://my.service.gov.uk')).to be_valid
+      expect(build(klass, to_path: 'https://my.service.gov.uk/path')).to be_valid
     end
 
     it "must be either a relative path or a gov.uk campaign URL" do
