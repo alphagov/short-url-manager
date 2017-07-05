@@ -53,6 +53,10 @@ class ShortUrlRequest
     state == 'superseded'
   end
 
+  def uses_advanced_options?
+    route_type != 'exact' || segments_mode != 'ignore'
+  end
+
 private
 
   def not_already_live
