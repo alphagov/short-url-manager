@@ -13,6 +13,7 @@ feature "As a publisher, I can request a short URL" do
     click_on "Request a new URL redirect or short URL"
 
     expect(page).to have_select "Organisation", selected: "Ministry of Magic"
+    expect(page).to have_no_content "Advanced options"
 
     fill_in "From or short URL",  with: from_path = "/some-friendly-url"
     fill_in "Target URL",         with: to_path = "/government/publications/some-random-publication"
