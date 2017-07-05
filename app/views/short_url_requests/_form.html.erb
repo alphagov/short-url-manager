@@ -3,21 +3,21 @@
     <dt>State:</dt>
     <dd><%= @short_url_request.state.titleize %></dd>
   </dl>
-  <%= render_errors_for @short_url_request, leading_message: "Your request for a short URL could not be made for the following reasons:" %>
+  <%= render_errors_for @short_url_request, leading_message: "Your request for a URL redirect or short URL could not be made for the following reasons:" %>
   <fieldset>
     <div class="form-group">
       <%= f.label :from_path %>
       <%= f.text_field :from_path, disabled: @short_url_request.persisted?, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
+      <p class="help-block">This is the URL or the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
     </div>
 
     <div class="form-group">
       <%= f.label :to_path %>
       <%= f.text_field :to_path, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the path to redirect the user to. The following types of target URL are supported:</p>
+      <p class="help-block">This is the URL to redirect the user to. The following types of target URL are supported:</p>
       <ul class="help-block">
         <li>Internal gov.uk links, eg. <strong>/government/publications/what-hmrc-does-to-prevent-tax-evasion</strong></li>
-        <li>External gov.uk campaign links, eg. <strong>https://my-campaign-title.campaign.gov.uk/an-optional-path</strong></li>
+        <li>External gov.uk subdomain links, eg. <strong>https://my-title.external.gov.uk/an-optional-path</strong></li>
       </ul>
     </div>
 
@@ -29,7 +29,7 @@
     <div class="form-group">
       <%= f.label :reason %>
       <%= f.text_area :reason, class: 'form-control input-md-8' %>
-      <p class="help-block">Please explain the reason for this request, as requests without a clear and valid reason will be denied. Please also include any other information relevant to this request such as Zendesk ticket numbers.</p>
+      <p class="help-block">Please explain the reason for this request, as requests without a clear and valid reason will be denied. Include any Zendesk ticket URL or other information if available.</p>
     </div>
   </fieldset>
 
@@ -44,4 +44,35 @@
       <% end %>
     </div>
   </fieldset>
+
+  <% if allow_use_of_advanced_options? %>
+  <fieldset>
+    <h2>Advanced options</h2>
+    <p>Leave as defaults if unsure.</p>
+    <div class="form-group">
+      <%= f.label 'From redirects' %>
+      <%= f.select :route_type, options_for_select({ "Exact URL only" => "exact", "URL and all pages under it" => "prefix" }, @short_url_request.route_type), {}, class: 'form-control input-md-6' %>
+      <p>Do not redirect all pages unless you need any page with an address which starts with your input to also be redirected. For example, if you add <strong>gov.uk/address/</strong> then <strong>gov.uk/address/gone</strong> would also be redirected.</p>
+    </div>
+
+    <div class="form-group">
+      <%= f.label 'Segments' %>
+      <%= f.select :segments_mode, options_for_select({ "Discard" => "ignore", "Keep" => "preserve" }, @short_url_request.segments_mode), {}, class: 'form-control input-md-6' %>
+    </div>
+
+    <h3>Help with Segments</h3>
+    <h4>Discard</h4>
+    <h5>Using "Exact URL only"</h5>
+    <p>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong></p>
+    <h5>Using "URL and all pages under it"</h5>
+    <p>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target</strong></p>
+
+
+    <h4>Keep</h4>
+    <h5>Using "Exact URL only"</h5>
+    <p>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target?q=123</strong></p>
+    <h5>Using "URL and all pages under it"</h5>
+    <p>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target/page/?q=123</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target/doe/a/deer</strong></p>
+  </fieldset>
+  <% end %>
 <%- end -%>

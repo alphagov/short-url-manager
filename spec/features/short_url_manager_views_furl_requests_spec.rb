@@ -36,6 +36,8 @@ feature "Short URL manager finds information on short_url requests" do
   scenario "Short URL manager views the details for a single fRUL request" do
     create :short_url_request, from_path: "/ministry-of-beards",
                           to_path: "/government/organisations/ministry-of-beards",
+                          route_type: "exact",
+                          segments_mode: "preserve",
                           reason: "Because we really need to think about beards",
                           contact_email: "gandalf@example.com",
                           created_at: Time.zone.parse("2014-01-01 12:00:00"),
@@ -49,6 +51,8 @@ feature "Short URL manager finds information on short_url requests" do
     expect(page).to have_content "12:00pm, 1 January 2014"
     expect(page).to have_content "/ministry-of-beards"
     expect(page).to have_link "/government/organisations/ministry-of-beards", href: "http://www.dev.gov.uk/government/organisations/ministry-of-beards"
+    expect(page).to have_content "exact"
+    expect(page).to have_content "preserve"
     expect(page).to have_content "Because we really need to think about beards"
     expect(page).to have_content "gandalf@example.com"
   end

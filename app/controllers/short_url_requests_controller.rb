@@ -37,6 +37,10 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def accept
+    if @short_url_request.uses_advanced_options?
+      authorise_user!('advanced_options')
+    end
+
     Commands::ShortUrlRequests::Accept.new(@short_url_request).call(
       failure: -> () { render 'short_url_requests/accept_failed' }
     )
@@ -71,6 +75,18 @@ class ShortUrlRequestsController < ApplicationController
   end
   helper_method :organisations
 
+  def allow_use_of_advanced_options?
+    current_user.has_permission? 'advanced_options'
+  end
+  helper_method :allow_use_of_advanced_options?
+
+  def allow_accepting_request?
+    return true unless @short_url_request.uses_advanced_options?
+
+    allow_use_of_advanced_options?
+  end
+  helper_method :allow_accepting_request?
+
 private
 
   def get_short_url_request
@@ -80,10 +96,10 @@ private
   end
 
   def create_short_url_request_params
-    params[:short_url_request].permit(:from_path, :to_path, :reason, :organisation_slug, :confirmed)
+    params[:short_url_request].permit(:from_path, :to_path, :reason, :route_type, :segments_mode, :organisation_slug, :confirmed)
   end
 
   def update_short_url_request_params
-    params[:short_url_request].permit(:to_path, :reason, :organisation_slug)
+    params[:short_url_request].permit(:to_path, :reason, :route_type, :segments_mode, :organisation_slug)
   end
 end

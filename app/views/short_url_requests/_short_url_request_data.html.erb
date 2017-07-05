@@ -6,12 +6,18 @@
   <dd><%= short_url_request.created_at.to_s(:govuk_date) %></dd>
 
   <% if show_short_url %>
-    <dt>Short URL:</dt>
+    <dt>URL redirect or short URL:</dt>
     <dd><%= short_url_request.from_path %></dd>
   <% end %>
 
   <dt>Target URL:</dt>
   <dd><%= link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path) %></dd>
+
+  <dt>Route type:</dt>
+  <dd><%= short_url_request.route_type %></dd>
+
+  <dt>Segments mode:</dt>
+  <dd><%= short_url_request.segments_mode %></dd>
 
   <dt>Reason:</dt>
   <dd><%= short_url_request.reason %></dd>

@@ -1,6 +1,6 @@
 <% breadcrumb :short_url_request, @short_url_request %>
 
-<h1>Short URL requested by <%= @short_url_request.organisation_title %></h1>
+<h1>URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
 <% if @short_url_request.state == 'pending' && @existing_redirect.present? %>
   <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
@@ -25,8 +25,21 @@
   </div>
 </div>
 
+<% unless allow_accepting_request? %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h2>You cannot accept this redirect request at the moment</h2>
+    </div>
+    <div class="panel-body">
+      Accepting redirect requests with a type of 'prefix', or a
+      segments mode of 'ignore' is currently disabled for most users,
+      as this functionality is still being developed.
+    </div>
+  </div>
+<% end %>
+
 <% if @short_url_request.state == 'pending' %>
-  <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success add-right-margin" %>
+  <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success add-right-margin", disabled: allow_accepting_request? ? nil : 'disabled' %>
   <%= link_to "Reject", new_rejection_short_url_request_path(@short_url_request), class: "btn btn-danger add-right-margin" %>
 <% end %>
 <%= link_to "Edit", edit_short_url_request_path, class: "btn btn-default" %>
