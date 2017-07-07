@@ -177,7 +177,6 @@ source,destination,type,segments
 /government/statistics/announcements/water-abstarction-estimates,/government/statistics/water-abstraction-estimates,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-26-to-30-january-2015,/drug-device-alerts/field-safety-notices-26-to-30-january-2015,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-6-to-13-july-2015,/drug-device-alerts/field-safety-notices-6-to-13-july-2015,,
-/government/uploads/system/uploads/attachment_data/file/192528/Enterprise_Finance_Guarantee_Business_Sectors_and_Purposes.pdf,http://british-business-bank.co.uk/wp-content/uploads/2015/02/BBB-011114-44-EFG-business-sectors-and-purposes.pdf,,
 /trade-tariff/sections,https://www.trade-tariff.service.gov.uk/trade-tariff/sections,prefix,preserve
 /browse/business/licences/oil-and-gas-licensing,/topic/oil-and-gas/licensing,,
 /browse/business/science/clinical-trials,/topic/medicines-medical-devices-blood/clinical-trials-investigations,,
@@ -341,7 +340,6 @@ source,destination,type,segments
 /government/statistics/announcements/milk-utilisation-by-dairies-in-england-and-wales-september-2014,/government/statistics/announcements/milk-utilisation-by-dairies-england-and-wales-september-2014,,
 /government/statistics/announcements/the-effects-of-taxes-and-benefits-on-household-income-household-disposable-income-and-inequality-finanacial-year-ending-march-2014,/government/statistics/announcements/household-disposable-income-and-inequality-financial-year-ending-march-2014,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-24-to-28-august-2015,/drug-device-alerts/field-safety-notices-24-to-28-august-2015,,
-/service-manual/digital-by-default-26-points.html,http://webarchive.nationalarchives.gov.uk/20160609173223/https://www.gov.uk/service-manual/digital-by-default-26-points,,
 /trade-tariff/search,https://www.trade-tariff.service.gov.uk/trade-tariff/search,prefix,preserve
 /browse/business/imports-exports/embargoes-and-sanctions,/topic/business-enterprise/importing-exporting,,
 /browse/business/premises-rates/management-and-use-of-the-ministry-of-defence-estate,/topic/defence-armed-forces/ministry-of-defence-estate,,
@@ -401,7 +399,6 @@ source,destination,type,segments
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-8-to-12-june-2015,/drug-device-alerts/field-safety-notices-8-to-12-june-2015,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-9-to-13-february-2015,/drug-device-alerts/field-safety-notices-9-to-13-february-2015,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-9-to-13-march-2015,/drug-device-alerts/field-safety-notices-9-to-13-march-2015,,
-/government/uploads/system/uploads/attachment_data/file/330210/1st_quarter_2014_EFG_Statistics_2.xls,http://british-business-bank.co.uk/wp-content/uploads/2015/02/BBB-011114-44-EFG-business-sectors-and-purposes.pdf,,
 /trade-tariff/geographical_areas.json,https://www.trade-tariff.service.gov.uk/trade-tariff/geographical_areas.json,exact,ignore
 /trade-tariff/opensearch,https://www.trade-tariff.service.gov.uk/trade-tariff/opensearch,prefix,preserve
 /breakdowns-and-incidents-274-to-287/incidents-involving-dangerous-goods-284-to-285,/guidance/the-highway-code/breakdowns-and-incidents-274-to-287,,
@@ -477,8 +474,6 @@ source,destination,type,segments
 /government/statistics/announcements/sickness-absence-rates-in-the-nhs-april-2014-to-june-2014,/government/statistics/nhs-sickness-absence-rates-april-2014-to-june-2014,,
 /government/statistics/announcements/statistics-on-alcohol-england-2014-additional-tables,/government/statistics/statistics-on-alcohol-england-2014-additional-tables--2,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-29-june-to-3-july-2015,/drug-device-alerts/field-safety-notices-29-june-to-3-july-2015,,
-/government/uploads/system/uploads/attachment_data/file/192532/Enterprise_Finance_Guarantee_FAQs.pdf,http://british-business-bank.co.uk/wp-content/uploads/2015/02/BBB-011114-44-EFG-business-sectors-and-purposes.pdf,,
-/service-manual/digital-by-default-26-points,http://webarchive.nationalarchives.gov.uk/20160609173223/https://www.gov.uk/service-manual/digital-by-default-26-points,,
 /breakdowns-and-incidents-274-to-287/documentation-286-to-287,/guidance/the-highway-code/breakdowns-and-incidents-274-to-287,,
 /browse/business/generating-energy/oil-and-gas-exploration-and-production,/topic/oil-and-gas/exploration-and-production,,
 /browse/business/sale-goods-services-data/military-equipment-logistics-and-technology,/topic/defence-armed-forces/military-equipment-logistics-technology,,
@@ -531,7 +526,6 @@ source,destination,type,segments
 /west-scotland-loan-fund-wslf-helensburgh-lomond,/business-finance-support,,
 /wills-probate-inheritance/if-you-inherit-property,/tax-property-money-shares-you-inherit,,
 /government/statistics/announcements/local-government-pension-scheme-funds-england-2013-14,/government/statistics/local-government-pension-scheme-funds-for-england-2013-to-2014,,
-/cloudstore,http://gcloud.civilservice.gov.uk/cloudstore/,,
 /government/statistics/announcements/nhs-continuing-healthcare-activity-in-england-january-to-march-2014-to-2015,/government/statistics/nhs-continuing-healthcare-activity-in-england-april-to-june-and-july-to-september-2014,,
 /government/statistics/announcements/psychological-therapies-in-england-annual-report-on-the-use-of-iapt-services-2012-to-2013,/government/statistics/psychological-therapies-annual-report-on-use-of-improving-access-to-psychological-therapies-iapt-services-england-2013-to-2014,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-26-to-30-october-2015,/drug-device-alerts/field-safety-notices-26-to-30-october-2015,,
@@ -771,8 +765,6 @@ source,destination,type,segments
 /government/statistics/announcements/regional-household-income-spring-2015,/government/statistics/announcements/regional-gross-disposable-household-income-gdhi-2013,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-11-to-15-may-2015,/drug-device-alerts/field-safety-notices-11-to-15-may-2015,,
 /government/publications/safety-information-from-manufacturers-field-safety-notices/field-safety-notices-13-to-17-april-2015,/drug-device-alerts/field-safety-notices-13-to-17-april-2015,,
-/devtracker,http://devtracker.dfid.gov.uk/,,
-/government/uploads/system/uploads/attachment_data/file/243720/efg-backed-loan-application-process-and-list-of-lenders-aug-2013.pdf,http://british-business-bank.co.uk/wp-content/uploads/2015/02/BBB-011114-44-EFG-business-sectors-and-purposes.pdf,,
 /trade-tariff/cookies,https://www.trade-tariff.service.gov.uk/trade-tariff/cookies,prefix,preserve
 /browse/births-deaths-marriages/death/death-registration-disclosure,/topic/death/death-registration-disclosure,,
 /browse/business/farming/grants-and-payments-for-farmers,/topic/farming-food-grants-payments/rural-grants-payments,,
