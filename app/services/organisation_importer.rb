@@ -24,12 +24,12 @@ class OrganisationImporter
 private
 
   def get_organisations_data
-    api_adapter.organisations.with_subsequent_pages.map {|result|
+    api_adapter.organisations.with_subsequent_pages.map do |result|
       {
-        title: result.title,
-        slug: result.details.slug
+        title: result.dig("title"),
+        slug: result.dig("details", "slug")
       }
-    }
+    end
   end
 
   def api_adapter

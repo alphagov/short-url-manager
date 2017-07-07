@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '~> 5.1'
 gem 'sass-rails', '~> 5.0'
 
 gem 'mongoid', '6.0.2'
@@ -21,8 +21,8 @@ gem 'gretel', '3.0.9'
 
 gem 'govuk_admin_template', '~> 4.1'
 gem 'gds-sso', '~> 13.0.0'
-gem 'plek', '~> 1.12.0'
-gem 'gds-api-adapters', '~> 34.1'
+gem 'plek'
+gem 'gds-api-adapters'
 
 group :development, :test do
   gem 'rails-controller-testing'
