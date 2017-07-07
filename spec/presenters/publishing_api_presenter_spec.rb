@@ -13,7 +13,6 @@ RSpec.describe Presenters::PublishingAPI do
     presented = described_class.present(redirect)
 
     expect(presented).to eq(
-      "content_id" => redirect.content_id,
       "base_path" => "/from/path",
       "schema_name" => "redirect",
       "document_type" => "redirect",

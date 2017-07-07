@@ -1,7 +1,6 @@
 module PublishingApiHelper
-  def publishing_api_redirect_hash(from_path, to_path, content_id, route_type, segments_mode)
+  def publishing_api_redirect_hash(from_path, to_path, route_type, segments_mode)
     {
-      "content_id" => content_id,
       "base_path" => from_path,
       "document_type" => "redirect",
       "schema_name" => "redirect",

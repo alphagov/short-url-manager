@@ -95,7 +95,6 @@ feature "Short URL manager responds to short URL requests" do
     assert_publishing_api_put_content(redirect_for_accepted_request.content_id,
                                       publishing_api_redirect_hash('/ministry-of-hair',
                                                                    target_url,
-                                                                   accepted_request.redirect.content_id,
                                                                    accepted_request.route_type,
                                                                    accepted_request.segments_mode))
     # publish has already been called once for the original redirect.
