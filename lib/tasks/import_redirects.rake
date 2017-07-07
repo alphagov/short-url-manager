@@ -1,8 +1,11 @@
 require 'csv'
+require 'gds_api/publishing_api'
 
 namespace :redirects do
   desc "Import redirects"
-  task :import, [:file] => :environment do |_, args|
+  task :import, [:file, :change_path_reservation?] => :environment do |_, args|
+    args.with_defaults(change_path_reservation?: false)
+
     data = CSV.read(args[:file])
 
     data.shift # Remove the CSV header
@@ -10,6 +13,11 @@ namespace :redirects do
     created = 0
     skipped = 0
     errors = {}
+
+    publishing_api_client = GdsApi::PublishingApi.new(
+      Plek.find('publishing-api'),
+      bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
+    )
 
     begin
       data.each do |row|
@@ -28,6 +36,14 @@ namespace :redirects do
           print '-'
         else
           begin
+            if args[:change_path_reservation?]
+              publishing_api_client.put_path(
+                fields[:from_path],
+                publishing_app: 'short-url-manager',
+                override_existing: true,
+              )
+            end
+
             Redirect.create!(fields)
 
             created += 1
