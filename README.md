@@ -45,9 +45,11 @@ You will need a copy of [govuk-content-schemas](https://github.com/alphagov/govu
 
 ## Permissions
 
-Users must be given sign on permissions to access and use the features of this tool. There are two kinds of permission:
+Users must be given Signon permissions to access and use the features
+of this tool. The available permissions are:
 - `request_short_urls`: Can complete a form to request a new Short URL, which must be approved before being made
 - `manage_short_urls`: Can approve requests for Short URLs, and create the redirects on GOV.UK
+- `advanced_options`: Can create and approve requests using advanced options (prefix type redirects, and non-default segments mode values).
 
 ## Licence
 
