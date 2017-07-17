@@ -26,8 +26,18 @@ namespace :redirects do
           to_path: row[1],
         }
 
-        fields[:route_type] = row[2] if row[2].present?
-        fields[:segments_mode] = row[3] if row[3].present?
+        fields[:route_type] = row[2] || 'exact'
+
+        default_segments_mode = case fields[:route_type]
+                                when 'exact'
+                                  fields[:segments_mode] = 'ignore'
+                                when 'prefix'
+                                  fields[:segments_mode] = 'preserve'
+                                else
+                                  raise "Unknown route type \"#{fields[:route_type]}\""
+                                end
+
+        fields[:segments_mode] = row[3] || default_segments_mode
 
         redirect = Redirect.where(from_path: fields[:from_path]).first
 
