@@ -1,8 +1,11 @@
-.form_errors {
-  border: solid 1px #a94442;
+$error-border-colour: #a94442;
+$error-colour: #a94442;
+
+.form-errors {
+  border: solid 1px $error-border-colour;
   border-radius: 3px;
   padding: 15px;
-  color: #a94442;
+  color: $error-colour;
   margin-bottom: 20px;
 
   p {
