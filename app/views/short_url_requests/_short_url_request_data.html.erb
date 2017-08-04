@@ -13,6 +13,9 @@
   <dt>Target URL:</dt>
   <dd><%= link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path) %></dd>
 
+  <dt>Override existing:</dt>
+  <dd><%= short_url_request.override_existing? ? "Yes" : "No" %></dd>
+
   <dt>Route type:</dt>
   <dd><%= short_url_request.route_type %></dd>
 

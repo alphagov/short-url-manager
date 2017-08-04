@@ -96,10 +96,10 @@ private
   end
 
   def create_short_url_request_params
-    params[:short_url_request].permit(:from_path, :to_path, :reason, :route_type, :segments_mode, :organisation_slug, :confirmed)
+    params[:short_url_request].permit(:from_path, :to_path, :reason, :route_type, :segments_mode, :organisation_slug, :override_existing, :confirmed)
   end
 
   def update_short_url_request_params
-    params[:short_url_request].permit(:to_path, :reason, :route_type, :segments_mode, :organisation_slug)
+    params[:short_url_request].permit(:to_path, :reason, :route_type, :segments_mode, :override_existing, :organisation_slug)
   end
 end

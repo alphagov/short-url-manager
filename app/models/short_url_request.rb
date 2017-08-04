@@ -8,6 +8,7 @@ class ShortUrlRequest
   field :to_path, type: String
   field :route_type, type: String, default: 'exact'
   field :segments_mode, type: String, default: 'ignore'
+  field :override_existing, type: Boolean, default: false
   field :reason, type: String
   field :contact_email, type: String
   field :organisation_slug, type: String
