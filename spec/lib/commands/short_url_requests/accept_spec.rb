@@ -11,7 +11,7 @@ describe Commands::ShortUrlRequests::Accept do
       command.call(failure: failure)
 
       expect(url_request.redirect).not_to be_nil
-      expect(url_request.redirect.attributes.slice(:from_path, :to_path)).to eq(url_request.attributes.slice(:from_path, :to_path))
+      expect(url_request.redirect.attributes.slice(:from_path, :to_path, :override_existing)).to eq(url_request.attributes.slice(:from_path, :to_path, :override_existing))
     end
 
     it "changes request state to accepted" do

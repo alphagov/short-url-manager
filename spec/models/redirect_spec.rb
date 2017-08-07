@@ -1,9 +1,11 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
+require 'gds_api/test_helpers/publishing_api'
 require "securerandom"
 
 describe Redirect do
   include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
   include PublishingApiHelper
 
   include_examples "ShortUrlValidations", :redirect
@@ -60,6 +62,20 @@ describe Redirect do
           redirect_hash = publishing_api_redirect_hash(redirect.from_path, redirect.to_path, redirect.route_type, redirect.segments_mode)
           assert_publishing_api_put_content(redirect.content_id, redirect_hash)
           assert_publishing_api_publish(redirect.content_id)
+        end
+      end
+
+      context "when override_existing is set" do
+        let(:redirect) { build :redirect, override_existing: true }
+        before(:context) { stub_default_publishing_api_path_reservation }
+
+        it "should put a publish intent to the publishing API" do
+          api_url = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_ENDPOINT
+          assert_publishing_api_put(
+            "#{api_url}/paths#{redirect.from_path}",
+            publishing_app: 'short-url-manager',
+            override_existing: true
+)
         end
       end
 
