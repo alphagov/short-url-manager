@@ -12,7 +12,7 @@ class Commands::ShortUrlRequests::Accept
     # can't as the tests fail - seems the `try` version still retains a proxy
     existing_request = redirect.short_url_request.nil? ? nil : redirect.short_url_request.target
 
-    if redirect.update_attributes(to_path: url_request.to_path, short_url_request: url_request)
+    if redirect.update_attributes(to_path: url_request.to_path, short_url_request: url_request, override_existing: url_request.override_existing)
       url_request.update_attribute(:state, 'accepted')
       existing_request.update_attribute(:state, 'superseded') if existing_request.present?
       Notifier.short_url_request_accepted(url_request).deliver_now
