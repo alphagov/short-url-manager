@@ -10,8 +10,6 @@ gem 'mongoid_rails_migrations', '~> 1.0.1'
 gem 'uglifier', '~> 3.0.2'
 
 gem 'unicorn', '~> 5.1.0'
-gem 'airbrake', '~> 5.5'
-gem 'airbrake-ruby', '1.5'
 gem 'logstasher', '~> 0.5.3'
 gem 'whenever', '~> 0.9.2', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
@@ -23,6 +21,7 @@ gem 'govuk_admin_template', '~> 4.1'
 gem 'gds-sso', '~> 13.0.0'
 gem 'plek'
 gem 'gds-api-adapters'
+gem "govuk_app_config", "~> 0.2.0"
 
 group :development, :test do
   gem 'rails-controller-testing'
