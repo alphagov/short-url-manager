@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Commands::ShortUrlRequests::Create do
-  let(:user) { create(:short_url_manager) }
+  let(:user) { create(:short_url_manager_and_recipient) }
   subject(:command) { described_class.new(params, user) }
 
   let(:success) { double(:success, call: true) }

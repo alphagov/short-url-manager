@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
 
   def short_url_requested(short_url_request)
     @short_url_request = short_url_request
-    to = User.short_url_managers.map(&:email)
+    to = User.notification_recipients.map(&:email)
     subject = "#{prefix}Short URL request for '#{short_url_request.from_path}' by #{short_url_request.organisation_title}"
     mail to: to, subject: subject
   end

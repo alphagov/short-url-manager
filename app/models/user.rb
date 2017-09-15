@@ -12,6 +12,7 @@ class User
   field :organisation_content_id, type: String
 
   scope :short_url_managers, -> { where(permissions: /manage_short_urls/) }
+  scope :notification_recipients, -> { where(permissions: /receive_notifications/) }
 
   def can_request_short_urls?
     permissions.include? 'request_short_urls'
