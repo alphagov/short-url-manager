@@ -2,7 +2,7 @@
 
 Publishing tool to request, approve and create Short URLs on GOV.UK.
 
-##Technical documentation
+## Technical documentation
 
 Short URLs are a short and easy to type URL that redirects to a piece of content at a much longer URL.
 
