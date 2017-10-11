@@ -15,7 +15,7 @@ class ShortUrlRequest
   field :organisation_title, type: String
   field :rejection_reason, type: String
 
-  belongs_to :requester, class_name: "User"
+  belongs_to :requester, class_name: "User", optional: true
   has_one :redirect
 
   validates :state, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true

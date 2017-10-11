@@ -11,6 +11,10 @@ describe ShortUrlRequest do
     specify { expect(build(:short_url_request, organisation_title: '')).to_not be_valid }
     specify { expect(build(:short_url_request, organisation_slug: '')).to_not be_valid }
 
+    it "should not require a requester association" do
+      expect(build(:short_url_request, requester: nil)).to be_valid
+    end
+
     it "should allow 'pending', 'accepted', 'rejected', and 'superseded' as acceptable state values" do
       expect(build(:short_url_request, state: 'pending')).to be_valid
       expect(build(:short_url_request, state: 'accepted')).to be_valid
