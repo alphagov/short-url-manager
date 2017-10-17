@@ -4,11 +4,11 @@ feature "As a publisher, I can request a short URL" do
   background do
     create :organisation, title: 'Ministry of Magic', slug: 'ministry-of-magic'
     create :organisation, title: 'Ministry of Beards', slug: 'ministry-of-beards'
-    create :short_url_manager, email: "short-url-manager-1@example.com"
+    create :notification_recipient, email: "short-url-manager-1@example.com"
     login_as create(:short_url_requester, name: "Gandalf", email: "gandalf@example.com", organisation_slug: "ministry-of-magic")
   end
 
-  scenario "Publisher requests a short_url, and short_url managers are notified" do
+  scenario "Publisher requests a short_url, and notification_recipients are notified" do
     visit "/"
     click_on "Request a new URL redirect or short URL"
 

@@ -58,8 +58,8 @@ describe Notifier do
       expect(mail).to have_body_content "You can respond to this request here: #{Plek.current.find('short-url-manager') + short_url_request_path(short_url_request)}"
     end
 
-    context "with several users with permissions to manage short_urls" do
-      let!(:users) { 3.times.map { create :short_url_manager } }
+    context "with several users with permissions to receive notifications" do
+      let!(:users) { 3.times.map { create :notification_recipient } }
 
       it "should send to all users with the request_short_urls permission" do
         expect(mail.to).to include users[0].email
