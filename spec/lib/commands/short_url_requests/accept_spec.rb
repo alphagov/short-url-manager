@@ -11,13 +11,36 @@ describe Commands::ShortUrlRequests::Accept do
       command.call(failure: failure)
 
       expect(url_request.redirect).not_to be_nil
-      expect(url_request.redirect.attributes.slice(:from_path, :to_path, :override_existing)).to eq(url_request.attributes.slice(:from_path, :to_path, :override_existing))
+      expect(url_request.redirect.attributes.slice(:from_path, :to_path, :override_existing, :segments_mode)).to eq(url_request.attributes.slice(:from_path, :to_path, :override_existing, :route_type, :segments_mode))
     end
 
     it "changes request state to accepted" do
       command.call(failure: failure)
 
       expect(url_request).to be_accepted
+    end
+  end
+
+  context "with advanced options" do
+    let(:advanced_request) { create(:short_url_request, from_path: "/a-friendly-url", route_type: "prefix", segments_mode: "preserve") }
+    let(:advanced_accept) { described_class.new(advanced_request) }
+
+    it "creates a redirect with route type of 'prefix'" do
+      advanced_accept.call(failure: failure)
+      expect(advanced_request.redirect).not_to be_nil
+
+      redirect = Redirect.find_by(from_path: "/a-friendly-url")
+
+      expect(redirect.route_type).to eq("prefix")
+    end
+
+    it "creates a redirect with segment mode of 'preserve'" do
+      advanced_accept.call(failure: failure)
+      expect(advanced_request.redirect).not_to be_nil
+
+      redirect = Redirect.find_by(from_path: "/a-friendly-url")
+
+      expect(redirect.segments_mode).to eq("preserve")
     end
   end
 
