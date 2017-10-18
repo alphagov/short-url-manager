@@ -140,4 +140,32 @@ describe Commands::ShortUrlRequests::Create do
       end
     end
   end
+
+  context "with advanced options" do
+    let(:params) {
+      {
+        from_path: "/a-friendly-url",
+        to_path: "/somewhere/a-document",
+        reason: "Because wombles",
+        organisation_slug: organisation.slug,
+        confirmed: true,
+        route_type: "exact",
+        segments_mode: "preserve",
+        override_existing: false
+      }
+    }
+
+    it "creates a redirect with segment mode of 'preserve'" do
+      command.call(
+        success: success,
+        failure: failure,
+        confirmation_required: confirmation_required,
+      )
+
+      expect(success).to have_received(:call).once.with(instance_of(ShortUrlRequest))
+      request = ShortUrlRequest.find_by(from_path: "/a-friendly-url")
+
+      expect(request.segments_mode).to eq("preserve")
+    end
+  end
 end

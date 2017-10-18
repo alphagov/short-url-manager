@@ -4,6 +4,11 @@
   <%= f.hidden_field :organisation_slug %>
   <%= f.hidden_field :reason %>
   <%= f.hidden_field :confirmed, value: true %>
+  <% if allow_use_of_advanced_options? %>
+    <%= f.hidden_field :override_existing %>
+    <%= f.hidden_field :route_type %>
+    <%= f.hidden_field :segments_mode %>
+  <% end %>
   <% if would_overwrite_existing?(@short_url_request) %>
     <h1>Redirects for that URL redirect or short URL already exist!</h1>
   <% else %>
