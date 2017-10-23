@@ -10,6 +10,9 @@ class Commands::ShortUrlRequests::Update
         url_request.redirect.update_attributes(
           from_path: url_request.from_path,
           to_path: url_request.to_path,
+          route_type: url_request.route_type,
+          segments_mode: url_request.segments_mode,
+          override_existing: url_request.override_existing,
         )
       end
 

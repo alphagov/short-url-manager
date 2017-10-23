@@ -12,6 +12,10 @@ FactoryGirl.define do
     permissions %w(signin manage_short_urls)
   end
 
+  factory :short_url_manager_with_advanced_options, parent: :user do
+    permissions %w(signin manage_short_urls advanced_options)
+  end
+
   factory :short_url_manager_and_recipient, parent: :user do
     permissions %w(signin manage_short_urls receive_notifications)
   end
