@@ -55,13 +55,13 @@
       <p>This will allow the redirect to override any existing content for this path. Be <strong>very careful</strong> with this option.</p>
     </div>
     <div class="form-group">
-      <%= f.label 'From redirects' %>
+      <%= f.label :route_type, 'From redirects' %>
       <%= f.select :route_type, options_for_select({ "Exact URL only" => "exact", "URL and all pages under it" => "prefix" }, @short_url_request.route_type), {}, class: 'form-control input-md-6' %>
       <p>Do not redirect all pages unless you need any page with an address which starts with your input to also be redirected. For example, if you add <strong>gov.uk/address/</strong> then <strong>gov.uk/address/gone</strong> would also be redirected.</p>
     </div>
 
     <div class="form-group">
-      <%= f.label 'Segments' %>
+      <%= f.label :segments_mode, 'Segments' %>
       <%= f.select :segments_mode, options_for_select({ "Discard" => "ignore", "Keep" => "preserve" }, @short_url_request.segments_mode), {}, class: 'form-control input-md-6' %>
     </div>
 
