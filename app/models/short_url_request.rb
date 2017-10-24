@@ -61,7 +61,15 @@ class ShortUrlRequest
 private
 
   def not_already_live
-    if Redirect.where(from_path: from_path, to_path: to_path).present?
+    if Redirect
+         .where(
+           from_path: from_path,
+           to_path: to_path,
+           route_type: route_type,
+           segments_mode: segments_mode,
+           override_existing: override_existing,
+         )
+         .exists?
       errors.add(:base, 'The specified Short URL already redirects to the specified Target URL')
       false
     end
