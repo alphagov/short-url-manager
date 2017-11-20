@@ -86,9 +86,7 @@ class CreateRedirectsForDesignPrinciples < Mongoid::Migration
         # this content_id extracted from the design-principles special routes publishing rake task
         '7672ae7d-6efb-4816-bd74-c49a6cb43f04',
         {
-          type: 'gone',
-          explanation: 'The design-principles application is being retired and there is no alternative for this content published in the ATOM format.',
-          alternative_path: '/guidance/style-guide/updates'
+          type: 'gone'
         }
       )
     end
