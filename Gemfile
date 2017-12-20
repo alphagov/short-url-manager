@@ -13,7 +13,7 @@ gem 'unicorn', '~> 5.1.0'
 gem 'logstasher', '~> 1.2.2'
 gem 'whenever', '~> 0.9.2', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
-gem 'redis', '3.3.1', require: false # Used by the Organisation importer as a locking mechanism
+gem 'redis', '4.0.1', require: false # Used by the Organisation importer as a locking mechanism
 gem 'mlanett-redis-lock', '0.2.7' # Used by the Organisation importer as a locking mechanism
 gem 'gretel', '3.0.9'
 
