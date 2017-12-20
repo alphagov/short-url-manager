@@ -26,7 +26,7 @@ gem "govuk_app_config", "~> 0.2.0"
 group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.7.2'
-  gem 'factory_girl_rails', '~> 4.7.0'
+  gem 'factory_girl_rails', '~> 4.9.0'
 
   gem 'simplecov', '~> 0.12.0', require: false
   gem 'simplecov-rcov', '~> 0.2.3', require: false

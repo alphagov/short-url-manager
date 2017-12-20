@@ -82,10 +82,10 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.0)
     execjs (2.7.0)
-    factory_girl (4.7.0)
+    factory_girl (4.9.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.7.0)
-      factory_girl (~> 4.7.0)
+    factory_girl_rails (4.9.0)
+      factory_girl (~> 4.9.0)
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -340,7 +340,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.8.1)
   database_cleaner (~> 1.5.3)
-  factory_girl_rails (~> 4.7.0)
+  factory_girl_rails (~> 4.9.0)
   gds-api-adapters
   gds-sso (~> 13.0.0)
   govuk-content-schema-test-helpers
