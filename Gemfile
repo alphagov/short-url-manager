@@ -9,7 +9,7 @@ gem 'mongoid_rails_migrations', git: "https://github.com/alphagov/mongoid_rails_
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 3.0.2'
 
-gem 'unicorn', '~> 5.1.0'
+gem 'unicorn', '~> 5.4.0'
 gem 'logstasher', '~> 1.2.2'
 gem 'whenever', '~> 0.9.2', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
