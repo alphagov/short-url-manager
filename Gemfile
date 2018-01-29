@@ -17,7 +17,7 @@ gem 'redis', '4.0.1', require: false # Used by the Organisation importer as a lo
 gem 'mlanett-redis-lock', '0.2.7' # Used by the Organisation importer as a locking mechanism
 gem 'gretel', '3.0.9'
 
-gem 'govuk_admin_template', '~> 6.4'
+gem 'govuk_admin_template', '~> 6.5'
 gem 'gds-sso', '~> 13.5.1'
 gem 'plek'
 gem 'gds-api-adapters'
