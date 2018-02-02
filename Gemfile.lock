@@ -353,7 +353,6 @@ DEPENDENCIES
   govuk_admin_template (~> 6.5)
   govuk_app_config (~> 1.3.0)
   gretel (= 3.0.9)
-  logstasher (~> 1.2.2)
   mlanett-redis-lock (= 0.2.7)
   mongoid (= 6.2.1)
   mongoid_rails_migrations!
@@ -367,10 +366,9 @@ DEPENDENCIES
   simplecov (~> 0.15.1)
   simplecov-rcov (~> 0.2.3)
   uglifier (~> 4.1.4)
-  unicorn (~> 5.4.0)
   webmock (~> 3.3.0)
   whenever (~> 0.10.0)
   will_paginate_mongoid (~> 2.0.1)
 
 BUNDLED WITH
-   1.15.1
+   1.16.1
