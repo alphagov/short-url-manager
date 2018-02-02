@@ -21,7 +21,7 @@ gem 'govuk_admin_template', '~> 6.5'
 gem 'gds-sso', '~> 13.5.1'
 gem 'plek'
 gem 'gds-api-adapters'
-gem "govuk_app_config", "~> 0.2.0"
+gem "govuk_app_config", "~> 1.3.0"
 
 group :development, :test do
   gem 'rails-controller-testing'
