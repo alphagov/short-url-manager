@@ -9,8 +9,6 @@ gem 'mongoid_rails_migrations', git: "https://github.com/alphagov/mongoid_rails_
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.1.4'
 
-gem 'unicorn', '~> 5.4.0'
-gem 'logstasher', '~> 1.2.2'
 gem 'whenever', '~> 0.10.0', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
 gem 'redis', '4.0.1', require: false # Used by the Organisation importer as a locking mechanism
@@ -21,7 +19,7 @@ gem 'govuk_admin_template', '~> 6.5'
 gem 'gds-sso', '~> 13.5.1'
 gem 'plek'
 gem 'gds-api-adapters'
-gem "govuk_app_config", "~> 0.2.0"
+gem "govuk_app_config", "~> 1.3.0"
 
 group :development, :test do
   gem 'rails-controller-testing'
