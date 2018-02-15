@@ -4,6 +4,6 @@ module UrlHelper
   end
 
   def short_url_manger_url_for(path)
-    (Plek.current.find('short-url-manager') + path).to_s
+    (Plek.new.external_url_for('short-url-manager') + path).to_s
   end
 end

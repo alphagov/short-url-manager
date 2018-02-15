@@ -7,7 +7,7 @@
 <% content_for :app_title, "Short URL manager" %>
 
 <% content_for :navbar_right do %>
-  Hello, <%= link_to current_user.name, Plek.current.find('signon') %>
+  Hello, <%= link_to current_user.name, Plek.new.external_url_for('signon') %>
   &bull; <%= link_to 'Sign out', gds_sign_out_path %>
 <% end %>
 

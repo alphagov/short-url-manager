@@ -55,7 +55,7 @@ describe Notifier do
     end
 
     it "includes a link to the short url request" do
-      expect(mail).to have_body_content "You can respond to this request here: #{Plek.current.find('short-url-manager') + short_url_request_path(short_url_request)}"
+      expect(mail).to have_body_content "You can respond to this request here: #{Plek.new.external_url_for('short-url-manager') + short_url_request_path(short_url_request)}"
     end
 
     context "with several users with permissions to receive notifications" do
