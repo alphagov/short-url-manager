@@ -310,7 +310,7 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.6)
+    uglifier (4.1.7)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -366,7 +366,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   simplecov (~> 0.15.1)
   simplecov-rcov (~> 0.2.3)
-  uglifier (~> 4.1.6)
+  uglifier (~> 4.1.7)
   webmock (~> 3.3.0)
   whenever (~> 0.10.0)
   will_paginate_mongoid (~> 2.0.1)
