@@ -119,7 +119,7 @@ GEM
       bootstrap-sass (= 3.3.5.1)
       jquery-rails (~> 4.3.1)
       rails (>= 3.2.0)
-    govuk_app_config (1.4.1)
+    govuk_app_config (1.4.2)
       logstasher (~> 1.2.2)
       sentry-raven (~> 2.7.1)
       statsd-ruby (~> 1.4.0)
@@ -352,7 +352,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk-lint
   govuk_admin_template (~> 6.5)
-  govuk_app_config (~> 1.4.1)
+  govuk_app_config (~> 1.4.2)
   gretel (= 3.0.9)
   mlanett-redis-lock (= 0.2.7)
   mongoid (= 6.2.1)
