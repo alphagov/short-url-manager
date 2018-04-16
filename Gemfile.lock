@@ -367,7 +367,7 @@ DEPENDENCIES
   mongoid_rails_migrations!
   plek
   pry
-  rails (~> 5.1)
+  rails (~> 5.2)
   rails-controller-testing
   redis (= 4.0.1)
   rspec-rails (~> 3.7.2)
