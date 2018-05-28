@@ -67,7 +67,7 @@ GEM
     bson (4.2.2)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.1.0)
+    capybara (3.1.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -344,7 +344,7 @@ GEM
     will_paginate_mongoid (2.0.1)
       mongoid
       will_paginate (~> 3.0)
-    xpath (3.0.0)
+    xpath (3.1.0)
       nokogiri (~> 1.8)
 
 PLATFORMS
@@ -352,7 +352,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  capybara (~> 3.1.0)
+  capybara (~> 3.1.1)
   database_cleaner (~> 1.7.0)
   factory_girl_rails (~> 4.9.0)
   gds-api-adapters
