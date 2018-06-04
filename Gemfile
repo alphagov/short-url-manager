@@ -30,7 +30,7 @@ group :development, :test do
   gem 'simplecov-rcov', '~> 0.2.3', require: false
   gem 'capybara', '~> 3.1.1'
   gem 'database_cleaner', '~> 1.7.0'
-  gem 'webmock', '~> 3.4.1', require: false
+  gem 'webmock', '~> 3.4.2', require: false
 
   gem 'byebug'
   gem 'pry'
