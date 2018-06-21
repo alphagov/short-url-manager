@@ -124,7 +124,7 @@ GEM
       jquery-rails (~> 4.3.1)
       plek (>= 2.1.0)
       rails (>= 3.2.0)
-    govuk_app_config (1.5.0)
+    govuk_app_config (1.5.1)
       logstasher (~> 1.2.2)
       sentry-raven (~> 2.7.1)
       statsd-ruby (~> 1.4.0)
@@ -296,7 +296,7 @@ GEM
     scss_lint (0.57.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5.5)
-    sentry-raven (2.7.3)
+    sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -360,7 +360,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk-lint
   govuk_admin_template (~> 6.6)
-  govuk_app_config (~> 1.5.0)
+  govuk_app_config (~> 1.5.1)
   gretel (= 3.0.9)
   mlanett-redis-lock (= 0.2.7)
   mongoid (= 6.2.1)
