@@ -7,7 +7,7 @@ gem 'mongoid', '6.2.1'
 gem 'mongoid_rails_migrations', git: "https://github.com/alphagov/mongoid_rails_migrations", branch: "avoid-calling-bundler-require-in-library-code-v1.1.0-plus-mongoid-v5-fix"
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 4.1.15'
+gem 'uglifier', '~> 4.1.17'
 
 gem 'whenever', '~> 0.10.0', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
