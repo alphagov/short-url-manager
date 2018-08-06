@@ -23,7 +23,7 @@ gem "govuk_app_config", "~> 1.7.0"
 
 group :development, :test do
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.7.2'
+  gem 'rspec-rails', '~> 3.8.0'
   gem 'factory_girl_rails', '~> 4.9.0'
 
   gem 'simplecov', '~> 0.16.1', require: false
