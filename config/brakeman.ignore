@@ -1,0 +1,25 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "144fc76ebaa10c5b7a54bced48c4fdcf90107669cdafdbd680de4c59f7b38e95",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/short_url_requests/index.html.erb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => ShortUrlRequest.pending.order_by([:created_at, \"desc\"]).paginate(:page => params[:page], :per_page => 40), {})",
+      "render_path": [{"type":"controller","class":"ShortUrlRequestsController","method":"index","line":8,"file":"app/controllers/short_url_requests_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "short_url_requests/index"
+      },
+      "user_input": "params[:page]",
+      "confidence": "Weak",
+      "note": "This is a known bug in Brakeman where it thinks there is a dynamic render path when rendering a collection of models. https://stackoverflow.com/questions/48172135/brakeman-warning-dynamic-render-path?rq=1"
+    }
+  ],
+  "updated": "2018-08-09 09:25:15 +0100",
+  "brakeman_version": "4.3.1"
+}
