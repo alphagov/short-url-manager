@@ -242,10 +242,10 @@ describe ShortUrlRequestsController do
       before do
         stub_any_publishing_api_call
 
-        existing_url_request = FactoryGirl.create(:short_url_request,
+        existing_url_request = FactoryBot.create(:short_url_request,
           from_path: short_url_request.from_path,
         )
-        @existing_redirect = FactoryGirl.create(:redirect,
+        @existing_redirect = FactoryBot.create(:redirect,
           to_path: "/some/existing/path",
           from_path: short_url_request.from_path,
           short_url_request: existing_url_request,

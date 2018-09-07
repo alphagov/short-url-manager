@@ -1,7 +1,7 @@
 require 'simplecov'
 require 'simplecov-rcov'
 require 'capybara/rspec'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'webmock/rspec'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.start 'rails'
@@ -37,7 +37,7 @@ RSpec.configure do |config|
     Warden.test_reset!
   end
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with
