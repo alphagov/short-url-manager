@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :short_url_request do
     sequence(:from_path) { |n| "/short-url-request-from-path-#{n}" }
     sequence(:to_path) { |n| "/short-url-request-to-path-#{n}" }

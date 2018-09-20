@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Presenters::PublishingAPI do
   let(:redirect) do
-    FactoryGirl.build(
+    FactoryBot.build(
       :redirect,
       from_path: "/from/path",
       to_path: "/to/path",

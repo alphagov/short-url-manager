@@ -32,7 +32,7 @@ describe Redirect do
     context "with a duplicate `from_path`" do
       before do
         stub_any_publishing_api_call
-        @existing_redirect = FactoryGirl.create(:redirect)
+        @existing_redirect = FactoryBot.create(:redirect)
       end
 
       let(:non_factory_attrs) {
