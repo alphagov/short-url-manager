@@ -13,11 +13,11 @@ FactoryBot.define do
     end
 
     trait :pending do
-      state 'pending'
+      state { 'pending' }
     end
 
     trait :accepted do
-      state 'accepted'
+      state { 'accepted' }
 
       after(:create) do |request|
         request.redirect = create(:redirect,
@@ -27,11 +27,11 @@ FactoryBot.define do
     end
 
     trait :rejected do
-      state 'rejected'
+      state { 'rejected' }
     end
 
     trait :superseded do
-      state 'superseded'
+      state { 'superseded' }
     end
   end
 end
