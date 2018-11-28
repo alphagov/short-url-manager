@@ -6,7 +6,7 @@ class OrganisationImporter
   attr_reader :api_url_base
 
   def initialize(api_url_base = nil)
-    @api_url_base = api_url_base || Plek.current.find("whitehall-admin")
+    @api_url_base = api_url_base || Plek.current.website_root
   end
 
   def perform!
