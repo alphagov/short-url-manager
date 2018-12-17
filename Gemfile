@@ -11,7 +11,7 @@ gem 'uglifier', '~> 4.1.20'
 
 gem 'whenever', '~> 0.10.0', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
-gem 'redis', '4.0.3', require: false # Used by the Organisation importer as a locking mechanism
+gem 'redis', '4.1.0', require: false # Used by the Organisation importer as a locking mechanism
 gem 'mlanett-redis-lock', '0.2.7' # Used by the Organisation importer as a locking mechanism
 gem 'gretel', '3.0.9'
 
