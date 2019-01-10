@@ -26,7 +26,7 @@ private
   def create_redirect_in_publishing_api
     payload = Presenters::PublishingAPI.present(self)
     if override_existing?
-      publishing_api_v1.put_path(
+      publishing_api.put_path(
         from_path,
         publishing_app: 'short-url-manager',
         override_existing: true
@@ -42,13 +42,6 @@ private
 
   def publishing_api
     @publishing_api ||= GdsApi::PublishingApiV2.new(
-      Plek.current.find('publishing-api'),
-      bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
-    )
-  end
-
-  def publishing_api_v1
-    GdsApi::PublishingApi.new(
       Plek.current.find('publishing-api'),
       bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
     )

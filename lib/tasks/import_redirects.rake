@@ -18,10 +18,7 @@ namespace :redirects do
     skipped = 0
     errors = {}
 
-    publishing_api_client = GdsApi::PublishingApi.new(
-      Plek.find('publishing-api'),
-      bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
-    )
+    publishing_api_client = GdsApi.publishing_api_v2
 
     begin
       data.each do |row|
