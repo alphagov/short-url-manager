@@ -67,7 +67,7 @@ GEM
       sass (>= 3.3.0)
     bson (4.2.2)
     builder (3.2.3)
-    byebug (10.0.2)
+    byebug (11.0.0)
     capybara (3.13.2)
       addressable
       mini_mime (>= 0.1.3)
