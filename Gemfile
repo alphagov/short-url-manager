@@ -9,7 +9,7 @@ gem 'mongoid_rails_migrations', git: "https://github.com/alphagov/mongoid_rails_
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.1.20'
 
-gem 'whenever', '~> 0.10.0', require: false
+gem 'whenever', '~> 0.11.0', require: false
 gem 'will_paginate_mongoid', '~> 2.0.1'
 gem 'redis', '4.1.0', require: false # Used by the Organisation importer as a locking mechanism
 gem 'mlanett-redis-lock', '0.2.7' # Used by the Organisation importer as a locking mechanism
