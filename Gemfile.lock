@@ -90,11 +90,11 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.8.0)
     execjs (2.7.0)
-    factory_bot (4.11.1)
-      activesupport (>= 3.0.0)
-    factory_bot_rails (4.11.1)
-      factory_bot (~> 4.11.1)
-      railties (>= 3.0.0)
+    factory_bot (5.0.2)
+      activesupport (>= 4.2.0)
+    factory_bot_rails (5.0.2)
+      factory_bot (~> 5.0.2)
+      railties (>= 4.2.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
@@ -360,7 +360,7 @@ DEPENDENCIES
   byebug
   capybara (~> 3.20.0)
   database_cleaner (~> 1.7.0)
-  factory_bot_rails (~> 4)
+  factory_bot_rails (~> 5)
   gds-api-adapters
   gds-sso (~> 14.0.0)
   govuk-content-schema-test-helpers
