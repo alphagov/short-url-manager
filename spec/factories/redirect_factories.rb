@@ -5,8 +5,8 @@ FactoryBot.define do
     route_type { "exact" }
     segments_mode { "ignore" }
 
-    trait(:invalid) {
-      to_path nil
-    }
+    trait(:invalid) do
+      to_path { nil }
+    end
   end
 end
