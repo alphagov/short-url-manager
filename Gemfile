@@ -28,7 +28,7 @@ group :development, :test do
 
   gem 'simplecov', '~> 0.17.0', require: false
   gem 'simplecov-rcov', '~> 0.2.3', require: false
-  gem 'capybara', '~> 3.27.0'
+  gem 'capybara', '~> 3.28.0'
   gem 'database_cleaner', '~> 1.7.0'
   gem 'webmock', '~> 3.6.2', require: false
 
