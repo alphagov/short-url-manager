@@ -26,7 +26,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8.2'
   gem 'factory_bot_rails', '~> 5'
 
-  gem 'simplecov', '~> 0.17.0', require: false
+  gem 'simplecov', '~> 0.17.1', require: false
   gem 'simplecov-rcov', '~> 0.2.3', require: false
   gem 'capybara', '~> 3.29.0'
   gem 'database_cleaner', '~> 1.7.0'
