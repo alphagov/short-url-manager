@@ -1,10 +1,10 @@
 development:
-  host: 127.0.0.1
-  port: 6379
+  host: <%= ENV.fetch("REDIS_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("REDIS_PORT", "6379") %>
   namespace: short-url-manager
 test:
-  host: 127.0.0.1
-  port: 6379
+  host: <%= ENV.fetch("REDIS_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("REDIS_PORT", "6379") %>
   namespace: short-url-manager
 production:
   host: <%= ENV["REDIS_HOST"] %>
