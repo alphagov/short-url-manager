@@ -31,10 +31,19 @@ describe ShortUrlRequest do
     end
 
     context "with a pre-existing redirect" do
-      before { create(:redirect, from_path: '/a-path', to_path: '/b-path') }
-
       it "is invalid" do
+        create(:redirect, from_path: '/a-path', to_path: '/b-path')
         expect(build(:short_url_request, from_path: '/a-path', to_path: '/b-path')).not_to be_valid
+      end
+
+      it "is valid if the request owns that redirect" do
+        request = create(:short_url_request,
+                         from_path: '/a-path',
+                         to_path: '/b-path',
+                         state: 'accepted')
+        create(:redirect, from_path: '/a-path', to_path: '/b-path', short_url_request: request)
+
+        expect(request).to be_valid
       end
     end
   end
