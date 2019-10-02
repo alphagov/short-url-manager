@@ -1,22 +1,22 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe Notifier do
   shared_examples_for "indicating the deployed environment via the subject line" do
     it "includes an indicator of the deployed environment in the subject line" do
-      allow(Rails.application.config).to receive(:instance_name).and_return('testing-123')
+      allow(Rails.application.config).to receive(:instance_name).and_return("testing-123")
       expect(mail.subject).to match(/^\[testing-123\] Short URL request/)
     end
 
     it "does not include an indicator of the deployed environment in the subject line if it is blank (e.g. production)" do
-      allow(Rails.application.config).to receive(:instance_name).and_return('')
+      allow(Rails.application.config).to receive(:instance_name).and_return("")
       expect(mail.subject).to match(/^Short URL request/)
     end
   end
 
-  describe 'short_url_requested' do
+  describe "short_url_requested" do
     let!(:users) {
       [
-        create(:short_url_manager)
+        create(:short_url_manager),
       ]
     }
     let(:short_url_request_from_path) { "/somewhere" }
@@ -69,7 +69,7 @@ describe Notifier do
     end
   end
 
-  describe 'short_url_request_accepted' do
+  describe "short_url_request_accepted" do
     let!(:requester) { create :short_url_requester, name: "Mr Bigglesworth" }
     let(:short_url_request_contact_email) { "bigglesworth@example.com" }
     let(:redirect_from_path) { "/evilhq" }
@@ -103,7 +103,7 @@ describe Notifier do
     end
   end
 
-  describe 'short_url_request_rejected' do
+  describe "short_url_request_rejected" do
     let!(:requester) { create :short_url_requester, name: "Mr Bigglesworth" }
     let(:short_url_request_contact_email) { "bigglesworth@example.com" }
     let(:short_url_request_from_path) { "/evilhq" }

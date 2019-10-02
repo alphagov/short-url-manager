@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 feature "As a publisher, I can request a short URL" do
   background do
-    create :organisation, title: 'Ministry of Magic', slug: 'ministry-of-magic'
-    create :organisation, title: 'Ministry of Beards', slug: 'ministry-of-beards'
+    create :organisation, title: "Ministry of Magic", slug: "ministry-of-magic"
+    create :organisation, title: "Ministry of Beards", slug: "ministry-of-beards"
     create :notification_recipient, email: "short-url-manager-1@example.com"
     login_as create(:short_url_requester, name: "Gandalf", email: "gandalf@example.com", organisation_slug: "ministry-of-magic")
   end
@@ -28,19 +28,19 @@ feature "As a publisher, I can request a short URL" do
     expect(short_url_request.from_path).to          eql from_path
     expect(short_url_request.to_path).to            eql to_path
     expect(short_url_request.reason).to             eql reason
-    expect(short_url_request.contact_email).to      eql 'gandalf@example.com'
-    expect(short_url_request.organisation_slug).to  eql 'ministry-of-beards'
-    expect(short_url_request.organisation_title).to eql 'Ministry of Beards'
+    expect(short_url_request.contact_email).to      eql "gandalf@example.com"
+    expect(short_url_request.organisation_slug).to  eql "ministry-of-beards"
+    expect(short_url_request.organisation_title).to eql "Ministry of Beards"
 
     expect(ActionMailer::Base.deliveries.count).to eql 1
     mail = ActionMailer::Base.deliveries.last
-    expect(mail.to).to eql ['short-url-manager-1@example.com']
-    expect(mail.subject).to include 'Short URL request'
+    expect(mail.to).to eql ["short-url-manager-1@example.com"]
+    expect(mail.subject).to include "Short URL request"
   end
 
   scenario "User without request_short_urls permission sees no option to request a short_url" do
     login_as create(:user)
     visit "/"
-    expect(page).to have_no_content('Request a new short URL')
+    expect(page).to have_no_content("Request a new short URL")
   end
 end

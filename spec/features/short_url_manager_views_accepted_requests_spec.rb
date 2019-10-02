@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 feature "Short URL manager views accepted short url requests" do
   background do

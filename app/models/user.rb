@@ -15,10 +15,10 @@ class User
   scope :notification_recipients, -> { where(permissions: /receive_notifications/) }
 
   def can_request_short_urls?
-    permissions.include? 'request_short_urls'
+    permissions.include? "request_short_urls"
   end
 
   def can_manage_short_urls?
-    permissions.include? 'manage_short_urls'
+    permissions.include? "manage_short_urls"
   end
 end

@@ -1,5 +1,5 @@
-require 'gds_api/publishing_api'
-require 'gds_api/publishing_api_v2'
+require "gds_api/publishing_api"
+require "gds_api/publishing_api_v2"
 require "securerandom"
 
 class Redirect
@@ -10,8 +10,8 @@ class Redirect
   field :content_id, type: String
   field :from_path, type: String
   field :to_path, type: String
-  field :route_type, type: String, default: 'exact'
-  field :segments_mode, type: String, default: 'ignore'
+  field :route_type, type: String, default: "exact"
+  field :segments_mode, type: String, default: "ignore"
   field :override_existing, type: Boolean, default: false
 
   belongs_to :short_url_request, required: false
@@ -28,8 +28,8 @@ private
     if override_existing?
       publishing_api.put_path(
         from_path,
-        publishing_app: 'short-url-manager',
-        override_existing: true
+        publishing_app: "short-url-manager",
+        override_existing: true,
       )
     end
     publishing_api.put_content(content_id, payload)
@@ -42,8 +42,8 @@ private
 
   def publishing_api
     @publishing_api ||= GdsApi::PublishingApiV2.new(
-      Plek.current.find('publishing-api'),
-      bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
+      Plek.current.find("publishing-api"),
+      bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
     )
   end
 

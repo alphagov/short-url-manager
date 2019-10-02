@@ -1,6 +1,6 @@
-require 'gds_api/organisations'
-require 'redis'
-require 'redis-lock'
+require "gds_api/organisations"
+require "redis"
+require "redis-lock"
 
 class OrganisationImporter
   attr_reader :api_url_base
@@ -13,7 +13,7 @@ class OrganisationImporter
     redis.lock("short_url_manager:#{Rails.env}:organisation_importer_lock", life: 2.hours) do
       organisations_data = get_organisations_data
       Organisation.destroy_all
-      organisations_data.each {|attrs|
+      organisations_data.each { |attrs|
         Organisation.create(attrs)
       }
     end
@@ -27,7 +27,7 @@ private
     api_adapter.organisations.with_subsequent_pages.map do |result|
       {
         title: result.dig("title"),
-        slug: result.dig("details", "slug")
+        slug: result.dig("details", "slug"),
       }
     end
   end

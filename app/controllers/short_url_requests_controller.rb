@@ -1,10 +1,10 @@
 class ShortUrlRequestsController < ApplicationController
-  before_action :authorise_as_short_url_requester!, only: [:new, :create]
-  before_action :authorise_as_short_url_manager!, only: [:index, :show, :accept, :new_rejection, :reject, :list_short_urls, :edit, :update]
-  before_action :get_short_url_request, only: [:edit, :update, :show, :accept, :new_rejection, :reject]
+  before_action :authorise_as_short_url_requester!, only: %i[new create]
+  before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update]
+  before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject]
 
   def index
-    @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, 'desc']).paginate(page: params[:page], per_page: 40)
+    @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, "desc"]).paginate(page: params[:page], per_page: 40)
   end
 
   def show
@@ -12,7 +12,7 @@ class ShortUrlRequestsController < ApplicationController
   end
 
   def list_short_urls
-    @accepted_short_urls = ShortUrlRequest.accepted.order_by([:created_at, 'desc'])
+    @accepted_short_urls = ShortUrlRequest.accepted.order_by([:created_at, "desc"])
   end
 
   def new
@@ -21,33 +21,32 @@ class ShortUrlRequestsController < ApplicationController
 
   def create
     Commands::ShortUrlRequests::Create.new(create_short_url_request_params, current_user).call(
-      success: -> (_url_request) {
+      success: ->(_url_request) {
         flash[:success] = "Your request has been made."
         redirect_to root_path
       },
-      failure: -> (url_request) {
+      failure: ->(url_request) {
         @short_url_request = url_request
-        render 'new'
+        render "new"
       },
-      confirmation_required: -> (url_request) {
+      confirmation_required: ->(url_request) {
         @short_url_request = url_request
-        render 'confirmation'
-      }
+        render "confirmation"
+      },
     )
   end
 
   def accept
     if @short_url_request.uses_advanced_options?
-      authorise_user!('advanced_options')
+      authorise_user!("advanced_options")
     end
 
     Commands::ShortUrlRequests::Accept.new(@short_url_request).call(
-      failure: -> () { render 'short_url_requests/accept_failed' }
+      failure: -> { render "short_url_requests/accept_failed" },
     )
   end
 
-  def new_rejection
-  end
+  def new_rejection; end
 
   def reject
     rejection_params = params.require(:short_url_request).permit(:rejection_reason)
@@ -57,26 +56,25 @@ class ShortUrlRequestsController < ApplicationController
     redirect_to short_url_requests_path
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     Commands::ShortUrlRequests::Update.new(update_short_url_request_params, @short_url_request).call(
-      success: -> () {
+      success: -> {
         flash[:success] = "Your edit was successful."
         redirect_to short_url_request_path(@short_url_request)
       },
-      failure: -> () { render 'edit' }
+      failure: -> { render "edit" },
     )
   end
 
   def organisations
-    @organisations ||= Organisation.all.order_by([:title, 'asc'])
+    @organisations ||= Organisation.all.order_by([:title, "asc"])
   end
   helper_method :organisations
 
   def allow_use_of_advanced_options?
-    current_user.has_permission? 'advanced_options'
+    current_user.has_permission? "advanced_options"
   end
   helper_method :allow_use_of_advanced_options?
 

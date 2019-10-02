@@ -1,9 +1,10 @@
-require 'csv'
-require 'gds_api/publishing_api'
+require "csv"
+require "gds_api/publishing_api"
 
+# rubocop:disable Metrics/BlockLength
 namespace :redirects do
   desc "Import redirects"
-  task :import, [:file, :change_path_reservation?, :update_existing?] => :environment do |_, args|
+  task :import, %i[file change_path_reservation? update_existing?] => :environment do |_, args|
     args.with_defaults(
       change_path_reservation?: false,
       update_existing?: false,
@@ -27,13 +28,13 @@ namespace :redirects do
           to_path: row[1],
         }
 
-        fields[:route_type] = row[2] || 'exact'
+        fields[:route_type] = row[2] || "exact"
 
         default_segments_mode = case fields[:route_type]
-                                when 'exact'
-                                  fields[:segments_mode] = 'ignore'
-                                when 'prefix'
-                                  fields[:segments_mode] = 'preserve'
+                                when "exact"
+                                  fields[:segments_mode] = "ignore"
+                                when "prefix"
+                                  fields[:segments_mode] = "preserve"
                                 else
                                   raise "Unknown route type \"#{fields[:route_type]}\""
                                 end
@@ -44,7 +45,7 @@ namespace :redirects do
 
         if redirect.present? && !args[:update_existing?]
           skipped += 1
-          print '-'
+          print "-"
           next
         end
 
@@ -52,7 +53,7 @@ namespace :redirects do
           if args[:change_path_reservation?]
             publishing_api_client.put_path(
               fields[:from_path],
-              publishing_app: 'short-url-manager',
+              publishing_app: "short-url-manager",
               override_existing: true,
             )
           end
@@ -60,16 +61,16 @@ namespace :redirects do
           if redirect.present?
             redirect.update!(fields)
             updated += 1
-            print '*'
+            print "*"
           else
             Redirect.create!(fields)
             created += 1
-            print '.'
+            print "."
           end
         rescue StandardError => e
           errors[row] = e
 
-          print 'x'
+          print "x"
         end
       end
     rescue Interrupt
@@ -91,3 +92,4 @@ namespace :redirects do
     puts "  -  errors: #{errors.size}"
   end
 end
+# rubocop:enable Metrics/BlockLength

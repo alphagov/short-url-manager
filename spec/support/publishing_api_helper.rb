@@ -7,8 +7,8 @@ module PublishingApiHelper
       "publishing_app" => "short-url-manager",
       "update_type" => "major",
       "redirects" => [
-        { "path" => from_path, "type" => route_type, "segments_mode" => segments_mode, "destination" => to_path }
-      ]
+        { "path" => from_path, "type" => route_type, "segments_mode" => segments_mode, "destination" => to_path },
+      ],
     }
   end
 end

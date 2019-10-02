@@ -1,6 +1,6 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
-require 'gds_api/test_helpers/publishing_api'
+require "rails_helper"
+require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 require "securerandom"
 
 describe Redirect do
@@ -37,7 +37,7 @@ describe Redirect do
 
       let(:non_factory_attrs) {
         {
-          from_path: @existing_redirect.from_path
+          from_path: @existing_redirect.from_path,
         }
       }
 
@@ -73,8 +73,8 @@ describe Redirect do
           api_url = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_ENDPOINT
           assert_publishing_api_put(
             "#{api_url}/paths#{redirect.from_path}",
-            publishing_app: 'short-url-manager',
-            override_existing: true
+            publishing_app: "short-url-manager",
+            override_existing: true,
 )
         end
       end

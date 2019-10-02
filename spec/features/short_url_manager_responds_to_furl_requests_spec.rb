@@ -1,5 +1,5 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "rails_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 feature "Short URL manager responds to short URL requests" do
   include GdsApi::TestHelpers::PublishingApiV2
@@ -56,8 +56,8 @@ feature "Short URL manager responds to short URL requests" do
 
     expect(ActionMailer::Base.deliveries.count).to eql 1
     mail = ActionMailer::Base.deliveries.last
-    expect(mail.to).to eql ['gandalf@example.com']
-    expect(mail.subject).to include 'Short URL request approved'
+    expect(mail.to).to eql ["gandalf@example.com"]
+    expect(mail.subject).to include "Short URL request approved"
   end
 
   scenario "Short URL manager rejects a short URL request, giving a reason" do
@@ -72,8 +72,8 @@ feature "Short URL manager responds to short URL requests" do
 
     expect(ActionMailer::Base.deliveries.count).to eql 1
     mail = ActionMailer::Base.deliveries.last
-    expect(mail.to).to eql ['gandalf@example.com']
-    expect(mail.subject).to include 'Short URL request denied'
+    expect(mail.to).to eql ["gandalf@example.com"]
+    expect(mail.subject).to include "Short URL request denied"
     expect(mail).to have_body_content "Beards are soo last season."
   end
 
@@ -93,7 +93,7 @@ feature "Short URL manager responds to short URL requests" do
     expect(accepted_request.organisation_slug).to eql("full-english")
     expect(accepted_request.organisation_title).to eql("Department of Full English Breakfasts")
     assert_publishing_api_put_content(redirect_for_accepted_request.content_id,
-                                      publishing_api_redirect_hash('/ministry-of-hair',
+                                      publishing_api_redirect_hash("/ministry-of-hair",
                                                                    target_url,
                                                                    accepted_request.route_type,
                                                                    accepted_request.segments_mode))
@@ -106,8 +106,7 @@ feature "Short URL manager responds to short URL requests" do
       create(:short_url_request,
              :pending,
              organisation_title: "Ministry of Hair",
-             from_path: "/ministry-of-hair",
-      )
+             from_path: "/ministry-of-hair")
     end
 
     scenario "Short URL manager is shown a warning message" do

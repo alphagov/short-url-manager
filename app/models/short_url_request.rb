@@ -3,11 +3,11 @@ class ShortUrlRequest
   include Mongoid::Timestamps
   include ShortUrlValidations
 
-  field :state, type: String, default: 'pending'
+  field :state, type: String, default: "pending"
   field :from_path, type: String
   field :to_path, type: String
-  field :route_type, type: String, default: 'exact'
-  field :segments_mode, type: String, default: 'ignore'
+  field :route_type, type: String, default: "exact"
+  field :segments_mode, type: String, default: "ignore"
   field :override_existing, type: Boolean, default: false
   field :reason, type: String
   field :contact_email, type: String
@@ -23,7 +23,7 @@ class ShortUrlRequest
   validate :not_already_live
 
   before_validation :retrieve_organisation_title, if: -> { organisation_slug_changed? }
-  before_validation :strip_whitespace, only: [:from_path, :to_path]
+  before_validation :strip_whitespace, only: %i[from_path to_path]
 
   scope :pending, -> { where(state: "pending") }
   scope :accepted, -> { where(state: "accepted") }
@@ -35,27 +35,27 @@ class ShortUrlRequest
   end
 
   def similar_requests
-    @similar_requests ||= ShortUrlRequest.where(from_path: from_path, :id.ne => self.id).order_by([:created_at, :asc])
+    @similar_requests ||= ShortUrlRequest.where(from_path: from_path, :id.ne => self.id).order_by(%i[created_at asc])
   end
 
   def pending?
-    state == 'pending'
+    state == "pending"
   end
 
   def accepted?
-    state == 'accepted'
+    state == "accepted"
   end
 
   def rejected?
-    state == 'rejected'
+    state == "rejected"
   end
 
   def superseded?
-    state == 'superseded'
+    state == "superseded"
   end
 
   def uses_advanced_options?
-    route_type != 'exact' || segments_mode != 'ignore'
+    route_type != "exact" || segments_mode != "ignore"
   end
 
 private
@@ -71,7 +71,7 @@ private
            :short_url_request.ne => self,
          )
          .exists?
-      errors.add(:base, 'The specified Short URL already redirects to the specified Target URL')
+      errors.add(:base, "The specified Short URL already redirects to the specified Target URL")
       false
     end
   end

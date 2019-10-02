@@ -19,8 +19,8 @@ RSpec.describe Presenters::PublishingAPI do
       "publishing_app" => "short-url-manager",
       "update_type" => "major",
       "redirects" => [
-        { "path" => "/from/path", "type" => "exact", "segments_mode" => "ignore", "destination" => "/to/path" }
-      ]
+        { "path" => "/from/path", "type" => "exact", "segments_mode" => "ignore", "destination" => "/to/path" },
+      ],
     )
   end
 

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 feature "Short URL manager finds information on short_url requests" do
   background do
@@ -82,7 +82,7 @@ feature "Short URL manager finds information on short_url requests" do
     click_on "Ministry of Beards"
 
 
-    within '.other-requests' do
+    within ".other-requests" do
       # Don't have the main request in the other requests section
       expect(page).not_to have_content "Ministry of Beards"
       expect(page).not_to have_content "12:00pm, 1 January 2014"
@@ -112,6 +112,6 @@ feature "Short URL manager finds information on short_url requests" do
   scenario "User without manage_short_urls permission sees no option to manage short_url requests" do
     login_as create(:user)
     visit "/"
-    expect(page).to have_no_content('View pending requests')
+    expect(page).to have_no_content("View pending requests")
   end
 end
