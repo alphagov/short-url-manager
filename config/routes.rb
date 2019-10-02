@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
   get "list_short_urls" => "short_url_requests#list_short_urls"
 
-  get "/healthcheck" => Proc.new { [200, {}, ["OK"]] }
+  get "/healthcheck" => Proc.new { [200, {}, %w[OK]] }
 
   if Rails.env.development?
     get "/styleguide" => "govuk_admin_template/style_guide#index"

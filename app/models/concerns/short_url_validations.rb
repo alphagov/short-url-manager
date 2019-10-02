@@ -15,8 +15,8 @@ module ShortUrlValidations
 
   def govuk_subdomain_url?(path)
     uri = URI.parse(path)
-    uri.host =~ /\A([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[A-Za-z0-9])?\.)*gov\.uk\z/i && uri.scheme == 'https'
-  rescue
+    uri.host =~ /\A([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[A-Za-z0-9])?\.)*gov\.uk\z/i && uri.scheme == "https"
+  rescue StandardError
     false
   end
 end

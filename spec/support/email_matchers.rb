@@ -1,4 +1,4 @@
-require 'rspec/expectations'
+require "rspec/expectations"
 
 RSpec::Matchers.define :have_body_content do |expected_text|
   # Use this matcher to test whether an email has body text in both the HTML and text mail parts.
@@ -60,6 +60,6 @@ RSpec::Matchers.define :have_body_content do |expected_text|
   end
 
   def compact_content(raw_content)
-    raw_content.gsub(/[\r\n]/, ' ').gsub(/\s+/, ' ').strip
+    raw_content.gsub(/[\r\n]/, " ").gsub(/\s+/, " ").strip
   end
 end

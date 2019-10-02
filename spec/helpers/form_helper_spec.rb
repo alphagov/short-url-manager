@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe FormHelper do
   let(:test_model_klass) {
@@ -7,7 +7,7 @@ describe FormHelper do
     end
   }
 
-  describe '#render_errors_for' do
+  describe "#render_errors_for" do
     let(:model) {
       test_model_klass.new.tap { |model|
         errors.each { |error|
@@ -31,7 +31,7 @@ describe FormHelper do
       let(:errors) {
         [
           [:attribute_1, "can't be blank"],
-          [:attribute_2, "can't be a small lemon"]
+          [:attribute_2, "can't be a small lemon"],
         ]
       }
 

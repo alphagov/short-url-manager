@@ -1,16 +1,16 @@
-require 'rails_helper'
-require 'gds-sso/lint/user_spec'
+require "rails_helper"
+require "gds-sso/lint/user_spec"
 
 describe User do
-  it_behaves_like 'a gds-sso user class'
+  it_behaves_like "a gds-sso user class"
 
   let(:instance) { User.new(attributes) }
   let(:attributes) {
     {
-      permissions: permissions
+      permissions: permissions,
     }
   }
-  let(:permissions) { ['signin'] }
+  let(:permissions) { %w[signin] }
 
   describe "permissions" do
     context "user has no special permissions" do

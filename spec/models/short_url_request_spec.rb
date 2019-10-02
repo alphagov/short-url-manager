@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe ShortUrlRequest do
   include PublishingApiHelper
@@ -7,41 +7,41 @@ describe ShortUrlRequest do
 
   describe "validations:" do
     specify { expect(build(:short_url_request)).to be_valid }
-    specify { expect(build(:short_url_request, reason: '')).to_not be_valid }
-    specify { expect(build(:short_url_request, organisation_title: '')).to_not be_valid }
-    specify { expect(build(:short_url_request, organisation_slug: '')).to_not be_valid }
+    specify { expect(build(:short_url_request, reason: "")).to_not be_valid }
+    specify { expect(build(:short_url_request, organisation_title: "")).to_not be_valid }
+    specify { expect(build(:short_url_request, organisation_slug: "")).to_not be_valid }
 
     it "should not require a requester association" do
       expect(build(:short_url_request, requester: nil)).to be_valid
     end
 
     it "should allow 'pending', 'accepted', 'rejected', and 'superseded' as acceptable state values" do
-      expect(build(:short_url_request, state: 'pending')).to be_valid
-      expect(build(:short_url_request, state: 'accepted')).to be_valid
-      expect(build(:short_url_request, state: 'rejected')).to be_valid
-      expect(build(:short_url_request, state: 'superseded')).to be_valid
-      expect(build(:short_url_request, state: 'liquid')).to_not be_valid
+      expect(build(:short_url_request, state: "pending")).to be_valid
+      expect(build(:short_url_request, state: "accepted")).to be_valid
+      expect(build(:short_url_request, state: "rejected")).to be_valid
+      expect(build(:short_url_request, state: "superseded")).to be_valid
+      expect(build(:short_url_request, state: "liquid")).to_not be_valid
     end
 
     it "should trim whitespace from from_path and to_path" do
-      from_path_stripped_whitespace = create(:short_url_request, from_path: '/a-path ')
-      to_path_stripped_whitespace = create(:short_url_request, to_path: '/b-path ')
-      expect(from_path_stripped_whitespace.from_path).to eq('/a-path')
-      expect(to_path_stripped_whitespace.to_path).to eq('/b-path')
+      from_path_stripped_whitespace = create(:short_url_request, from_path: "/a-path ")
+      to_path_stripped_whitespace = create(:short_url_request, to_path: "/b-path ")
+      expect(from_path_stripped_whitespace.from_path).to eq("/a-path")
+      expect(to_path_stripped_whitespace.to_path).to eq("/b-path")
     end
 
     context "with a pre-existing redirect" do
       it "is invalid" do
-        create(:redirect, from_path: '/a-path', to_path: '/b-path')
-        expect(build(:short_url_request, from_path: '/a-path', to_path: '/b-path')).not_to be_valid
+        create(:redirect, from_path: "/a-path", to_path: "/b-path")
+        expect(build(:short_url_request, from_path: "/a-path", to_path: "/b-path")).not_to be_valid
       end
 
       it "is valid if the request owns that redirect" do
         request = create(:short_url_request,
-                         from_path: '/a-path',
-                         to_path: '/b-path',
-                         state: 'accepted')
-        create(:redirect, from_path: '/a-path', to_path: '/b-path', short_url_request: request)
+                         from_path: "/a-path",
+                         to_path: "/b-path",
+                         state: "accepted")
+        create(:redirect, from_path: "/a-path", to_path: "/b-path", short_url_request: request)
 
         expect(request).to be_valid
       end
@@ -92,48 +92,48 @@ describe ShortUrlRequest do
   end
 
   describe "boolean convienience methods" do
-    specify { expect(build(:short_url_request, state: 'pending').pending?).to be true }
-    specify { expect(build(:short_url_request, state: 'accepted').pending?).to be false }
+    specify { expect(build(:short_url_request, state: "pending").pending?).to be true }
+    specify { expect(build(:short_url_request, state: "accepted").pending?).to be false }
 
-    specify { expect(build(:short_url_request, state: 'accepted').accepted?).to be true }
-    specify { expect(build(:short_url_request, state: 'rejected').accepted?).to be false }
+    specify { expect(build(:short_url_request, state: "accepted").accepted?).to be true }
+    specify { expect(build(:short_url_request, state: "rejected").accepted?).to be false }
 
-    specify { expect(build(:short_url_request, state: 'rejected').rejected?).to be true }
-    specify { expect(build(:short_url_request, state: 'accepted').rejected?).to be false }
+    specify { expect(build(:short_url_request, state: "rejected").rejected?).to be true }
+    specify { expect(build(:short_url_request, state: "accepted").rejected?).to be false }
 
-    specify { expect(build(:short_url_request, state: 'superseded').superseded?).to be true }
-    specify { expect(build(:short_url_request, state: 'accepted').superseded?).to be false }
+    specify { expect(build(:short_url_request, state: "superseded").superseded?).to be true }
+    specify { expect(build(:short_url_request, state: "accepted").superseded?).to be false }
   end
 
-  describe '#similar_requests' do
-    let(:from_path) { '/my-short-path' }
-    let(:subject) { create(:short_url_request, from_path: from_path, to_path: '/a/long-version/of/my-short-path') }
+  describe "#similar_requests" do
+    let(:from_path) { "/my-short-path" }
+    let(:subject) { create(:short_url_request, from_path: from_path, to_path: "/a/long-version/of/my-short-path") }
 
-    it 'includes other requests for the same from_path' do
-      same_from_path = create(:short_url_request, from_path: from_path, to_path: '/a/different-place')
+    it "includes other requests for the same from_path" do
+      same_from_path = create(:short_url_request, from_path: from_path, to_path: "/a/different-place")
       expect(subject.similar_requests).to include same_from_path
     end
 
-    it 'does not include other requests for the a different from_path' do
-      different_from_path = create(:short_url_request, from_path: '/a-different-path', to_path: '/a/long-version/of/a-different-path')
+    it "does not include other requests for the a different from_path" do
+      different_from_path = create(:short_url_request, from_path: "/a-different-path", to_path: "/a/long-version/of/a-different-path")
       expect(subject.similar_requests).not_to include different_from_path
     end
 
-    it 'does not include itself' do
+    it "does not include itself" do
       expect(subject.similar_requests).not_to include subject
     end
 
-    it 'does not include other requests with the same to_path' do
-      same_to_path = create(:short_url_request, from_path: '/a-different-path', to_path: subject.to_path)
+    it "does not include other requests with the same to_path" do
+      same_to_path = create(:short_url_request, from_path: "/a-different-path", to_path: subject.to_path)
       expect(subject.similar_requests).not_to include same_to_path
     end
 
-    it 'includes other requests in creation order, oldest first' do
-      duplicate_1 = create(:short_url_request, from_path: from_path, to_path: '/a/different-place', created_at: 5.days.ago)
-      duplicate_2 = create(:short_url_request, from_path: from_path, to_path: '/a/different-place', created_at: 10.days.ago)
-      duplicate_3 = create(:short_url_request, from_path: from_path, to_path: '/a/different-place', created_at: 8.days.ago)
+    it "includes other requests in creation order, oldest first" do
+      duplicate1 = create(:short_url_request, from_path: from_path, to_path: "/a/different-place", created_at: 5.days.ago)
+      duplicate2 = create(:short_url_request, from_path: from_path, to_path: "/a/different-place", created_at: 10.days.ago)
+      duplicate3 = create(:short_url_request, from_path: from_path, to_path: "/a/different-place", created_at: 8.days.ago)
 
-      expect(subject.similar_requests).to eq [duplicate_2, duplicate_3, duplicate_1]
+      expect(subject.similar_requests).to eq [duplicate2, duplicate3, duplicate1]
     end
   end
 end

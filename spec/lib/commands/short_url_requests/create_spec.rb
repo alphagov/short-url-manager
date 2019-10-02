@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe Commands::ShortUrlRequests::Create do
   let(:user) { create(:short_url_manager_and_recipient) }
@@ -151,7 +151,7 @@ describe Commands::ShortUrlRequests::Create do
         confirmed: true,
         route_type: "exact",
         segments_mode: "preserve",
-        override_existing: false
+        override_existing: false,
       }
     }
 

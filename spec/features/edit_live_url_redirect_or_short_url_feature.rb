@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.feature 'Edit live URL redirect or Short URL' do
+RSpec.feature "Edit live URL redirect or Short URL" do
   include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
-  scenario 'Edit redirect to keep segments' do
+  scenario "Edit redirect to keep segments" do
     given_i_can_create_and_approve_requests_using_advanced_options
     and_an_accepted_short_url_request_exists_that_discards_segments
     when_i_login
@@ -23,7 +23,7 @@ RSpec.feature 'Edit live URL redirect or Short URL' do
     @short_url_request = create(
       :short_url_request,
       :accepted,
-      segments_mode: 'ignore'
+      segments_mode: "ignore",
     )
   end
 
@@ -36,15 +36,15 @@ RSpec.feature 'Edit live URL redirect or Short URL' do
   end
 
   def and_i_choose_to_keep_segments
-    select 'Keep', from: 'Segments'
+    select "Keep", from: "Segments"
   end
 
   def and_i_update_the_redirect_url
-    click_button 'Update'
+    click_button "Update"
   end
 
   def then_i_am_alerted_that_my_edit_was_successful
-    expect(page).to have_text('Your edit was successful')
+    expect(page).to have_text("Your edit was successful")
   end
 
   def and_the_redirect_is_published
@@ -54,7 +54,7 @@ RSpec.feature 'Edit live URL redirect or Short URL' do
         @short_url_request.redirect.from_path,
         @short_url_request.redirect.to_path,
         @short_url_request.redirect.route_type,
-        'preserve'
+        "preserve",
       ),
     )
 

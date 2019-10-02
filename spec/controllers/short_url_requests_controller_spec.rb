@@ -1,5 +1,5 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "rails_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 describe ShortUrlRequestsController do
   let(:user) { create(:short_url_requester_and_manager) }
@@ -20,10 +20,10 @@ describe ShortUrlRequestsController do
 
       specify {
         expect_not_authorised(:get, :index)
-        expect_not_authorised(:get, :show, id: 'required-param')
-        expect_not_authorised(:post, :accept, id: 'required-param')
-        expect_not_authorised(:get, :new_rejection, id: 'required-param')
-        expect_not_authorised(:post, :reject, id: 'required-param')
+        expect_not_authorised(:get, :show, id: "required-param")
+        expect_not_authorised(:post, :accept, id: "required-param")
+        expect_not_authorised(:get, :new_rejection, id: "required-param")
+        expect_not_authorised(:post, :reject, id: "required-param")
       }
     end
   end
@@ -34,7 +34,7 @@ describe ShortUrlRequestsController do
         [
           create(:short_url_request, :pending, created_at: 10.days.ago),
           create(:short_url_request, :pending, created_at: 5.days.ago),
-          create(:short_url_request, :pending, created_at: 15.days.ago)
+          create(:short_url_request, :pending, created_at: 15.days.ago),
         ]
       }
       before { get :index }
@@ -121,8 +121,8 @@ describe ShortUrlRequestsController do
             from_path: "/a-friendly-url",
             to_path: "/somewhere/a-document",
             reason: "Because wombles",
-            organisation_slug: organisation.slug
-          }
+            organisation_slug: organisation.slug,
+          },
         }
       }
 
@@ -178,7 +178,7 @@ describe ShortUrlRequestsController do
                 reason: "Because wombles",
                 organisation_slug: organisation.slug,
                 confirmed: true,
-              }
+              },
             }
           }
 
@@ -194,15 +194,15 @@ describe ShortUrlRequestsController do
       let(:params) {
         {
           short_url_request: {
-            from_path: '',
-            to_path: ''
-          }
+            from_path: "",
+            to_path: "",
+          },
         }
       }
 
       before { post :create, params: params }
 
-      specify { expect(response).to render_template('short_url_requests/new') }
+      specify { expect(response).to render_template("short_url_requests/new") }
       specify { expect(ShortUrlRequest.count).to eql 0 }
     end
   end
@@ -234,7 +234,7 @@ describe ShortUrlRequestsController do
       end
 
       it "should render the accept_failed template" do
-        expect(response).to render_template('short_url_requests/accept_failed')
+        expect(response).to render_template("short_url_requests/accept_failed")
       end
     end
 
@@ -243,13 +243,11 @@ describe ShortUrlRequestsController do
         stub_any_publishing_api_call
 
         existing_url_request = FactoryBot.create(:short_url_request,
-          from_path: short_url_request.from_path,
-        )
+                                                 from_path: short_url_request.from_path)
         @existing_redirect = FactoryBot.create(:redirect,
-          to_path: "/some/existing/path",
-          from_path: short_url_request.from_path,
-          short_url_request: existing_url_request,
-        )
+                                               to_path: "/some/existing/path",
+                                               from_path: short_url_request.from_path,
+                                               short_url_request: existing_url_request)
       end
 
       it "should update the existing redirect" do
@@ -289,30 +287,30 @@ describe ShortUrlRequestsController do
     end
   end
 
-  describe '#edit' do
+  describe "#edit" do
     let!(:short_url_request) { create :short_url_request }
 
-    it 'displays the form' do
+    it "displays the form" do
       get :edit, params: { id: short_url_request.id }
       expect(response.status).to eql(200)
     end
   end
 
-  describe '#update' do
+  describe "#update" do
     let!(:organisation) { create(:organisation) }
     let!(:short_url_request) { create(:short_url_request, from_path: "/original") }
 
-    context 'with valid parameters' do
+    context "with valid parameters" do
       let(:params) do
         {
           from_path: short_url_request.from_path,
           to_path: "/somewhere/different",
           reason: "Because wombles",
-          organisation_slug: organisation.slug
+          organisation_slug: organisation.slug,
         }
       end
 
-      it 'saves the changes' do
+      it "saves the changes" do
         put :update, params: { id: short_url_request.id, short_url_request: params }
         expect(response).to redirect_to(short_url_request_path(short_url_request))
 
@@ -321,17 +319,17 @@ describe ShortUrlRequestsController do
       end
     end
 
-    context 'with a change to the from_path' do
+    context "with a change to the from_path" do
       let(:params) do
         {
           from_path: "/a-changed-from-path",
           to_path: "/somewhere/a-document",
           reason: "Because wombles",
-          organisation_slug: organisation.slug
+          organisation_slug: organisation.slug,
         }
       end
 
-      it 'rejects changes to the from_path' do
+      it "rejects changes to the from_path" do
         put :update, params: { id: short_url_request.id, short_url_request: params }
 
         short_url_request.reload

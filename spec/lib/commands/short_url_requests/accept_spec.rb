@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe Commands::ShortUrlRequests::Accept do
   let(:url_request) { create(:short_url_request) }
