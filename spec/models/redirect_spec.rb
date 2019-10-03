@@ -103,4 +103,13 @@ describe Redirect do
       end
     end
   end
+
+  context "when destroying a redirect" do
+    subject(:redirect) { create(:redirect) }
+
+    it "unpublishing from the Publishing API" do
+      redirect.destroy
+      assert_publishing_api_unpublish(redirect.content_id, type: "gone")
+    end
+  end
 end

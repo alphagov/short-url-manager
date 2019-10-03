@@ -18,6 +18,7 @@ class Redirect
   validates :from_path, uniqueness: true
 
   before_save :create_redirect_in_publishing_api
+  before_destroy :unpublish_in_publishing_api
   after_initialize :ensure_presence_of_content_id
 
 private
@@ -39,6 +40,9 @@ private
     throw :abort # Do not continue to save
   end
 
+  def unpublish_in_publishing_api
+    GdsApi.publishing_api_v2.unpublish(content_id, type: "gone")
+  end
 
   def ensure_presence_of_content_id
     self.content_id ||= SecureRandom.uuid
