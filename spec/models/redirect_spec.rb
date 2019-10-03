@@ -103,4 +103,22 @@ describe Redirect do
       end
     end
   end
+
+  context "when destroying a redirect" do
+    subject(:redirect) { create(:redirect) }
+
+    it "unpublishing from the Publishing API" do
+      redirect.destroy
+      assert_publishing_api_unpublish(redirect.content_id, type: "gone")
+    end
+
+    context "when unpublishing fails" do
+      it "fails to destroy" do
+        stub_any_publishing_api_call
+        redirect = create(:redirect)
+        stub_publishing_api_isnt_available
+        expect { redirect.destroy }.to raise_error(GdsApi::HTTPUnavailable)
+      end
+    end
+  end
 end
