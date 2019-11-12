@@ -22,18 +22,15 @@ gem "govuk_app_config", "~> 2.0.1"
 gem "plek"
 
 group :development, :test do
-  gem "factory_bot_rails", "~> 5"
-  gem "rails-controller-testing"
-  gem "rspec-rails", "~> 3.9.0"
-
+  gem "byebug"
   gem "capybara", "~> 3.29.0"
   gem "database_cleaner", "~> 1.7.0"
+  gem "factory_bot_rails", "~> 5"
+  gem "govuk-content-schema-test-helpers"
+  gem "pry"
+  gem "rails-controller-testing"
+  gem "rspec-rails", "~> 3.9.0"
   gem "simplecov", "~> 0.17.1", require: false
   gem "simplecov-rcov", "~> 0.2.3", require: false
   gem "webmock", "~> 3.7.6", require: false
-
-  gem "byebug"
-  gem "govuk-content-schema-test-helpers"
-  gem "govuk-lint"
-  gem "pry"
 end
