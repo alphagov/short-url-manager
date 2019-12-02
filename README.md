@@ -16,8 +16,6 @@ to
 /government/publications/your-state-pension-estimate-explained-cps5
 ```
 
-Currently this tool allows departmental users to request redirects within the scope of their department, eg, under `dwp` above. Future versions may add workflow for requesting/managing top level Short URLs, eg, `/ebola` to `/government/topical-events/ebola-government-response`.
-
 ## Dependencies
 * MongoDB - main data store
 * Redis - for distributed locking using
