@@ -26,7 +26,7 @@ group :development, :test do
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 3.9.0"
 
-  gem "capybara", "~> 3.29.0"
+  gem "capybara", "~> 3.30.0"
   gem "database_cleaner", "~> 1.7.0"
   gem "simplecov", "~> 0.17.1", require: false
   gem "simplecov-rcov", "~> 0.2.3", require: false
