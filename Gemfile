@@ -18,7 +18,7 @@ gem "will_paginate_mongoid", "~> 2.0.1"
 gem "gds-api-adapters"
 gem "gds-sso", "~> 14.2.0"
 gem "govuk_admin_template", "~> 6.7"
-gem "govuk_app_config", "~> 2.0.1"
+gem "govuk_app_config", "~> 2.0.2"
 gem "plek"
 
 group :development, :test do
