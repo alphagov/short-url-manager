@@ -30,7 +30,7 @@ group :development, :test do
   gem "database_cleaner", "~> 1.8.2"
   gem "simplecov", "~> 0.18.2", require: false
   gem "simplecov-rcov", "~> 0.2.3", require: false
-  gem "webmock", "~> 3.8.1", require: false
+  gem "webmock", "~> 3.8.2", require: false
 
   gem "byebug"
   gem "govuk-content-schema-test-helpers"
