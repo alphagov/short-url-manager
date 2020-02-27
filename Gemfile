@@ -32,8 +32,8 @@ group :development, :test do
   gem "simplecov-rcov", "~> 0.2.3", require: false
   gem "webmock", "~> 3.8.2", require: false
 
+  gem "rubocop-govuk"
   gem "byebug"
   gem "govuk-content-schema-test-helpers"
-  gem "govuk-lint"
   gem "pry"
 end
