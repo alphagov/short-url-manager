@@ -3,6 +3,3 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
-Style/ConditionalAssignment:
-  Exclude:
-    - 'config/initializers/instance_name.rb'
