@@ -13,7 +13,7 @@ class Redirect
   field :segments_mode, type: String, default: "ignore"
   field :override_existing, type: Boolean, default: false
 
-  belongs_to :short_url_request, required: false
+  belongs_to :short_url_request, optional: true
 
   validates :from_path, uniqueness: true
 
