@@ -36,4 +36,5 @@ group :development, :test do
   gem "govuk-content-schema-test-helpers"
   gem "pry"
   gem "rubocop-govuk"
+  gem "scss_lint-govuk"
 end
