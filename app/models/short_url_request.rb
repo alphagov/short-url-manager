@@ -77,7 +77,7 @@ private
   end
 
   def retrieve_organisation_title
-    self.organisation_title = Organisation.where(slug: organisation_slug).first.try(:title)
+    self.organisation_title = Organisation.find_by(slug: organisation_slug).try(:title)
   end
 
   def strip_whitespace
