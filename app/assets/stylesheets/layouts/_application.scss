@@ -8,11 +8,11 @@ $flash-success-bg-colour: #00823b;
   padding: 0;
 
   li {
-    color: $flash-colour;
     background-color: $flash-bg-colour;
+    color: $flash-colour;
     font-size: 16px;
-    padding: 10px 15px;
     margin-bottom: 2px;
+    padding: 10px 15px;
 
     &.success {
       background-color: $flash-success-bg-colour;
