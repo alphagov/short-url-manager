@@ -90,7 +90,7 @@ private
   def get_short_url_request
     @short_url_request = ShortUrlRequest.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound
-    render plain: "Not found", status: 404
+    render plain: "Not found", status: :not_found
   end
 
   def create_short_url_request_params

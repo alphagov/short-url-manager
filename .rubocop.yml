@@ -1,5 +1,10 @@
-AllCops:
-  TargetRubyVersion: 2.3
-Style/ConditionalAssignment:
-  Exclude:
-    - 'config/initializers/instance_name.rb'
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
+
+# I don't understand what value
+# https://rails.rubystyle.guide/#has_many-has_one-dependent-option
+# adds, so disable this cop. There's only one offense.
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
