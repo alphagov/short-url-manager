@@ -1,4 +1,4 @@
-class Notifier < ActionMailer::Base
+class Notifier < ApplicationMailer
   add_template_helper UrlHelper
   default from: '"Short URL manager" <noreply+short-url-manager@digital.cabinet-office.gov.uk>'
 
