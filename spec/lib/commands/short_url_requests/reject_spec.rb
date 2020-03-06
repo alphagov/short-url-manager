@@ -4,6 +4,7 @@ describe Commands::ShortUrlRequests::Reject do
   let(:url_request) { create(:short_url_request) }
   let(:reason) { "You weren't lucky today." }
   subject(:command) { described_class.new(url_request, reason) }
+  let(:user_email) { Array(url_request.contact_email) }
 
   it "rejects the request" do
     command.call
@@ -13,10 +14,10 @@ describe Commands::ShortUrlRequests::Reject do
   end
 
   it "sends a rejection email" do
-    allow(Notifier).to receive(:short_url_request_rejected).and_call_original
+    allow(RequestNotifier).to receive(:email).and_call_original
 
     command.call
 
-    expect(Notifier).to have_received(:short_url_request_rejected).once.with(url_request)
+    expect(RequestNotifier).to have_received(:email).once.with(:short_url_request_rejected, url_request)
   end
 end
