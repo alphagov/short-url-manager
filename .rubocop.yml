@@ -3,6 +3,10 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
+inherit_mode:
+  merge:
+    - Exclude
+
 # I don't understand what value
 # https://rails.rubystyle.guide/#has_many-has_one-dependent-option
 # adds, so disable this cop. There's only one offense.
