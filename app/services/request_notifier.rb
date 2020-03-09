@@ -1,6 +1,11 @@
 class RequestNotifier
-  # AWS sets a max of 50 recipients
+  # GOV.UK Notify sets a max of 1 recipient
   MAX_EMAIL_RECIPIENTS = 25
+
+  def initialize(short_url_request:, mailer: Notifier)
+    @mailer = mailer
+    @short_url_request = short_url_request
+  end
 
   def self.email(event, short_url_request, mailer: Notifier)
     recipients_for(event, short_url_request)

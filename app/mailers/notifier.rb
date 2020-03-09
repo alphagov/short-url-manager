@@ -1,4 +1,4 @@
-class Notifier < ApplicationMailer
+class Notifier < Mail::Notify::Mailer
   add_template_helper UrlHelper
   default from: '"Short URL manager" <noreply+short-url-manager@digital.cabinet-office.gov.uk>'
 
@@ -23,7 +23,9 @@ private
 
   def send_mail(to, subject, short_url_request)
     @short_url_request = short_url_request
-    mail to: to, subject: subject
+    view_mail(ENV.fetch("GOVUK_NOTIFY_TEMPLATE_ID", "fake-test-template-id"),
+              to: to,
+              subject: subject)
   end
 
   def prefix
