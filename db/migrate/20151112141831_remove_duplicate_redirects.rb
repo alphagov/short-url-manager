@@ -1,6 +1,6 @@
 class RemoveDuplicateRedirects < Mongoid::Migration
   def self.up
-    Redirect.all.to_a.group_by(&:from_path).each do |from_path, redirects|
+    Redirect.all.to_a.group_by(&:from_path).each do |_from_path, redirects|
       sorted_redirects = redirects.sort_by(&:updated_at)
       redirect_to_keep = sorted_redirects.pop
       puts "Keeping redirect #{redirect_to_keep.id}, #{redirect_to_keep.from_path}, #{redirect_to_keep.updated_at.iso8601}"
