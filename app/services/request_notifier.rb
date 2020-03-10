@@ -1,6 +1,6 @@
 class RequestNotifier
   # GOV.UK Notify sets a max of 1 recipient
-  MAX_EMAIL_RECIPIENTS = 25
+  MAX_EMAIL_RECIPIENTS = 1
 
   def initialize(short_url_request:, mailer: Notifier)
     @mailer = mailer

@@ -70,8 +70,8 @@ describe RequestNotifier do
         expect(recipients).to match_array(notification_recipients.map(&:email))
       end
 
-      it "should email users in batches of 25" do
-        expect(emails.count).to eq 3
+      it "should email users individually" do
+        expect(emails.count).to eq 55
       end
     end
   end
