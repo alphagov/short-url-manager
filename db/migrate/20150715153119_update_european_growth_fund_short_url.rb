@@ -1,7 +1,7 @@
 class UpdateEuropeanGrowthFundShortUrl < Mongoid::Migration
-  SOURCE = "/european-growth-funding"
-  OLD_TARGET = "/european-structural-investment-funds"
-  NEW_TARGET = "/england-2014-to-2020-european-structural-and-investment-funds"
+  SOURCE = "/european-growth-funding".freeze
+  OLD_TARGET = "/european-structural-investment-funds".freeze
+  NEW_TARGET = "/england-2014-to-2020-european-structural-and-investment-funds".freeze
 
   def self.up
     if request = ShortUrlRequest.where(from_path: SOURCE).first

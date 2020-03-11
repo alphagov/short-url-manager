@@ -1,6 +1,6 @@
 class RemovePartLeaveProfitTaxCreditsFromDatabase < Mongoid::Migration
   def self.up
-    path = '/part-year-profit-tax-credits'
+    path = "/part-year-profit-tax-credits"
 
     if short_url_request = ShortUrlRequest.where(from_path: path).first
       short_url_request.destroy

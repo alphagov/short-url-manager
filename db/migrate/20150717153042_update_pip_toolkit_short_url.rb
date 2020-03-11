@@ -1,7 +1,7 @@
 class UpdatePipToolkitShortUrl < Mongoid::Migration
-  SOURCE = "/dwp/pip-toolkit"
-  OLD_TARGET = "/government/publications/the-personal-independence-payment-toolkit-for-partners/the-personal-independence-payment-pip-toolkit-for-partners"
-  NEW_TARGET = "/government/publications/the-personal-independence-payment-toolkit-for-partners"
+  SOURCE = "/dwp/pip-toolkit".freeze
+  OLD_TARGET = "/government/publications/the-personal-independence-payment-toolkit-for-partners/the-personal-independence-payment-pip-toolkit-for-partners".freeze
+  NEW_TARGET = "/government/publications/the-personal-independence-payment-toolkit-for-partners".freeze
 
   def self.up
     if request = ShortUrlRequest.where(from_path: SOURCE).first
