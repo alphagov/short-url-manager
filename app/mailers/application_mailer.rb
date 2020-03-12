@@ -1,2 +1,2 @@
-class ApplicationMailer < ActionMailer::Base
+class ApplicationMailer < Mail::Notify::Mailer
 end
