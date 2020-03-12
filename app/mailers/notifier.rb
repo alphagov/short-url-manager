@@ -23,9 +23,11 @@ private
 
   def send_mail(to, subject, short_url_request)
     @short_url_request = short_url_request
-    view_mail(ENV.fetch("GOVUK_NOTIFY_TEMPLATE_ID", "fake-test-template-id"),
-              to: to,
-              subject: subject)
+    view_mail(template_id, to: to, subject: subject)
+  end
+
+  def template_id
+    @template_id ||= ENV.fetch("GOVUK_NOTIFY_TEMPLATE_ID", "fake-test-template-id")
   end
 
   def prefix
