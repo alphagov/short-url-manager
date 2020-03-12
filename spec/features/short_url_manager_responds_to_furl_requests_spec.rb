@@ -2,6 +2,7 @@ require "rails_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 feature "Short URL manager responds to short URL requests" do
+  include ActiveJob::TestHelper
   include GdsApi::TestHelpers::PublishingApiV2
   include PublishingApiHelper
 
@@ -44,10 +45,12 @@ feature "Short URL manager responds to short URL requests" do
   end
 
   scenario "Short URL manager accepts a short URL request, and a redirect is created" do
-    visit short_url_requests_path
+    perform_enqueued_jobs do
+      visit short_url_requests_path
 
-    click_on "Ministry of Beards"
-    click_on "Accept and create redirect"
+      click_on "Ministry of Beards"
+      click_on "Accept and create redirect"
+    end
 
     expect(page).to have_content("The redirect has been published")
 
@@ -61,12 +64,14 @@ feature "Short URL manager responds to short URL requests" do
   end
 
   scenario "Short URL manager rejects a short URL request, giving a reason" do
-    visit short_url_requests_path
+    perform_enqueued_jobs do
+      visit short_url_requests_path
 
-    click_on "Ministry of Beards"
-    click_on "Reject"
-    fill_in "Reason", with: "Beards are soo last season."
-    click_on "Reject"
+      click_on "Ministry of Beards"
+      click_on "Reject"
+      fill_in "Reason", with: "Beards are soo last season."
+      click_on "Reject"
+    end
 
     expect(page).to have_content("The short URL request has been rejected, and the requester has been notified")
 
