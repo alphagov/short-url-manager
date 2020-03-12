@@ -1,4 +1,5 @@
 class ShortUrlRequest
+  include GlobalID::Identification
   include Mongoid::Document
   include Mongoid::Timestamps
   include ShortUrlValidations

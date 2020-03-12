@@ -1,6 +1,8 @@
 require "rails_helper"
 
 feature "As a publisher, I can request a short URL" do
+  include ActiveJob::TestHelper
+
   background do
     create :organisation, title: "Ministry of Magic", slug: "ministry-of-magic"
     create :organisation, title: "Ministry of Beards", slug: "ministry-of-beards"
@@ -20,7 +22,9 @@ feature "As a publisher, I can request a short URL" do
     select "Ministry of Beards",  from: "Organisation"
     fill_in "Reason",             with: reason = "Because of the wombats"
 
-    click_on "Submit request"
+    perform_enqueued_jobs do
+      click_on "Submit request"
+    end
 
     expect(page).to have_content "Your request has been made."
 
