@@ -52,6 +52,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.active_job.queue_adapter = :inline
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :file delivery method writes emails that would be sent to the
   # application log file
