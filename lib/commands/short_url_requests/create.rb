@@ -12,7 +12,7 @@ class Commands::ShortUrlRequests::Create
     elsif requires_confirmation?(url_request)
       confirmation_required.call(url_request)
     elsif url_request.save
-      Notifier.short_url_requested(url_request).deliver_now
+      RequestNotifier.email(:short_url_requested, url_request).each(&:deliver_now)
       success.call(url_request)
     else
       failure.call(url_request)

@@ -152,7 +152,7 @@ describe ShortUrlRequestsController do
       it "should send a short_url_requested notification" do
         mock_mail = double
         expect(mock_mail).to receive(:deliver_now)
-        expect(Notifier).to receive(:short_url_requested).with(kind_of(ShortUrlRequest)).and_return(mock_mail)
+        expect(RequestNotifier).to receive(:email).with(:short_url_requested, kind_of(ShortUrlRequest)).and_return([mock_mail])
         post :create, params: params
       end
 
