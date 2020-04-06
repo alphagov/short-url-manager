@@ -29,7 +29,7 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.0"
 
   gem "capybara", "~> 3.32.1"
-  gem "database_cleaner", "~> 1.8.3"
+  gem "database_cleaner", "~> 1.8.4"
   gem "simplecov", "~> 0.18.5", require: false
   gem "simplecov-rcov", "~> 0.2.3", require: false
   gem "webmock", "~> 3.8.3", require: false
