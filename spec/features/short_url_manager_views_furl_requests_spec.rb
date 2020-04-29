@@ -81,7 +81,6 @@ feature "Short URL manager finds information on short_url requests" do
 
     click_on "Ministry of Beards"
 
-
     within ".other-requests" do
       # Don't have the main request in the other requests section
       expect(page).not_to have_content "Ministry of Beards"
