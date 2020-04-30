@@ -20,7 +20,7 @@ class ShortUrlRequest
   has_one :redirect
 
   validates :state, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
-  validates :state, inclusion: { in: %w(pending accepted rejected superseded) }, allow_blank: true
+  validates :state, inclusion: { in: %w[pending accepted rejected superseded] }, allow_blank: true
   validate :not_already_live
 
   before_validation :retrieve_organisation_title, if: -> { organisation_slug_changed? }
@@ -36,7 +36,7 @@ class ShortUrlRequest
   end
 
   def similar_requests
-    @similar_requests ||= ShortUrlRequest.where(from_path: from_path, :id.ne => self.id).order_by(%i[created_at asc])
+    @similar_requests ||= ShortUrlRequest.where(from_path: from_path, :id.ne => id).order_by(%i[created_at asc])
   end
 
   def pending?
@@ -82,7 +82,7 @@ private
   end
 
   def strip_whitespace
-    self.from_path = self.from_path.strip
-    self.to_path = self.to_path.strip
+    self.from_path = from_path.strip
+    self.to_path = to_path.strip
   end
 end

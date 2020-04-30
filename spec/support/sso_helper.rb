@@ -15,7 +15,7 @@ module SSOControllerHelper
   include SSOFeatureHelper
 
   def login_as(user)
-    super #SSOFeatureHelper
+    super # SSOFeatureHelper
     request.env["warden"] = double(
       authenticate!: true,
       authenticated?: true,
@@ -24,7 +24,7 @@ module SSOControllerHelper
   end
 
   def logout
-    super #SSOFeatureHelper
+    super # SSOFeatureHelper
     request.env["warden"] = double(
       authenticate!: false,
       authenticated?: false,

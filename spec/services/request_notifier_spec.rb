@@ -32,11 +32,11 @@ describe RequestNotifier do
     let(:short_url_request_reason) { "because short_urls" }
     let(:short_url_request) {
       create :short_url_request, from_path: short_url_request_from_path,
-                            to_path: short_url_request_to_path,
-                            requester: short_url_request_requester,
-                            contact_email: short_url_request_contact_email,
-                            organisation_title: short_url_request_organisation_title,
-                            reason: short_url_request_reason
+                                 to_path: short_url_request_to_path,
+                                 requester: short_url_request_requester,
+                                 contact_email: short_url_request_contact_email,
+                                 organisation_title: short_url_request_organisation_title,
+                                 reason: short_url_request_reason
     }
 
     let(:emails) { described_class.email(:short_url_requested, short_url_request) }
@@ -83,9 +83,9 @@ describe RequestNotifier do
     let(:redirect_to_path) { "/favourite-hangouts/evil-headquarters" }
     let(:short_url_request) {
       create :short_url_request, requester: requester,
-                                  contact_email: short_url_request_contact_email,
-                                  redirect: build(:redirect, from_path: redirect_from_path,
-                                                              to_path: redirect_to_path)
+                                 contact_email: short_url_request_contact_email,
+                                 redirect: build(:redirect, from_path: redirect_from_path,
+                                                            to_path: redirect_to_path)
     }
     let(:emails) { described_class.email(:short_url_request_accepted, short_url_request) }
 
@@ -118,10 +118,10 @@ describe RequestNotifier do
     let(:short_url_request_rejection_reason) { nil }
     let(:short_url_request) {
       create :short_url_request, requester: requester,
-                                  contact_email: short_url_request_contact_email,
-                                  from_path: short_url_request_from_path,
-                                  to_path: short_url_request_to_path,
-                                  rejection_reason: short_url_request_rejection_reason
+                                 contact_email: short_url_request_contact_email,
+                                 from_path: short_url_request_from_path,
+                                 to_path: short_url_request_to_path,
+                                 rejection_reason: short_url_request_rejection_reason
     }
     let(:emails) { described_class.email(:short_url_request_rejected, short_url_request) }
 
