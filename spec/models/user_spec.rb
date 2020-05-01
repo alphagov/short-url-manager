@@ -19,13 +19,13 @@ describe User do
     end
 
     context "user has request_short_urls permission" do
-      let(:permissions) { %w(signin request_short_urls) }
+      let(:permissions) { %w[signin request_short_urls] }
       specify { expect(instance.can_request_short_urls?).to be_truthy }
       specify { expect(instance.can_manage_short_urls?).to be_falsy }
     end
 
     context "user has manage_short_urls permission" do
-      let(:permissions) { %w(signin manage_short_urls) }
+      let(:permissions) { %w[signin manage_short_urls] }
       specify { expect(instance.can_request_short_urls?).to be_falsy }
       specify { expect(instance.can_manage_short_urls?).to be_truthy }
     end

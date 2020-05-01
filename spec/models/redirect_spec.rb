@@ -75,7 +75,7 @@ describe Redirect do
             "#{api_url}/paths#{redirect.from_path}",
             publishing_app: "short-url-manager",
             override_existing: true,
-)
+          )
         end
       end
 
