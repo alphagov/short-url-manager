@@ -35,11 +35,11 @@ describe Redirect do
         @existing_redirect = FactoryBot.create(:redirect)
       end
 
-      let(:non_factory_attrs) {
+      let(:non_factory_attrs) do
         {
           from_path: @existing_redirect.from_path,
         }
-      }
+      end
 
       specify { expect(instance).to_not be_valid }
     end
@@ -50,10 +50,10 @@ describe Redirect do
     let(:expected_request) {}
 
     context "when saving and the publishing api is available" do
-      before {
+      before do
         stub_any_publishing_api_call
         redirect.save
-      }
+      end
 
       context "with a valid redirect" do
         let(:redirect) { build :redirect }
@@ -89,10 +89,10 @@ describe Redirect do
     end
 
     context "when trying to save when the publishing api isn't available" do
-      before {
+      before do
         publishing_api_isnt_available
         redirect.save
-      }
+      end
 
       it "should not save" do
         expect(Redirect.count).to eql 0

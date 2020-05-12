@@ -1,20 +1,20 @@
 require "rails_helper"
 
 describe FormHelper do
-  let(:test_model_klass) {
+  let(:test_model_klass) do
     class TestModel
       include Mongoid::Document
     end
-  }
+  end
 
   describe "#render_errors_for" do
-    let(:model) {
-      test_model_klass.new.tap { |model|
-        errors.each { |error|
+    let(:model) do
+      test_model_klass.new.tap do |model|
+        errors.each do |error|
           model.errors.add(error[0], error[1])
-        }
-      }
-    }
+        end
+      end
+    end
     let(:leading_message) { nil }
 
     let(:rendered) { Capybara::Node::Simple.new(render_errors_for(model, leading_message: leading_message)) }
@@ -28,12 +28,12 @@ describe FormHelper do
     end
 
     describe "with errors" do
-      let(:errors) {
+      let(:errors) do
         [
           [:attribute_1, "can't be blank"],
           [:attribute_2, "can't be a small lemon"],
         ]
-      }
+      end
 
       describe "specific errors" do
         it "should render errors in a list" do

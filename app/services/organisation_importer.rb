@@ -13,9 +13,9 @@ class OrganisationImporter
     redis.lock("short_url_manager:#{Rails.env}:organisation_importer_lock", life: 2.hours) do
       organisations_data = get_organisations_data
       Organisation.destroy_all
-      organisations_data.each { |attrs|
+      organisations_data.each do |attrs|
         Organisation.create(attrs)
-      }
+      end
     end
   rescue Redis::Lock::LockNotAcquired => e
     Rails.logger.warn("Failed to get lock for importing organisations (#{e.message}). Another process probably got there first.")
