@@ -21,15 +21,15 @@ class ShortUrlRequestsController < ApplicationController
 
   def create
     Commands::ShortUrlRequests::Create.new(create_short_url_request_params, current_user).call(
-      success: ->(_url_request) {
+      success: lambda { |_url_request|
         flash[:success] = "Your request has been made."
         redirect_to root_path
       },
-      failure: ->(url_request) {
+      failure: lambda { |url_request|
         @short_url_request = url_request
         render "new"
       },
-      confirmation_required: ->(url_request) {
+      confirmation_required: lambda { |url_request|
         @short_url_request = url_request
         render "confirmation"
       },
@@ -60,7 +60,7 @@ class ShortUrlRequestsController < ApplicationController
 
   def update
     Commands::ShortUrlRequests::Update.new(update_short_url_request_params, @short_url_request).call(
-      success: -> {
+      success: lambda {
         flash[:success] = "Your edit was successful."
         redirect_to short_url_request_path(@short_url_request)
       },

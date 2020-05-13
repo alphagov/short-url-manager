@@ -5,11 +5,11 @@ describe User do
   it_behaves_like "a gds-sso user class"
 
   let(:instance) { User.new(attributes) }
-  let(:attributes) {
+  let(:attributes) do
     {
       permissions: permissions,
     }
-  }
+  end
   let(:permissions) { %w[signin] }
 
   describe "permissions" do
@@ -33,12 +33,12 @@ describe User do
 
   describe "scopes" do
     context "with several users of various types" do
-      let!(:short_url_managers) {
+      let!(:short_url_managers) do
         2.times.map { create :short_url_manager }
-      }
-      let!(:other_users) {
+      end
+      let!(:other_users) do
         2.times.map { create :short_url_requester }
-      }
+      end
 
       describe "#short_url_managers" do
         subject { User.short_url_managers }

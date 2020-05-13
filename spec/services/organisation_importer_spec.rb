@@ -5,16 +5,16 @@ describe OrganisationImporter do
   include GdsApi::TestHelpers::Organisations
 
   context "The API responds with 2 pages of results" do
-    before {
+    before do
       org_slugs = %w[wombats-of-wimbledon]
       org_slugs.concat(49.times.map { |n| "organisation-#{n}" })
       organisations_api_has_organisations(org_slugs)
-    }
+    end
 
     context "without any existing organisations" do
-      before {
+      before do
         OrganisationImporter.new.perform!
-      }
+      end
 
       it "should have made 50 organisations" do
         expect(Organisation.count).to eql 50
@@ -28,11 +28,11 @@ describe OrganisationImporter do
     end
 
     context "with an existing organisation" do
-      before {
+      before do
         Organisation.create(slug: "ministry-of-beards", title: "Ministry of Beards")
 
         OrganisationImporter.new.perform!
-      }
+      end
 
       it "should destroy existing organisations" do
         expect(Organisation.where(slug: "ministry-of-beards").first).to be_nil

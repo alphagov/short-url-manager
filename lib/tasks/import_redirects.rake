@@ -1,7 +1,5 @@
 require "csv"
 require "gds_api/publishing_api"
-
-# rubocop:disable Metrics/BlockLength
 namespace :redirects do
   desc "Import redirects"
   task :import, %i[file change_path_reservation? update_existing?] => :environment do |_, args|
@@ -92,4 +90,3 @@ namespace :redirects do
     puts "  -  errors: #{errors.size}"
   end
 end
-# rubocop:enable Metrics/BlockLength

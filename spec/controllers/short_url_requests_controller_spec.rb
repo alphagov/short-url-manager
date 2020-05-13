@@ -9,34 +9,34 @@ describe ShortUrlRequestsController do
     context "with a user without request_short_urls permission" do
       let(:user) { create(:short_url_manager) }
 
-      specify {
+      specify do
         expect_not_authorised(:get, :new)
         expect_not_authorised(:post, :create)
-      }
+      end
     end
 
     context "with a user without manage_short_urls permission" do
       let(:user) { create(:short_url_requester) }
 
-      specify {
+      specify do
         expect_not_authorised(:get, :index)
         expect_not_authorised(:get, :show, id: "required-param")
         expect_not_authorised(:post, :accept, id: "required-param")
         expect_not_authorised(:get, :new_rejection, id: "required-param")
         expect_not_authorised(:post, :reject, id: "required-param")
-      }
+      end
     end
   end
 
   describe "#index" do
     context "with several short_url_requests requested at different times" do
-      let!(:short_url_requests) {
+      let!(:short_url_requests) do
         [
           create(:short_url_request, :pending, created_at: 10.days.ago),
           create(:short_url_request, :pending, created_at: 5.days.ago),
           create(:short_url_request, :pending, created_at: 15.days.ago),
         ]
-      }
+      end
       before { get :index }
 
       it "should order short_url_requests by created_at date with the most recent first" do
@@ -96,9 +96,9 @@ describe ShortUrlRequestsController do
   end
 
   describe "#new" do
-    before {
+    before do
       get :new
-    }
+    end
 
     context "with a user with an organisation" do
       let!(:organisation) { create(:organisation) }
@@ -115,7 +115,7 @@ describe ShortUrlRequestsController do
     let!(:organisation) { create :organisation }
 
     context "with valid params" do
-      let(:params) {
+      let(:params) do
         {
           short_url_request: {
             from_path: "/a-friendly-url",
@@ -124,7 +124,7 @@ describe ShortUrlRequestsController do
             organisation_slug: organisation.slug,
           },
         }
-      }
+      end
 
       it "should create a short_url_request" do
         post :create, params: params
@@ -170,7 +170,7 @@ describe ShortUrlRequestsController do
         end
 
         context "and the request is confirmed" do
-          let(:params) {
+          let(:params) do
             {
               short_url_request: {
                 from_path: "/a-friendly-url",
@@ -180,7 +180,7 @@ describe ShortUrlRequestsController do
                 confirmed: true,
               },
             }
-          }
+          end
 
           it "creates a short url request" do
             post :create, params: params
@@ -191,14 +191,14 @@ describe ShortUrlRequestsController do
     end
 
     context "with invalid params" do
-      let(:params) {
+      let(:params) do
         {
           short_url_request: {
             from_path: "",
             to_path: "",
           },
         }
-      }
+      end
 
       before { post :create, params: params }
 
@@ -213,10 +213,10 @@ describe ShortUrlRequestsController do
     let!(:short_url_request) { create :short_url_request }
 
     context "redirects can be created without problem" do
-      before {
+      before do
         stub_any_publishing_api_call
         post :accept, params: { id: short_url_request.id }
-      }
+      end
 
       it "should assign the ShortUrlRequest" do
         expect(assigns(:short_url_request)).to eql short_url_request
@@ -261,9 +261,9 @@ describe ShortUrlRequestsController do
 
   describe "new_rejection" do
     let!(:short_url_request) { create :short_url_request }
-    before {
+    before do
       get :new_rejection, params: { id: short_url_request.id }
-    }
+    end
 
     it "should assign the short_url_request" do
       expect(assigns(:short_url_request)).to eql short_url_request
@@ -273,9 +273,9 @@ describe ShortUrlRequestsController do
   describe "reject" do
     let!(:short_url_request) { create :short_url_request }
     let(:rejection_reason) { "Don't like it!" }
-    before {
+    before do
       post :reject, params: { id: short_url_request.id, short_url_request: { rejection_reason: rejection_reason } }
-    }
+    end
 
     it "should reject the short_url request, passing in the given reason" do
       expect(short_url_request.reload.rejection_reason).to eql rejection_reason

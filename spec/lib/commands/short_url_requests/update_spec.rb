@@ -7,13 +7,13 @@ describe Commands::ShortUrlRequests::Update do
   let(:failure) { double(:failure, call: true) }
 
   context "with valid data" do
-    let(:params) {
+    let(:params) do
       {
         from_path: "/a-friendly-url",
         to_path: "/somewhere/a-document",
         reason: "Because wombles",
       }
-    }
+    end
 
     it "updates the record" do
       command.call(success: success, failure: failure)
@@ -35,13 +35,13 @@ describe Commands::ShortUrlRequests::Update do
   end
 
   context "with invalid data" do
-    let(:params) {
+    let(:params) do
       {
         from_path: "",
         to_path: "",
         reason: "Because wombles",
       }
-    }
+    end
 
     it "calls the failure callback" do
       command.call(success: success, failure: failure)
