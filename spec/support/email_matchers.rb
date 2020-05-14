@@ -17,7 +17,7 @@ RSpec::Matchers.define :have_body_content do |expected_text|
     text_part = get_mail_body(sent_mail)
 
     message = "Expected the email to include \"#{expected_text}\".\n"
-    if !text_part.include?(expected_text)
+    unless text_part.include?(expected_text)
       message << "The text part did not include \"#{expected_text}\". Text content: \n"
       message << "-------------------------------------------------------------\n"
       message << "#{text_part}\n"

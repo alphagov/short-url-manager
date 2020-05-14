@@ -6,14 +6,16 @@ feature "Short URL manager finds information on short_url requests" do
   end
 
   scenario "Short URL manager views the index of short_url requests and uses the pagination" do
-    create :short_url_request, from_path: "/ministry-of-beards",
-                               to_path: "/government/organisations/ministry-of-beards",
-                               organisation_title: "Ministry of Beards",
-                               created_at: 10.minutes.ago
+    create :short_url_request,
+           from_path: "/ministry-of-beards",
+           to_path: "/government/organisations/ministry-of-beards",
+           organisation_title: "Ministry of Beards",
+           created_at: 10.minutes.ago
 
     40.times do |n|
-      create :short_url_request, from_path: "/from/path/#{n + 2}",
-                                 created_at: n.days.ago
+      create :short_url_request,
+             from_path: "/from/path/#{n + 2}",
+             created_at: n.days.ago
     end
 
     visit "/"
@@ -34,14 +36,15 @@ feature "Short URL manager finds information on short_url requests" do
   end
 
   scenario "Short URL manager views the details for a single fRUL request" do
-    create :short_url_request, from_path: "/ministry-of-beards",
-                               to_path: "/government/organisations/ministry-of-beards",
-                               route_type: "exact",
-                               segments_mode: "preserve",
-                               reason: "Because we really need to think about beards",
-                               contact_email: "gandalf@example.com",
-                               created_at: Time.zone.parse("2014-01-01 12:00:00"),
-                               organisation_title: "Ministry of Beards"
+    create :short_url_request,
+           from_path: "/ministry-of-beards",
+           to_path: "/government/organisations/ministry-of-beards",
+           route_type: "exact",
+           segments_mode: "preserve",
+           reason: "Because we really need to think about beards",
+           contact_email: "gandalf@example.com",
+           created_at: Time.zone.parse("2014-01-01 12:00:00"),
+           organisation_title: "Ministry of Beards"
 
     visit short_url_requests_path
 
@@ -58,24 +61,27 @@ feature "Short URL manager finds information on short_url requests" do
   end
 
   scenario "Short URL manager shows the details of simialr fRUL requests" do
-    create :short_url_request, from_path: "/ministry-of-beards",
-                               to_path: "/government/organisations/ministry-of-beards",
-                               reason: "Beards are now their own department",
-                               contact_email: "gandalf@example.com",
-                               created_at: Time.zone.parse("2014-01-01 12:00:00"),
-                               organisation_title: "Ministry of Beards"
-    create :short_url_request, from_path: "/ministry-of-beards",
-                               to_path: "/government/organisations/ministry-of-facial-hair",
-                               reason: "Facial Hair department is all about beards",
-                               contact_email: "saruman@example.com",
-                               created_at: Time.zone.parse("2013-01-01 12:00:00"),
-                               organisation_title: "Ministry of Facial Hair"
-    create :short_url_request, from_path: "/ministry-of-bears",
-                               to_path: "/government/organisations/ministry-of-bears",
-                               reason: "Because we really need to think about bears",
-                               contact_email: "beorn@example.com",
-                               created_at: Time.zone.parse("2013-11-01 12:00:00"),
-                               organisation_title: "Ministry of Bears"
+    create :short_url_request,
+           from_path: "/ministry-of-beards",
+           to_path: "/government/organisations/ministry-of-beards",
+           reason: "Beards are now their own department",
+           contact_email: "gandalf@example.com",
+           created_at: Time.zone.parse("2014-01-01 12:00:00"),
+           organisation_title: "Ministry of Beards"
+    create :short_url_request,
+           from_path: "/ministry-of-beards",
+           to_path: "/government/organisations/ministry-of-facial-hair",
+           reason: "Facial Hair department is all about beards",
+           contact_email: "saruman@example.com",
+           created_at: Time.zone.parse("2013-01-01 12:00:00"),
+           organisation_title: "Ministry of Facial Hair"
+    create :short_url_request,
+           from_path: "/ministry-of-bears",
+           to_path: "/government/organisations/ministry-of-bears",
+           reason: "Because we really need to think about bears",
+           contact_email: "beorn@example.com",
+           created_at: Time.zone.parse("2013-11-01 12:00:00"),
+           organisation_title: "Ministry of Bears"
 
     visit short_url_requests_path
 
