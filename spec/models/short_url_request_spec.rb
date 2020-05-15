@@ -37,10 +37,12 @@ describe ShortUrlRequest do
       end
 
       it "is valid if the request owns that redirect" do
-        request = create(:short_url_request,
-                         from_path: "/a-path",
-                         to_path: "/b-path",
-                         state: "accepted")
+        request = create(
+          :short_url_request,
+          from_path: "/a-path",
+          to_path: "/b-path",
+          state: "accepted",
+        )
         create(:redirect, from_path: "/a-path", to_path: "/b-path", short_url_request: request)
 
         expect(request).to be_valid
@@ -80,8 +82,11 @@ describe ShortUrlRequest do
     context "when an organisation slug for an existing organisation is given" do
       let!(:organisation) { create :organisation }
       let(:instance) do
-        build(:short_url_request, organisation_slug: organisation.slug,
-                                  organisation_title: organisation.title)
+        build(
+          :short_url_request,
+          organisation_slug: organisation.slug,
+          organisation_title: organisation.title,
+        )
       end
 
       it "should set organisation_title to that of the organisation before validating" do

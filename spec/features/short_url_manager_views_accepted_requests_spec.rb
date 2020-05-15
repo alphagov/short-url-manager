@@ -6,18 +6,22 @@ feature "Short URL manager views accepted short url requests" do
   end
 
   scenario "Short URL manager the index of short_url requests" do
-    create :short_url_request, :accepted, from_path: "/ministry-of-beards",
-                                          to_path: "/government/organisations/ministry-of-beards",
-                                          organisation_title: "Ministry of Beards",
-                                          created_at: 10.minutes.ago
+    create :short_url_request,
+           :accepted,
+           from_path: "/ministry-of-beards",
+           to_path: "/government/organisations/ministry-of-beards",
+           organisation_title: "Ministry of Beards",
+           created_at: 10.minutes.ago
 
     create :short_url_request, :pending, from_path: "/from/pending"
     create :short_url_request, :rejected, from_path: "/from/rejected"
     create :short_url_request, :superseded, from_path: "/from/superseded"
 
     40.times do |n|
-      create :short_url_request, :accepted, from_path: "/from/path/#{n + 2}",
-                                            created_at: n.days.ago
+      create :short_url_request,
+             :accepted,
+             from_path: "/from/path/#{n + 2}",
+             created_at: n.days.ago
     end
 
     visit "/"

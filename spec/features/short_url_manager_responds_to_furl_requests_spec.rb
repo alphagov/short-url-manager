@@ -12,32 +12,41 @@ feature "Short URL manager responds to short URL requests" do
   end
 
   let!(:pending_request) do
-    create(:short_url_request, from_path: "/ministry-of-beards",
-                               to_path: "/government/organisations/ministry-of-beards",
-                               reason: "Because we really need to think about beards",
-                               contact_email: "gandalf@example.com",
-                               created_at: Time.zone.parse("2014-01-01 12:00:00"),
-                               organisation_slug: "ministry-of-beards",
-                               organisation_title: "Ministry of Beards")
+    create(
+      :short_url_request,
+      from_path: "/ministry-of-beards",
+      to_path: "/government/organisations/ministry-of-beards",
+      reason: "Because we really need to think about beards",
+      contact_email: "gandalf@example.com",
+      created_at: Time.zone.parse("2014-01-01 12:00:00"),
+      organisation_slug: "ministry-of-beards",
+      organisation_title: "Ministry of Beards",
+    )
   end
 
   let!(:accepted_request) do
-    create(:short_url_request, from_path: "/ministry-of-hair",
-                               to_path: "/government/organisations/ministry-of-hair",
-                               route_type: "exact",
-                               segments_mode: "ignore",
-                               reason: "Hair enables beards to exist",
-                               contact_email: "hairy@example.com",
-                               created_at: Time.zone.parse("2014-01-01 12:00:00"),
-                               organisation_slug: "ministry-of-hair",
-                               organisation_title: "Ministry of Hair",
-                               state: "accepted")
+    create(
+      :short_url_request,
+      from_path: "/ministry-of-hair",
+      to_path: "/government/organisations/ministry-of-hair",
+      route_type: "exact",
+      segments_mode: "ignore",
+      reason: "Hair enables beards to exist",
+      contact_email: "hairy@example.com",
+      created_at: Time.zone.parse("2014-01-01 12:00:00"),
+      organisation_slug: "ministry-of-hair",
+      organisation_title: "Ministry of Hair",
+      state: "accepted",
+    )
   end
 
   let!(:redirect_for_accepted_request) do
-    create(:redirect, short_url_request: accepted_request,
-                      from_path: accepted_request.from_path,
-                      to_path: accepted_request.to_path)
+    create(
+      :redirect,
+      short_url_request: accepted_request,
+      from_path: accepted_request.from_path,
+      to_path: accepted_request.to_path,
+    )
   end
 
   let!(:other_organisation) do
@@ -97,21 +106,27 @@ feature "Short URL manager responds to short URL requests" do
     accepted_request.reload
     expect(accepted_request.organisation_slug).to eql("full-english")
     expect(accepted_request.organisation_title).to eql("Department of Full English Breakfasts")
-    assert_publishing_api_put_content(redirect_for_accepted_request.content_id,
-                                      publishing_api_redirect_hash("/ministry-of-hair",
-                                                                   target_url,
-                                                                   accepted_request.route_type,
-                                                                   accepted_request.segments_mode))
+    assert_publishing_api_put_content(
+      redirect_for_accepted_request.content_id,
+      publishing_api_redirect_hash(
+        "/ministry-of-hair",
+        target_url,
+        accepted_request.route_type,
+        accepted_request.segments_mode,
+      ),
+    )
     # publish has already been called once for the original redirect.
     assert_publishing_api_publish(redirect_for_accepted_request.content_id, nil, 2)
   end
 
   context "when presented with a request that matches an existing redirect short URL" do
     let!(:pending_request_for_existing_short_url) do
-      create(:short_url_request,
-             :pending,
-             organisation_title: "Ministry of Hair",
-             from_path: "/ministry-of-hair")
+      create(
+        :short_url_request,
+        :pending,
+        organisation_title: "Ministry of Hair",
+        from_path: "/ministry-of-hair",
+      )
     end
 
     scenario "Short URL manager is shown a warning message" do
