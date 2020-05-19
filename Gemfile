@@ -26,7 +26,7 @@ gem "plek"
 group :development, :test do
   gem "factory_bot_rails", "~> 5"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 4.0.0"
+  gem "rspec-rails", "~> 4.0.1"
 
   gem "capybara", "~> 3.32.1"
   gem "database_cleaner", "~> 1.8.5"
