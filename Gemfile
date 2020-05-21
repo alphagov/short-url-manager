@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 5.2"
-gem "sass-rails", "~> 6.0"
+gem "sass-rails", '< 6'
 
 gem "mongoid", "6.3.0"
 gem "mongoid_rails_migrations", git: "https://github.com/alphagov/mongoid_rails_migrations", branch: "avoid-calling-bundler-require-in-library-code-v1.1.0-plus-mongoid-v5-fix"
@@ -18,6 +18,7 @@ gem "will_paginate_mongoid", "~> 2.0.1"
 gem "gds-api-adapters"
 gem "gds-sso", "~> 14.3.0"
 gem "govuk_admin_template", "~> 6.7"
+gem "govuk_publishing_components", "~> 21.50.1"
 gem "govuk_app_config", "~> 2.2.0"
 gem "govuk_sidekiq", "~> 3.0"
 gem "mail-notify"
