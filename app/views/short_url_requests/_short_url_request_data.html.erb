@@ -1,33 +1,44 @@
-<dl>
-  <dt>By:</dt>
-  <dd><%= short_url_request.organisation_title %></dd>
-
-  <dt>Requested at:</dt>
-  <dd><%= short_url_request.created_at.to_s(:govuk_date) %></dd>
-
-  <% if show_short_url %>
-    <dt>URL redirect or short URL:</dt>
-    <dd><%= short_url_request.from_path %></dd>
-  <% end %>
-
-  <dt>Target URL:</dt>
-  <dd><%= link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path) %></dd>
-
-  <dt>Override existing:</dt>
-  <dd><%= short_url_request.override_existing? ? "Yes" : "No" %></dd>
-
-  <dt>Route type:</dt>
-  <dd><%= short_url_request.route_type %></dd>
-
-  <dt>Segments mode:</dt>
-  <dd><%= short_url_request.segments_mode %></dd>
-
-  <dt>Reason:</dt>
-  <dd><%= short_url_request.reason %></dd>
-
-  <dt>Contact email:</dt>
-  <dd><%= short_url_request.contact_email %></dd>
-
-  <dt>State:</dt>
-  <dd><%= short_url_request.state.titleize %></dd>
-</dl>
+<%= render "govuk_publishing_components/components/summary_list", {
+  items: [
+    {
+      field: "Organisation",
+      value: short_url_request.organisation_title
+    },
+    {
+      field: "Requested at",
+      value: short_url_request.created_at.to_s(:govuk_date)
+    },
+    {
+      field: ("URL redirect or short URL" if show_short_url),
+      value: (short_url_request.from_path if show_short_url)
+    },
+    {
+      field: "Target URL"
+      value: link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path)
+    },
+    {
+      field: "Override existing?"
+      value: short_url_request.override_existing? ? "Yes" : "No"
+    },
+    {
+      field: "Route type"
+      value: short_url_request.route_type
+    },
+    {
+      field: "Segments mode"
+      value: short_url_request.segments_mode
+    },
+    {
+      field: "Reason"
+      value: short_url_request.reason
+    },
+    {
+      field: "Contact email"
+      value: short_url_request.contact_email
+    },
+    {
+      field: "Status"
+      value: short_url_request.state.titleize
+    },
+  ]
+} %>

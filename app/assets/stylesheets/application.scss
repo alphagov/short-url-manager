@@ -12,6 +12,7 @@
 //= require_self
 
 // gem components
+// TODO: put these in alphabetical order
 @import 'govuk_publishing_components/govuk_frontend_support';
 @import 'govuk_publishing_components/component_support';
 @import 'govuk_publishing_components/components/layout-for-admin';
@@ -25,6 +26,7 @@
 @import 'govuk_publishing_components/components/select';
 @import 'govuk_publishing_components/components/radio';
 @import 'govuk_publishing_components/components/details';
+@import 'govuk_publishing_components/components/summary-list';
 
 .app-url {
   font-weight: bold;
