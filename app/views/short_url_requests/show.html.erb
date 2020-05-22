@@ -1,6 +1,6 @@
 <% breadcrumb :short_url_request, @short_url_request %>
 
-<h1>URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
+<h1 class="govuk-heading-xl">URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
 <% if @short_url_request.state == 'pending' && @existing_redirect.present? %>
   <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
@@ -39,7 +39,22 @@
 <% end %>
 
 <% if @short_url_request.state == 'pending' %>
-  <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success add-right-margin", disabled: allow_accepting_request? ? nil : 'disabled' %>
-  <%= link_to "Reject", new_rejection_short_url_request_path(@short_url_request), class: "btn btn-danger add-right-margin" %>
+  <% if allow_accepting_request? %>
+    <%= form_for accept_short_url_request_path(@short_url_request) do |f| %>
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Accept and create redirect"
+      } %>
+    <% end %>
+  <% end %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Reject",
+    href: new_rejection_short_url_request_path(@short_url_request),
+    destructive: true
+  } %>
 <% end %>
-<%= link_to "Edit", edit_short_url_request_path, class: "btn btn-default" %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "Edit",
+  href: edit_short_url_request_path,
+  secondary: true
+} %>
