@@ -1,5 +1,27 @@
 <h1 class="govuk-heading-xl">URL redirect and short URL requests</h1>
 
+<%= @short_url_requests %>
+<%
+  requests_rows = @short_url_requests.map do |request|
+
+  end
+%>
+
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    {
+      text: "Organisation"
+    },
+    {
+      text: "From URL",
+    },
+    {
+      text: "To URL",
+    }
+  ],
+  rows: []
+} %>
+
 <table class="table table-bordered table-hover">
   <thead>
     <tr class="table-header">
