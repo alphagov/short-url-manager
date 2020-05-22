@@ -2,40 +2,30 @@
 
 <h1 class="govuk-heading-xl">URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
+<% unless allow_accepting_request? %>
+  <%= render "govuk_publishing_components/components/error_alert", {
+    message: "You cannot accept this redirect request at the moment",
+    description: "Accepting redirect requests with 'override existing', a type of 'prefix',
+      or a segments mode of 'ignore' is currently disabled for most users,
+      as this functionality is still being developed."
+  } %>
+<% end %>
+
 <% if @short_url_request.state == 'pending' && @existing_redirect.present? %>
   <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
 <% end %>
 
 <%= render 'short_url_request_data', short_url_request: @short_url_request, show_short_url: true %>
 
-<div class="panel panel-default other-requests">
-  <div class="panel-heading">
-    <h2>Other requests for this short URL</h2>
-  </div>
-  <div class="panel-body">
-    <% if @short_url_request.similar_requests.any? %>
-      <ol>
-        <% @short_url_request.similar_requests.each do |similar_request| %>
-          <li><%= render 'short_url_request_data', short_url_request: similar_request, show_short_url: false %></li>
-        <% end %>
-      </ol>
-    <% else %>
-      <p>None</p>
+<h2 class="govuk-heading-l">Other requests for this short URL</h2>
+<% if @short_url_request.similar_requests.any? %>
+  <ol>
+    <% @short_url_request.similar_requests.each do |similar_request| %>
+      <li><%= render 'short_url_request_data', short_url_request: similar_request, show_short_url: false %></li>
     <% end %>
-  </div>
-</div>
-
-<% unless allow_accepting_request? %>
-  <div class="panel panel-danger">
-    <div class="panel-heading">
-      <h2>You cannot accept this redirect request at the moment</h2>
-    </div>
-    <div class="panel-body">
-      Accepting redirect requests with 'override existing', a type of 'prefix',
-      or a segments mode of 'ignore' is currently disabled for most users,
-      as this functionality is still being developed.
-    </div>
-  </div>
+  </ol>
+<% else %>
+  <p class="govuk-body">None</p>
 <% end %>
 
 <% if @short_url_request.state == 'pending' %>
