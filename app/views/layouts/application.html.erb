@@ -1,35 +1,43 @@
-<% content_for :page_title, "GOV.UK - Short URL manager" %>
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+  product_name: "Short URL Manager",
+  browser_title: yield(:page_title).presence || "GOV.UK - Short URL Manager"
+} do %>
+  <%= render "govuk_publishing_components/components/skip_link" %>
+  <%= render "govuk_publishing_components/components/layout_header", {
+    product_name: "Short URL Manager",
+    environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+    #navigation_items: navigation_items
+  } %>
 
-<% content_for :head do %>
-  <%= stylesheet_link_tag "application", :media => "all" %>
+  <!-- TODO: MOVE TO NAVIGATION ITEMS -->
+  <!-- <% content_for :navbar_right do %>
+    Hello, <%= link_to current_user.name, Plek.new.external_url_for('signon') %>
+    &bull; <%= link_to 'Sign out', gds_sign_out_path %>
+  <% end %>-->
+
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper" id="main-content" role="main">
+        <%- unless flash.empty? -%>
+          <ul class="flash-messages">
+            <% flash.each do |type, message| %>
+              <%= content_tag :li, message, class: type %>
+            <% end %>
+          </ul>
+        <%- end -%>
+
+        <% breadcrumbs.tap do |links| %>
+          <% if links.any? %>
+            <ul class='breadcrumb'>
+              <% links.each do |link| %><%= crumb_li(link.text, link.url, link.current?) %><% end %>
+            </ul>
+          <% end %>
+        <% end %>
+
+      <%= yield %>
+
+    </main>
+  </div>
+
+  <%= render "govuk_publishing_components/components/layout_footer", {} %>
 <% end %>
-
-<% content_for :app_title, "Short URL manager" %>
-
-<% content_for :navbar_right do %>
-  Hello, <%= link_to current_user.name, Plek.new.external_url_for('signon') %>
-  &bull; <%= link_to 'Sign out', gds_sign_out_path %>
-<% end %>
-
-<% content_for :content do %>
-
-  <%- unless flash.empty? -%>
-    <ul class="flash-messages">
-      <% flash.each do |type, message| %>
-        <%= content_tag :li, message, class: type %>
-      <% end %>
-    </ul>
-  <%- end -%>
-
-  <% breadcrumbs.tap do |links| %>
-    <% if links.any? %>
-      <ul class='breadcrumb'>
-        <% links.each do |link| %><%= crumb_li(link.text, link.url, link.current?) %><% end %>
-      </ul>
-    <% end %>
-  <% end %>
-
-  <%= yield %>
-<% end %>
-
-<%= render :template => 'layouts/govuk_admin_template' %>
