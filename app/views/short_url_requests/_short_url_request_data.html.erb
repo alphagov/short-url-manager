@@ -13,31 +13,31 @@
       value: (short_url_request.from_path if show_short_url)
     },
     {
-      field: "Target URL"
-      value: link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path)
+      field: "Target URL",
+      value: link_to(short_url_request.to_path, govuk_url_for(short_url_request.to_path))
     },
     {
-      field: "Override existing?"
+      field: "Override existing?",
       value: short_url_request.override_existing? ? "Yes" : "No"
     },
     {
-      field: "Route type"
+      field: "Route type",
       value: short_url_request.route_type
     },
     {
-      field: "Segments mode"
+      field: "Segments mode",
       value: short_url_request.segments_mode
     },
     {
-      field: "Reason"
+      field: "Reason",
       value: short_url_request.reason
     },
     {
-      field: "Contact email"
+      field: "Contact email",
       value: short_url_request.contact_email
     },
     {
-      field: "Status"
+      field: "Status",
       value: short_url_request.state.titleize
     },
   ]
