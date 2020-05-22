@@ -26,12 +26,16 @@
           </ul>
         <%- end -%>
 
-        <% breadcrumbs.tap do |links| %>
-          <% if links.any? %>
-            <ul class='breadcrumb'>
-              <% links.each do |link| %><%= crumb_li(link.text, link.url, link.current?) %><% end %>
-            </ul>
-          <% end %>
+        <% unless content_for(:hide_breadcrumbs) %>
+          <%= render "govuk_publishing_components/components/breadcrumbs", {
+            collapse_on_mobile: true,
+            breadcrumbs: [
+              {
+                title: "Home",
+                url: "/"
+              }
+            ]
+          } %>
         <% end %>
 
       <%= yield %>
