@@ -1,84 +1,143 @@
 <%= form_for @short_url_request do |f| %>
-  <dl>
+  <dl class="govuk-body">
     <dt>State:</dt>
     <dd><%= @short_url_request.state.titleize %></dd>
   </dl>
+
+  <!-- TODO: replace with error component -->
   <%= render_errors_for @short_url_request, leading_message: "Your request for a URL redirect or short URL could not be made for the following reasons:" %>
-  <fieldset>
-    <div class="form-group">
-      <%= f.label :from_path %>
-      <%= f.text_field :from_path, disabled: @short_url_request.persisted?, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the URL or the short URL to redirect the user from. Please specify it as a relative path (eg. "/hmrc/tax-evasion").</p>
-    </div>
 
-    <div class="form-group">
-      <%= f.label :to_path %>
-      <%= f.text_field :to_path, class: 'form-control input-md-8' %>
-      <p class="help-block">This is the URL to redirect the user to. The following types of target URL are supported:</p>
-      <ul class="help-block">
-        <li>Internal gov.uk links, eg. <strong>/government/publications/what-hmrc-does-to-prevent-tax-evasion</strong></li>
-        <li>External gov.uk subdomain links, eg. <strong>https://my-title.external.gov.uk/an-optional-path</strong></li>
-      </ul>
-    </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: :from_path
+    },
+    id: "short_url_request_from_path",
+    name: "short_url_request[from_path]",
+    hint: "The URL or the short URL to redirect the user from. Please specify it as a relative path (eg. '/hmrc/tax-evasion')"
+  } %>
 
-    <div class="form-group">
-      <%= f.label :organisation_slug %>
-      <%= f.select :organisation_slug, options_for_select(organisations.map {|org| [org.title, org.slug] }, @short_url_request.organisation_slug), {}, class: 'form-control input-md-6' %>
-    </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: :to_path
+    },
+    id: "short_url_request_to_path",
+    name: "short_url_request[to_path]",
+    hint: "The URL to redirect the user to. You can use an internal gov.uk link (e.g: /government/publications/what-hmrc-does-to-prevent-tax-evasion) or external gov.uk subdomain links (e.g: https://my-title.external.gov.uk/an-optional-path)"
+  } %>
 
-    <div class="form-group">
-      <%= f.label :reason %>
-      <%= f.text_area :reason, class: 'form-control input-md-8' %>
-      <p class="help-block">Please explain the reason for this request, as requests without a clear and valid reason will be denied. Include any Zendesk ticket URL or other information if available.</p>
-    </div>
-  </fieldset>
+  <%
+    organisations_for_select = organisations.map do |org|
+      {
+        text: org.title,
+        value: org.slug,
+        selected: (true if org.slug.eql?("government-digital-service"))
+      }
+    end
+  %>
 
-  <fieldset>
-    <div class="form-group">
-      <% if @short_url_request.new_record? %>
-        <%= f.submit "Submit request", class: 'btn btn-success' %>
-        <%= link_to "Cancel", '/', class: "btn btn-default add-left-margin" %>
-      <% else %>
-        <%= f.submit "Update", class: 'btn btn-success' %>
-        <%= link_to "Cancel", short_url_request_path(@short_url_request), class: "btn btn-default add-left-margin" %>
-      <% end %>
-    </div>
-  </fieldset>
+  <%= render "govuk_publishing_components/components/select", {
+    id: "short_url_request_organisation_slug",
+    name: "short_url_request[organisation_slug]",
+    label: "Organisation",
+    options: organisations_for_select
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    id: "short_url_request_reason",
+    label: {
+      text: "Reason"
+    },
+    name: "short_url_request[reason]",
+    hint: "Please explain the reason for this request. Requests without a clear and valid reason will be denied. Include any Zendesk ticket URL or other information if available."
+  } %>
 
   <% if allow_use_of_advanced_options? %>
-  <fieldset>
-    <h2>Advanced options</h2>
-    <p>Leave as defaults if unsure.</p>
-    <div class="form-group">
-      <%= f.label :override_existing %>
-      <%= f.select :override_existing, options_for_select({ "No" => false, "Yes" => true }, @short_url_request.override_existing), {}, class: 'form-control input-md-6' %>
-      <p>This will allow the redirect to override any existing content for this path. Be <strong>very careful</strong> with this option.</p>
-    </div>
-    <div class="form-group">
-      <%= f.label :route_type, 'From redirects' %>
-      <%= f.select :route_type, options_for_select({ "Exact URL only" => "exact", "URL and all pages under it" => "prefix" }, @short_url_request.route_type), {}, class: 'form-control input-md-6' %>
-      <p>Do not redirect all pages unless you need any page with an address which starts with your input to also be redirected. For example, if you add <strong>gov.uk/address/</strong> then <strong>gov.uk/address/gone</strong> would also be redirected.</p>
-    </div>
+    <%= render "govuk_publishing_components/components/details", {
+        title: "Advanced options"
+      } do %>
+        <p class="govuk-body"><strong>Leave as defaults if unsure!</strong></p>
 
-    <div class="form-group">
-      <%= f.label :segments_mode, 'Segments' %>
-      <%= f.select :segments_mode, options_for_select({ "Discard" => "ignore", "Keep" => "preserve" }, @short_url_request.segments_mode), {}, class: 'form-control input-md-6' %>
-    </div>
+        <%= render "govuk_publishing_components/components/radio", {
+          name: "short_url_request[override_existing]",
+          id: "short_url_request_override_existing",
+          heading: "Override existing",
+          description: sanitize("This will allow the redirect to override any existing content for this path. <strong>Be very careful with this option.</strong>"),
+          items: [
+            {
+              value: "false",
+              text: "No",
+              checked: true
+            },
+            {
+              value: "true",
+              text: "Yes"
+            }
+          ]
+        } %>
 
-    <h3>Help with Segments</h3>
-    <h4>Discard</h4>
-    <h5>Using "Exact URL only"</h5>
-    <p>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong></p>
-    <h5>Using "URL and all pages under it"</h5>
-    <p>For source <strong>/from?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target</strong></p>
+        <%= render "govuk_publishing_components/components/radio", {
+          name: "short_url_request[route_type]",
+          id: "short_url_request_route_type",
+          heading: "From redirects",
+          description: sanitize("Do not redirect all pages unless you need any page with an address which starts with your input to also be redirected. For example, if you add <span class='app-url'>gov.uk/address/</span> then <span class='app-url'>gov.uk/address/gone</span> would also be redirected."),
+          items: [
+            {
+              value: "exact",
+              text: "Exact URL only",
+              checked: true
+            },
+            {
+              value: "prefix",
+              text: "URL and all pages under it"
+            }
+          ]
+        } %>
 
+        <%= render "govuk_publishing_components/components/radio", {
+          name: "short_url_request[segments_mode]",
+          id: "short_url_request_segments_mode",
+          heading: "Segments",
+          items: [
+            {
+              value: "ignore",
+              text: "Discard",
+              checked: true
+            },
+            {
+              value: "preserve",
+              text: "Keep"
+            }
+          ]
+        } %>
 
-    <h4>Keep</h4>
-    <h5>Using "Exact URL only"</h5>
-    <p>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target?q=123</strong></p>
-    <h5>Using "URL and all pages under it"</h5>
-    <p>For source <strong>/from/?q=123</strong> and target url <strong>/target</strong> will redirect to <strong>/target/page/?q=123</strong> and also <strong>/from/doe/a/deer</strong> will redirect to <strong>/target/doe/a/deer</strong></p>
+      <h2 class="govuk-heading-m">Help with Segments</h2>
+      <p>This is about whether query string parameters are kept or discarded when a user is redirected.</p>
 
-  </fieldset>
+      <h3 class="govuk-heading-s">Discard</h3>
+      <p>Given a from_path of <span class="app-url">/old-page</span> and a to_path of <span class="app-url">/new-page</span>:</p>
+      <ul>
+        <li>Exact URL Only: a user visiting <span class="app-url">/old-page?q=123</span> will be redirected to <span class="app-url">/new-page</span></li>
+        <li>URL and all pages under it: the above will be true, and in addition a user visiting <span class="app-url">/old-page/child/page</span> will be redirected to <span class="app-url">/new-page</span></li>
+      </ul>
+
+      <h3 class="govuk-heading-s">Keep</h3>
+      <p>Given a from_path of <span class="app-url">/old-page</span> and a to_path of <span class="app-url">/new-page</span>:</p>
+      <ul>
+        <li>Exact URL Only: a user visiting <span class="app-url">/old-page?q=123</span> will be redirected to <span class="app-url">/new-page?q=123</span></li>
+        <li>URL and all pages under it: the above will be true, and in addition a user visiting <span class="app-url">/old-page/child/page</span> will be redirected to <span class="app-url">/new-page/child/page</span></li>
+      </ul>
+    <% end %>
   <% end %>
-<%- end -%>
+
+  <% button_text =  @short_url_request.new_record? ? "Submit request" : "Update" %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: button_text,
+    value: button_text,
+    name: "commit"
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Cancel",
+    destructive: true,
+    href: "/",
+  } %>
+<% end %>

@@ -20,6 +20,15 @@
 @import 'govuk_publishing_components/components/layout-footer';
 @import 'govuk_publishing_components/components/button';
 @import 'govuk_publishing_components/components/breadcrumbs';
+@import 'govuk_publishing_components/components/input';
+@import 'govuk_publishing_components/components/textarea';
+@import 'govuk_publishing_components/components/select';
+@import 'govuk_publishing_components/components/radio';
+@import 'govuk_publishing_components/components/details';
+
+.app-url {
+  font-weight: bold;
+}
 
 @import 'modules/button_to';
 @import 'modules/clickable_row';
