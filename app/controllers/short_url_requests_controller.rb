@@ -4,7 +4,7 @@ class ShortUrlRequestsController < ApplicationController
   before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject]
 
   def index
-    @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, "desc"]).paginate(page: params[:page], per_page: 40)
+    @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, "desc"])
   end
 
   def show

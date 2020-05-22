@@ -387,10 +387,6 @@ GEM
     websocket-extensions (0.1.4)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    will_paginate (3.3.0)
-    will_paginate_mongoid (2.0.1)
-      mongoid
-      will_paginate (~> 3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -428,7 +424,6 @@ DEPENDENCIES
   uglifier (~> 4.2.0)
   webmock (~> 3.8.3)
   whenever (~> 1.0.0)
-  will_paginate_mongoid (~> 2.0.1)
 
 BUNDLED WITH
    1.17.2
