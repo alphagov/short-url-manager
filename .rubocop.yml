@@ -6,13 +6,3 @@ inherit_gem:
 inherit_mode:
   merge:
     - Exclude
-
-AllCops:
-  Exclude:
-    - db/migrate/201*.rb
-
-# I don't understand what value
-# https://rails.rubystyle.guide/#has_many-has_one-dependent-option
-# adds, so disable this cop. There's only one offense.
-Rails/HasManyOrHasOneDependent:
-  Enabled: false
