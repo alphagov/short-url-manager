@@ -1,6 +1,6 @@
 <h1 class="govuk-heading-xl">URL redirect and short URL requests</h1>
 
-<%= @short_url_requests %>
+<%= @short_url_requests.inspect %>
 <%
   requests_rows = @short_url_requests.map do |request|
 
