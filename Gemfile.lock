@@ -254,7 +254,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.1.4)
+    redis (4.2.1)
     redis-namespace (1.7.0)
       redis (>= 3.0.4)
     regexp_parser (1.7.1)
@@ -412,7 +412,7 @@ DEPENDENCIES
   pry
   rails (~> 5.2)
   rails-controller-testing
-  redis (= 4.1.4)
+  redis (= 4.2.1)
   rspec-rails (~> 4.0.1)
   rubocop-govuk
   sass-rails (~> 6.0)
