@@ -24,7 +24,7 @@ gem "mail-notify"
 gem "plek"
 
 group :development, :test do
-  gem "factory_bot_rails", "~> 5"
+  gem "factory_bot_rails", "~> 6"
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 4.0.1"
 
