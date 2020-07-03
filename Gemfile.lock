@@ -63,7 +63,7 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
-    bson (4.3.0)
+    bson (4.9.4)
     builder (3.2.4)
     byebug (11.1.3)
     capybara (3.33.0)
@@ -175,11 +175,11 @@ GEM
     minitest (5.14.1)
     mlanett-redis-lock (0.2.7)
       redis
-    mongo (2.5.0)
-      bson (>= 4.3.0, < 5.0.0)
-    mongoid (6.3.0)
-      activemodel (~> 5.1)
-      mongo (>= 2.5.0, < 3.0.0)
+    mongo (2.12.1)
+      bson (>= 4.8.2, < 5.0.0)
+    mongoid (7.1.2)
+      activemodel (>= 5.1, < 6.1)
+      mongo (>= 2.7.0, < 3.0.0)
     multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -406,7 +406,7 @@ DEPENDENCIES
   gretel (= 3.0.9)
   mail-notify
   mlanett-redis-lock (= 0.2.7)
-  mongoid (= 6.3.0)
+  mongoid (= 7.1.2)
   mongoid_rails_migrations!
   plek
   pry
