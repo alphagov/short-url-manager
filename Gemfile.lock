@@ -379,34 +379,35 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  capybara (~> 3.33.0)
-  database_cleaner (~> 1.8.5)
-  factory_bot_rails (~> 6)
+  capybara
+  database_cleaner
+  factory_bot_rails
   gds-api-adapters
-  gds-sso (~> 15.0.1)
+  gds-sso
   govuk-content-schema-test-helpers
-  govuk_admin_template (~> 6.7)
-  govuk_app_config (~> 2.2.1)
-  govuk_sidekiq (~> 4.0)
-  gretel (= 3.0.9)
+  govuk_admin_template
+  govuk_app_config
+  govuk_sidekiq
+  gretel
   mail-notify
-  mlanett-redis-lock (= 0.2.7)
-  mongoid (= 6.3.0)
+  mlanett-redis-lock
+  mongoid
+  mongoid_rails_migrations!
   plek
   pry
   rails (~> 5.2)
   rails-controller-testing
-  redis (= 4.2.1)
-  rspec-rails (~> 4.0.1)
+  redis
+  rspec-rails
   rubocop-govuk
-  sass-rails (~> 6.0)
+  sass-rails
   scss_lint-govuk
-  simplecov (~> 0.18.5)
-  simplecov-rcov (~> 0.2.3)
-  uglifier (~> 4.2.0)
-  webmock (~> 3.8.3)
-  whenever (~> 1.0.0)
-  will_paginate_mongoid (~> 2.0.1)
+  simplecov
+  simplecov-rcov
+  uglifier
+  webmock
+  whenever
+  will_paginate_mongoid
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
