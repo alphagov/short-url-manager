@@ -10,7 +10,7 @@ gem "mongoid_rails_migrations", git: "https://github.com/alphagov/mongoid_rails_
 gem "uglifier"
 
 gem "gretel"
-gem "mlanett-redis-lock"# Used by the Organisation importer as a locking mechanism
+gem "mlanett-redis-lock" # Used by the Organisation importer as a locking mechanism
 gem "redis", require: false # Used by the Organisation importer as a locking mechanism
 gem "whenever", require: false
 gem "will_paginate_mongoid"
