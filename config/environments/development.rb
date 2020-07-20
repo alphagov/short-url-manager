@@ -58,4 +58,8 @@ Rails.application.configure do
   # The :file delivery method writes emails that would be sent to the
   # application log file
   config.action_mailer.delivery_method = :file
+
+  config.hosts += [
+    "short-url-manager.dev.gov.uk",
+  ]
 end
