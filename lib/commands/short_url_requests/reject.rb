@@ -5,7 +5,7 @@ class Commands::ShortUrlRequests::Reject
   end
 
   def call
-    url_request.update(state: "rejected", rejection_reason: reason)
+    url_request.update!(state: "rejected", rejection_reason: reason)
     RequestNotifier.email(:short_url_request_rejected, url_request).each(&:deliver_later)
   end
 

@@ -29,7 +29,7 @@ describe OrganisationImporter do
 
     context "with an existing organisation" do
       before do
-        Organisation.create(slug: "ministry-of-beards", title: "Ministry of Beards")
+        Organisation.create!(slug: "ministry-of-beards", title: "Ministry of Beards")
 
         OrganisationImporter.new.perform!
       end

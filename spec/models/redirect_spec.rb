@@ -50,7 +50,7 @@ describe Redirect do
     context "when saving and the publishing api is available" do
       before do
         stub_any_publishing_api_call
-        redirect.save
+        redirect.save!
       end
 
       context "with a valid redirect" do
@@ -89,7 +89,7 @@ describe Redirect do
     context "when trying to save when the publishing api isn't available" do
       before do
         stub_publishing_api_isnt_available
-        redirect.save
+        redirect.save!
       end
 
       it "should not save" do
@@ -106,7 +106,7 @@ describe Redirect do
     subject(:redirect) { create(:redirect) }
 
     it "unpublishing from the Publishing API" do
-      redirect.destroy
+      redirect.destroy!
       assert_publishing_api_unpublish(redirect.content_id, type: "gone")
     end
 
