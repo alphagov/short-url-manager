@@ -8,7 +8,7 @@ describe OrganisationImporter do
     before do
       org_slugs = %w[wombats-of-wimbledon]
       org_slugs.concat(49.times.map { |n| "organisation-#{n}" })
-      organisations_api_has_organisations(org_slugs)
+      stub_organisations_api_has_organisations(org_slugs)
     end
 
     context "without any existing organisations" do

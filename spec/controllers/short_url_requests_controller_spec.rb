@@ -229,7 +229,7 @@ describe ShortUrlRequestsController do
 
     context "publishing api isn't available" do
       before do
-        publishing_api_isnt_available
+        stub_publishing_api_isnt_available
         post :accept, params: { id: short_url_request.id }
       end
 
