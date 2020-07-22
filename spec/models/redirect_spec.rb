@@ -1,10 +1,8 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
 require "gds_api/test_helpers/publishing_api"
 require "securerandom"
 
 describe Redirect do
-  include GdsApi::TestHelpers::PublishingApiV2
   include GdsApi::TestHelpers::PublishingApi
   include PublishingApiHelper
 
@@ -67,7 +65,7 @@ describe Redirect do
 
       context "when override_existing is set" do
         let(:redirect) { build :redirect, override_existing: true }
-        before(:context) { stub_default_publishing_api_path_reservation }
+        before(:context) { stub_any_publishing_api_path_reservation }
 
         it "should put a publish intent to the publishing API" do
           api_url = GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_ENDPOINT
@@ -90,7 +88,7 @@ describe Redirect do
 
     context "when trying to save when the publishing api isn't available" do
       before do
-        publishing_api_isnt_available
+        stub_publishing_api_isnt_available
         redirect.save
       end
 

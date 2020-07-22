@@ -1,5 +1,5 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 describe ShortUrlRequestsController do
   let(:user) { create(:short_url_requester_and_manager) }
@@ -157,7 +157,7 @@ describe ShortUrlRequestsController do
       end
 
       context "when an existing redirect already exists" do
-        include GdsApi::TestHelpers::PublishingApiV2
+        include GdsApi::TestHelpers::PublishingApi
 
         before do
           stub_any_publishing_api_call
@@ -208,7 +208,7 @@ describe ShortUrlRequestsController do
   end
 
   describe "#accept" do
-    include GdsApi::TestHelpers::PublishingApiV2
+    include GdsApi::TestHelpers::PublishingApi
 
     let!(:short_url_request) { create :short_url_request }
 
@@ -229,7 +229,7 @@ describe ShortUrlRequestsController do
 
     context "publishing api isn't available" do
       before do
-        publishing_api_isnt_available
+        stub_publishing_api_isnt_available
         post :accept, params: { id: short_url_request.id }
       end
 

@@ -17,10 +17,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 # ActiveRecord::Migration.maintain_test_schema!
 
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 RSpec.configure do |config|
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
 
   config.before :each do
     stub_any_publishing_api_call

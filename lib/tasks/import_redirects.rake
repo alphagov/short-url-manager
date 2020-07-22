@@ -1,5 +1,6 @@
 require "csv"
 require "gds_api/publishing_api"
+
 namespace :redirects do
   desc "Import redirects"
   task :import, %i[file change_path_reservation? update_existing?] => :environment do |_, args|
@@ -17,7 +18,7 @@ namespace :redirects do
     skipped = 0
     errors = {}
 
-    publishing_api_client = GdsApi.publishing_api_v2
+    publishing_api_client = GdsApi.publishing_api
 
     begin
       data.each do |row|
