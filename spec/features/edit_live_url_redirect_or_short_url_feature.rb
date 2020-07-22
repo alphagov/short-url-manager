@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Edit live URL redirect or Short URL" do
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
   include PublishingApiHelper
 
   scenario "Edit redirect to keep segments" do

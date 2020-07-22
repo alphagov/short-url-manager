@@ -1,4 +1,4 @@
-require "gds_api/publishing_api_v2"
+require "gds_api/publishing_api"
 require "securerandom"
 
 class Redirect
@@ -26,14 +26,14 @@ private
   def create_redirect_in_publishing_api
     payload = Presenters::PublishingAPI.present(self)
     if override_existing?
-      GdsApi.publishing_api_v2.put_path(
+      GdsApi.publishing_api.put_path(
         from_path,
         publishing_app: "short-url-manager",
         override_existing: true,
       )
     end
-    GdsApi.publishing_api_v2.put_content(content_id, payload)
-    GdsApi.publishing_api_v2.publish(content_id, :major)
+    GdsApi.publishing_api.put_content(content_id, payload)
+    GdsApi.publishing_api.publish(content_id, :major)
   rescue GdsApi::HTTPErrorResponse => e
     GovukError.notify(e, extra: payload)
     errors.add(:base, "An error posting to the publishing API prevented this redirect from being created: #{e}")
@@ -41,7 +41,7 @@ private
   end
 
   def unpublish_in_publishing_api
-    GdsApi.publishing_api_v2.unpublish(content_id, type: "gone")
+    GdsApi.publishing_api.unpublish(content_id, type: "gone")
   end
 
   def ensure_presence_of_content_id

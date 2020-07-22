@@ -104,7 +104,7 @@ class CreateRedirectsForDesignPrinciples < Mongoid::Migration
   end
 
   def self.publishing_api
-    @publishing_api ||= GdsApi::PublishingApiV2.new(
+    @publishing_api ||= GdsApi::PublishingApi.new(
       Plek.current.find("publishing-api"),
       bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
     )

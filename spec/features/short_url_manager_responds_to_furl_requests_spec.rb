@@ -1,9 +1,9 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 feature "Short URL manager responds to short URL requests" do
   include ActiveJob::TestHelper
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
   include PublishingApiHelper
 
   background do
