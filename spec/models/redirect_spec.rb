@@ -50,7 +50,7 @@ describe Redirect do
     context "when saving and the publishing api is available" do
       before do
         stub_any_publishing_api_call
-        redirect.save!
+        redirect.save # rubocop:disable Rails/SaveBang
       end
 
       context "with a valid redirect" do
@@ -89,7 +89,7 @@ describe Redirect do
     context "when trying to save when the publishing api isn't available" do
       before do
         stub_publishing_api_isnt_available
-        redirect.save!
+        redirect.save # rubocop:disable Rails/SaveBang
       end
 
       it "should not save" do
