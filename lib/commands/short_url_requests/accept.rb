@@ -13,8 +13,8 @@ class Commands::ShortUrlRequests::Accept
     existing_request = redirect.short_url_request.nil? ? nil : redirect.short_url_request.target
 
     if redirect.update(to_path: url_request.to_path, short_url_request: url_request, override_existing: url_request.override_existing, route_type: url_request.route_type, segments_mode: url_request.segments_mode)
-      url_request.update(state: "accepted")
-      existing_request.update(state: "superseded") if existing_request.present?
+      url_request.update!(state: "accepted")
+      existing_request.update!(state: "superseded") if existing_request.present?
       RequestNotifier.email(:short_url_request_accepted, url_request).each(&:deliver_later)
     else
       failure.call

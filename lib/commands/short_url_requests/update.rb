@@ -7,7 +7,7 @@ class Commands::ShortUrlRequests::Update
   def call(success:, failure:)
     if url_request.update(params)
       if url_request.redirect.present?
-        url_request.redirect.update(
+        url_request.redirect.update!(
           from_path: url_request.from_path,
           to_path: url_request.to_path,
           route_type: url_request.route_type,

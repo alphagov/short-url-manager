@@ -13,7 +13,7 @@ if Rails.env.development?
   # The easiest way to do this is just to override the GDS::SSO test user with a
   # new user we create here.
   #
-  GDS::SSO.test_user = User.find_or_create_by(email: "user@test.example").tap do |u|
+  GDS::SSO.test_user = User.find_or_create_by!(email: "user@test.example").tap do |u|
     u.name = "Test User"
     u.permissions = %w[signin manage_short_urls request_short_urls advanced_options receive_notifications]
     u.save!
