@@ -19,7 +19,7 @@ gem "gds-api-adapters"
 gem "gds-sso", "~> 15.0.1"
 gem "govuk_admin_template", "~> 6.7"
 gem "govuk_app_config", "~> 2.2.1"
-gem "govuk_sidekiq", "~> 3.0"
+gem "govuk_sidekiq", "~> 4.0"
 gem "mail-notify"
 gem "plek"
 
