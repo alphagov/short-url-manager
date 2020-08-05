@@ -4,7 +4,6 @@ gem "rails", "~> 5.2"
 gem "sass-rails", "~> 6.0"
 
 gem "mongoid", "6.3.0"
-gem "mongoid_rails_migrations", git: "https://github.com/alphagov/mongoid_rails_migrations", branch: "avoid-calling-bundler-require-in-library-code-v1.1.0-plus-mongoid-v5-fix"
 
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", "~> 4.2.0"
