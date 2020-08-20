@@ -15,19 +15,20 @@ Bundler.require(*Rails.groups)
 
 module ShortUrlManager
   class Application < Rails::Application
-    config.eager_load_paths += %W[#{config.root}/app #{config.root}/lib]
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    # The default delivery jobs (ActionMailer::Parameterized::DeliveryJob, ActionMailer::DeliveryJob),
+    # will be removed in Rails 6.1. This setting is not backwards compatible with earlier Rails versions.
+    # If you send mail in the background, job workers need to have a copy of
+    # MailDeliveryJob to ensure all delivery jobs are processed properly.
+    # Make sure your entire app is migrated and stable on 6.0 before using this setting.
+    Rails.application.config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
 
     # Disable Rack::Cache
     config.action_dispatch.rack_cache = nil

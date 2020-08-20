@@ -10,7 +10,7 @@ class Commands::ShortUrlRequests::Accept
     # updates call below
     # NOTE 2: this looks like it could be replaced with `.try(:target)` but it
     # can't as the tests fail - seems the `try` version still retains a proxy
-    existing_request = redirect.short_url_request.nil? ? nil : redirect.short_url_request.target
+    existing_request = redirect.short_url_request.nil? ? nil : redirect.short_url_request._target
 
     if redirect.update(to_path: url_request.to_path, short_url_request: url_request, override_existing: url_request.override_existing, route_type: url_request.route_type, segments_mode: url_request.segments_mode)
       url_request.update!(state: "accepted")

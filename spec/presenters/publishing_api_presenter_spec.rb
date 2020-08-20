@@ -1,4 +1,5 @@
 require "rails_helper"
+require_relative "../../app/lib/presenters/publishing_api"
 
 RSpec.describe Presenters::PublishingAPI do
   let(:redirect) do
