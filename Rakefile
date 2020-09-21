@@ -5,7 +5,7 @@ require File.expand_path("config/application", __dir__)
 
 Rails.application.load_tasks
 
-task default: %i[spec lint]
+task default: %i[lint spec]
 
 if defined?(RSpec)
   RSpec::Core::RakeTask.new(:validate) do |t|
