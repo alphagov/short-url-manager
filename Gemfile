@@ -27,7 +27,6 @@ group :development, :test do
   gem "rails-controller-testing"
   gem "rspec-rails"
   gem "rubocop-govuk"
-  gem "scss_lint-govuk"
   gem "simplecov", require: false
   gem "simplecov-rcov", require: false
   gem "webmock", require: false
