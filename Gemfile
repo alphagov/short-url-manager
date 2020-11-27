@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "6.0.3.4"
 
-gem "sass-rails"
+gem "sassc-rails"
 
 gem "mongoid"
 
