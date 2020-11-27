@@ -182,12 +182,6 @@ GEM
     mongoid (7.1.2)
       activemodel (>= 5.1, < 6.1)
       mongo (>= 2.7.0, < 3.0.0)
-    mongoid_rails_migrations (1.2.1)
-      activesupport (>= 4.2.0)
-      bundler (>= 1.0.0)
-      mongoid (>= 4.0.0)
-      rails (>= 4.2.0)
-      railties (>= 4.2.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -417,7 +411,6 @@ DEPENDENCIES
   mail-notify
   mlanett-redis-lock
   mongoid
-  mongoid_rails_migrations
   plek
   pry
   rails (= 6.0.3.4)

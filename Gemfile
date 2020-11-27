@@ -5,7 +5,6 @@ gem "rails", "6.0.3.4"
 gem "sass-rails"
 
 gem "mongoid"
-gem "mongoid_rails_migrations"
 
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier"
