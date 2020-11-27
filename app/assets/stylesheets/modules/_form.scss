@@ -1,6 +1,5 @@
 form {
-  // scss-lint:disable QualifyingElement
-  textarea.form-control {
+  textarea.form-control { // stylelint-disable-line selector-no-qualifying-type
     height: 200px;
   }
 }
