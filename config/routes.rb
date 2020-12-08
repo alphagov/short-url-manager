@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   end
   get "list_short_urls" => "short_url_requests#list_short_urls"
 
-  get "/healthcheck" => proc { [200, {}, %w[OK]] }
+  get "/healthcheck", to: GovukHealthcheck.rack_response(
+    GovukHealthcheck::Mongoid,
+    GovukHealthcheck::SidekiqRedis,
+  )
 
   if Rails.env.development?
     get "/styleguide" => "govuk_admin_template/style_guide#index"
