@@ -1,6 +1,6 @@
-$flash-colour: #333;
-$flash-bg-colour: #ccc;
-$flash-success-colour: #fff;
+$flash-colour: #333333;
+$flash-bg-colour: #cccccc;
+$flash-success-colour: #ffffff;
 $flash-success-bg-colour: #00823b;
 
 .flash-messages {
@@ -14,7 +14,7 @@ $flash-success-bg-colour: #00823b;
     margin-bottom: 2px;
     padding: 10px 15px;
 
-    &.success {
+    &.success { // stylelint-disable-line selector-no-qualifying-type
       background-color: $flash-success-bg-colour;
       color: $flash-success-colour;
     }
