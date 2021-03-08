@@ -10,7 +10,7 @@ class OrganisationImporter
   end
 
   def perform!
-    Redis.current.lock("short_url_manager:#{Rails.env}:organisation_importer_lock", life: 2.hours) do
+    Redis.current.lock("short_url_manager:organisation_importer_lock", life: 2.hours) do
       organisations_data = get_organisations_data
       Organisation.destroy_all
       organisations_data.each do |attrs|
