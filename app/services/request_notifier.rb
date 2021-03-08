@@ -13,6 +13,11 @@ class RequestNotifier
       .map do |recipient_group|
         mailer.send(event, short_url_request, recipient_group)
       end
+  rescue Notifications::Client::BadRequestError => e
+    # in production we care about all errors
+    # in staging and integration the team-only error is unrecoverable when running asynchronously
+    # (team-only error is unrecoverable in production too, but almost certainly impossible)
+    raise if ENV["SENTRY_CURRENT_ENV"] !~ /integration|staging/ || e.message !~ /team-only API key/
   end
 
   def self.recipients_for(event_category, short_url_request)

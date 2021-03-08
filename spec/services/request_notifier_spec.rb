@@ -42,6 +42,19 @@ describe RequestNotifier do
 
     let(:emails) { described_class.email(:short_url_requested, short_url_request) }
 
+    context "exception testing" do
+      it "does not raise exception in integration" do
+        ENV["SENTRY_CURRENT_ENV"] = "integration"
+        expect { RequestNotifier.email(:short_url_requested, short_url_request) }.not_to raise_error(Notifications::Client::BadRequestError)
+      end
+
+      it "raises exception in production" do
+        ENV["SENTRY_CURRENT_ENV"] = "production"
+        allow(RequestNotifier).to receive(:email).with(:short_url_requested, short_url_request) { raise }
+        expect { RequestNotifier.email(:short_url_requested, short_url_request) }.to raise_error
+      end
+    end
+
     it "should send from noreply+short-url-manager@digital.cabinet-office.gov.uk" do
       expect(emails.first.from).to be == ["noreply+short-url-manager@digital.cabinet-office.gov.uk"]
     end
