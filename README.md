@@ -1,10 +1,6 @@
 # Short URL manager
 
-Publishing tool to request, approve and create Short URLs on GOV.UK.
-
-## Technical documentation
-
-Short URLs are a short and easy to type URL that redirects to a piece of content at a much longer URL.
+Publishing tool to request, approve and create Short URLs on GOV.UK. Short URLs are a short and easy to type URL that redirects to a piece of content at a much longer URL.
 
 They are often used on posters, in leaflets or over the phone, so they are easy to use. For example:
 
@@ -16,32 +12,27 @@ to
 /government/publications/your-state-pension-estimate-explained-cps5
 ```
 
-## Dependencies
-* MongoDB - main data store
-* Redis - for distributed locking using
-  [mlanett/redis-lock](https://github.com/mlanett/redis-lock)
-* [alphagov/gds-sso](http://github.com/alphagov/gds-sso): Provides authentication OmniAuth adapter to allow apps to sign in via GOV.UK auth
-* [alphagov/publishing-api](http://github.com/alphagov/publishing-api): the central store of published content on GOV.UK. Once a redirect has been accepted, redirects are registered to this API.
+## Technical documentation
 
-## Running the application
+This is a Ruby on Rails app, and should follow [our Rails app conventions][].
 
+You can use the [GOV.UK Docker environment][] to run the application and its tests with all the necessary dependencies.  Follow [the usage instructions][] to get started.
+
+**Use GOV.UK Docker to run any commands that follow.**
+
+[our Rails app conventions]: https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html
+[GOV.UK Docker environment]: https://github.com/alphagov/govuk-docker
+[the usage instructions]: https://github.com/alphagov/govuk-docker#usage
+
+### Testing
+
+The default `rake` task runs all the tests:
+
+```sh
+bundle exec rake
 ```
-$ ./startup.sh
-```
 
-If you are using the GDS development virtual machine then the application will be available on the host at [http://short-url-manager.dev.gov.uk/](http://short-url-manager.dev.gov.uk/)
-
-## Running the test suite
-
-```
-$ bundle exec rake
-```
-
-## Content Schema Validations
-
-You will need a copy of [govuk-content-schemas](https://github.com/alphagov/govuk-content-schemas) on your file system. By default these should be in a sibling directory to your project. Alternatively, you can specify their location with the `GOVUK_CONTENT_SCHEMAS_PATH` environment variable.
-
-## Permissions
+### Permissions
 
 Users must be given Signon permissions to access and use the features
 of this tool. The available permissions are:
