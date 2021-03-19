@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
-library("govuk@default-branch")
+library("govuk")
 
 node("mongodb-2.4") {
-  govuk.buildProject(defaultBranch: "main")
+  govuk.buildProject()
 }
