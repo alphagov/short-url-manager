@@ -15,6 +15,12 @@ Rails.application.routes.draw do
     GovukHealthcheck::SidekiqRedis,
   )
 
+  get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
+  get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
+    GovukHealthcheck::Mongoid,
+    GovukHealthcheck::SidekiqRedis,
+  )
+
   if Rails.env.development?
     get "/styleguide" => "govuk_admin_template/style_guide#index"
   end
