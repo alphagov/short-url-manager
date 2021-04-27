@@ -10,11 +10,6 @@ Rails.application.routes.draw do
   end
   get "list_short_urls" => "short_url_requests#list_short_urls"
 
-  get "/healthcheck", to: GovukHealthcheck.rack_response(
-    GovukHealthcheck::Mongoid,
-    GovukHealthcheck::SidekiqRedis,
-  )
-
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
   get "/healthcheck/ready", to: GovukHealthcheck.rack_response(
     GovukHealthcheck::Mongoid,
