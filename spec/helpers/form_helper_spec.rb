@@ -1,15 +1,13 @@
 require "rails_helper"
 
 describe FormHelper do
-  let(:test_model_klass) do
-    class TestModel
-      include Mongoid::Document
-    end
+  before do
+    stub_const("TestModel", Class.new { include Mongoid::Document })
   end
 
   describe "#render_errors_for" do
     let(:model) do
-      test_model_klass.new.tap do |model|
+      TestModel.new.tap do |model|
         errors.each do |error|
           model.errors.add(error[0], error[1])
         end
