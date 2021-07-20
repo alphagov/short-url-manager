@@ -26,7 +26,7 @@ private
   def get_organisations_data
     api_adapter.organisations.with_subsequent_pages.map do |result|
       {
-        title: result.dig("title"),
+        title: result["title"],
         slug: result.dig("details", "slug"),
       }
     end
