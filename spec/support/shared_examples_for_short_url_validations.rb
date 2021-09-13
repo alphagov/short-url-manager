@@ -20,16 +20,28 @@ shared_examples_for "ShortUrlValidations" do |klass|
     end
 
     it "may be a gov.uk subdomain URL" do
-      expect(build(klass, to_path: "https://my.service.gov.uk")).to be_valid
       expect(build(klass, to_path: "https://my.service.gov.uk/path")).to be_valid
     end
 
-    it "must be either a relative path or a gov.uk campaign URL" do
-      expect(build(klass, to_path: "https://www.somewhere.com/a-path")).to_not be_valid
-      expect(build(klass, to_path: "https://.campaign.gov.uk")).to_not be_valid
-      expect(build(klass, to_path: "http://my.campaign.gov.uk")).to_not be_valid
-      expect(build(klass, to_path: "http://my.campaign.gov.uk/path")).to_not be_valid
-      expect(build(klass, to_path: "ftp://my.campaign.gov.uk")).to_not be_valid
+    it "may not be a non HTTPS URL" do
+      expect(build(klass, to_path: "http://my.service.gov.uk/path")).to_not be_valid
+      expect(build(klass, to_path: "ftp://my.service.gov.uk")).to_not be_valid
+    end
+
+    it "may not be a www.gov.uk subdomain URL" do
+      expect(build(klass, to_path: "https://www.gov.uk/path")).to_not be_valid
+    end
+
+    it "may be an nhs.uk subdomain URL" do
+      expect(build(klass, to_path: "https://www.nhs.uk/path")).to be_valid
+    end
+
+    it "may be a judiciary.uk subdomain URL" do
+      expect(build(klass, to_path: "https://www.judiciary.uk/path")).to be_valid
+    end
+
+    it "may be a ukri.org subdomain URL" do
+      expect(build(klass, to_path: "https://www.ukri.org/path")).to be_valid
     end
   end
 end
