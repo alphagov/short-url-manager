@@ -8,14 +8,14 @@ module ShortUrlValidations
   end
 
   def to_path_is_valid
-    unless to_path.blank? || to_path =~ /\A\// || govuk_subdomain_url?(to_path)
-      errors.add(:to_path, 'must be a relative path (eg. "/hmrc/tax-returns") or a gov.uk redirect URL (eg. "https://my-title.service.gov.uk/an-optional-path")')
+    unless to_path.blank? || to_path =~ /\A\// || allowed_government_absolute_url?(to_path)
+      errors.add(:to_path, 'must be a relative path (eg. "/hmrc/tax-returns") or a government URL (eg. *.gov.uk, *.judiciary.uk, *.nhs.uk, *.ukri.org)')
     end
   end
 
-  def govuk_subdomain_url?(path)
+  def allowed_government_absolute_url?(path)
     uri = URI.parse(path)
-    uri.host =~ /\A([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[A-Za-z0-9])?\.)*gov\.uk\z/i && uri.scheme == "https"
+    uri.scheme == "https" && uri.host.end_with?(".gov.uk", ".judiciary.uk", ".nhs.uk", ".ukri.org") && uri.host != "www.gov.uk"
   rescue StandardError
     false
   end
