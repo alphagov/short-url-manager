@@ -1,5 +1,5 @@
 class Notifier < ApplicationMailer
-  add_template_helper UrlHelper
+  helper UrlHelper
   default from: '"Short URL manager" <noreply+short-url-manager@digital.cabinet-office.gov.uk>'
 
   def short_url_requested(short_url_request, recipient)
