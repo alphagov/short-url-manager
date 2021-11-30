@@ -1,6 +1,6 @@
 # Short URL manager
 
-Publishing tool to request, approve and create Short URLs on GOV.UK. Short URLs are a short and easy to type URL that redirects to a piece of content at a much longer URL.
+Publishing tool to request, approve and create Short URLs on GOV.UK. Short URLs are a short and easy-to-type URL that redirects to a piece of content at a much longer URL.
 
 They are often used on posters, in leaflets or over the phone, so they are easy to use. For example:
 
