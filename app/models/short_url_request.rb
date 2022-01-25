@@ -17,7 +17,7 @@ class ShortUrlRequest
   field :rejection_reason, type: String
 
   belongs_to :requester, class_name: "User", optional: true
-  has_one :redirect
+  has_one :redirect, dependent: :destroy
 
   validates :state, :reason, :contact_email, :organisation_slug, :organisation_title, presence: true
   validates :state, inclusion: { in: %w[pending accepted rejected superseded] }, allow_blank: true

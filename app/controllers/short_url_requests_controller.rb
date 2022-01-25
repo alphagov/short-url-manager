@@ -1,7 +1,7 @@
 class ShortUrlRequestsController < ApplicationController
   before_action :authorise_as_short_url_requester!, only: %i[new create]
-  before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update]
-  before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject]
+  before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update destroy]
+  before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject destroy]
 
   def index
     @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, "desc"]).paginate(page: params[:page], per_page: 40)
@@ -68,10 +68,24 @@ class ShortUrlRequestsController < ApplicationController
     )
   end
 
+  def destroy
+    Commands::ShortUrlRequests::Destroy.new(get_short_url_request).call(
+      success: lambda {
+        flash.notice = "Short URL #{get_short_url_request.from_path} was deleted."
+      },
+      failure: lambda {
+        flash.alert = "Failed to delete Short URL #{get_short_url_request.from_path}."
+      },
+    )
+    redirect_to short_url_requests_path
+  end
+
   def organisations
     @organisations ||= Organisation.all.order_by([:title, "asc"])
   end
   helper_method :organisations
+
+protected
 
   def allow_use_of_advanced_options?
     current_user.has_permission? "advanced_options"
@@ -88,7 +102,7 @@ class ShortUrlRequestsController < ApplicationController
 private
 
   def get_short_url_request
-    @short_url_request = ShortUrlRequest.find(params[:id])
+    @short_url_request ||= ShortUrlRequest.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound
     render plain: "Not found", status: :not_found
   end
