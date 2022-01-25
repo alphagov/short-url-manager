@@ -10,6 +10,7 @@ describe ShortUrlRequestsController do
       let(:user) { create(:user) }
 
       specify do
+        expect_not_authorised(:get, :remove, id: "required-param")
         expect_not_authorised(:post, :destroy, id: "required-param")
       end
     end
@@ -32,6 +33,7 @@ describe ShortUrlRequestsController do
         expect_not_authorised(:post, :accept, id: "required-param")
         expect_not_authorised(:get, :new_rejection, id: "required-param")
         expect_not_authorised(:post, :reject, id: "required-param")
+        expect_not_authorised(:get, :remove, id: "required-param")
         expect_not_authorised(:post, :destroy, id: "required-param")
       end
     end
@@ -347,6 +349,20 @@ describe ShortUrlRequestsController do
 
         short_url_request.reload
         expect(short_url_request.from_path).to eql("/original")
+      end
+    end
+  end
+
+  describe "#remove" do
+    let!(:organisation) { create(:organisation) }
+    let!(:short_url_request) { create(:short_url_request, :accepted, from_path: "/original") }
+    render_views
+    context "with a valid short url" do
+      it "shows a confirm deletion message for the short-url" do
+        get :remove, params: { id: short_url_request.id }
+        expect(response).to have_http_status(200)
+        expect(response).to render_template(:remove)
+        expect(response.body).to include("Delete URL redirect or Short URL /original")
       end
     end
   end

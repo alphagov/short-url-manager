@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       post "accept" => "short_url_requests#accept"
       get "new_rejection" => "short_url_requests#new_rejection"
+      get "remove" => "short_url_requests#remove"
       post "reject" => "short_url_requests#reject"
     end
   end

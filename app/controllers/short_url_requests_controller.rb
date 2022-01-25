@@ -1,7 +1,7 @@
 class ShortUrlRequestsController < ApplicationController
   before_action :authorise_as_short_url_requester!, only: %i[new create]
-  before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update destroy]
-  before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject destroy]
+  before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update destroy remove]
+  before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject destroy remove]
 
   def index
     @short_url_requests = ShortUrlRequest.pending.order_by([:created_at, "desc"]).paginate(page: params[:page], per_page: 40)
@@ -67,6 +67,8 @@ class ShortUrlRequestsController < ApplicationController
       failure: -> { render "edit" },
     )
   end
+
+  def remove; end
 
   def destroy
     Commands::ShortUrlRequests::Destroy.new(get_short_url_request).call(
