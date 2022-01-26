@@ -24,6 +24,7 @@ group :development, :test do
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "govuk-content-schema-test-helpers"
+  gem "listen"
   gem "rails-controller-testing"
   gem "rspec-rails"
   gem "rubocop-govuk"

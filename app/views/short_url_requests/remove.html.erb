@@ -1,0 +1,13 @@
+<% breadcrumb :remove_short_url_request, @short_url_request %>
+
+<h1>Delete URL redirect or Short URL <%= @short_url_request.from_path %></h1>
+
+<%= form_for(@short_url_request, html: { method: :delete }) do |f| %>
+  <%= render_errors_for @short_url_request, leading_message: "Your submission failed for the following reasons:" %>
+  <fieldset>
+    <div class="form-group">
+      <%= f.submit "Delete", class: 'btn btn-danger' %>
+      <%= link_to "Cancel", short_url_request_path(@short_url_request), class: "btn btn-default add-left-margin" %>
+    </div>
+  </fieldset>
+<%- end -%>

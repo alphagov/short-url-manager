@@ -27,6 +27,11 @@ crumb :edit_short_url_request do |short_url_request|
   parent :short_url_request, short_url_request
 end
 
+crumb :remove_short_url_request do |short_url_request|
+  link "Remove short URL", remove_short_url_request_path(short_url_request)
+  parent :short_url_request, short_url_request
+end
+
 crumb :reject_short_url_request do |short_url_request|
   link "Reject URL redirect or short URL", reject_short_url_request_path(short_url_request)
   parent :short_url_request, short_url_request

@@ -6,6 +6,15 @@ describe ShortUrlRequestsController do
   before { login_as user }
 
   describe "access control" do
+    context "with a user without any permissions" do
+      let(:user) { create(:user) }
+
+      specify do
+        expect_not_authorised(:get, :remove, id: "required-param")
+        expect_not_authorised(:post, :destroy, id: "required-param")
+      end
+    end
+
     context "with a user without request_short_urls permission" do
       let(:user) { create(:short_url_manager) }
 
@@ -24,6 +33,8 @@ describe ShortUrlRequestsController do
         expect_not_authorised(:post, :accept, id: "required-param")
         expect_not_authorised(:get, :new_rejection, id: "required-param")
         expect_not_authorised(:post, :reject, id: "required-param")
+        expect_not_authorised(:get, :remove, id: "required-param")
+        expect_not_authorised(:post, :destroy, id: "required-param")
       end
     end
   end
@@ -338,6 +349,51 @@ describe ShortUrlRequestsController do
 
         short_url_request.reload
         expect(short_url_request.from_path).to eql("/original")
+      end
+    end
+  end
+
+  describe "#remove" do
+    let!(:organisation) { create(:organisation) }
+    let!(:short_url_request) { create(:short_url_request, :accepted, from_path: "/original") }
+    render_views
+    context "with a valid short url" do
+      it "shows a confirm deletion message for the short-url" do
+        get :remove, params: { id: short_url_request.id }
+        expect(response).to have_http_status(200)
+        expect(response).to render_template(:remove)
+        expect(response.body).to include("Delete URL redirect or Short URL /original")
+      end
+    end
+  end
+
+  describe "#destroy" do
+    let!(:organisation) { create(:organisation) }
+    let!(:short_url_request) { create(:short_url_request, :accepted, from_path: "/original") }
+    let!(:short_url_request_2) { create(:short_url_request, :accepted, from_path: "/other-original") }
+    context "with a valid short url" do
+      it "destroys and unpublishes the short-url" do
+        unpublish_req = stub_any_publishing_api_call
+          .with(body: '{"type":"gone"}')
+        stub_any_publishing_api_call
+        put :destroy, params: { id: short_url_request.id }
+        expect(response).to redirect_to(short_url_requests_path)
+        expect(ShortUrlRequest.all).to eq([short_url_request_2])
+        expect(Redirect.all).to eq([short_url_request_2.redirect])
+        assert_requested(unpublish_req)
+      end
+    end
+
+    context "with an invalid short url" do
+      it "returns a 404" do
+        unpublish_req = stub_any_publishing_api_call
+          .with(body: '{"type":"gone"}')
+        stub_any_publishing_api_call
+        put :destroy, params: { id: 123 }
+        expect(response).to have_http_status(:not_found)
+        expect(ShortUrlRequest.count).to eq(2)
+        expect(Redirect.count).to eq(2)
+        assert_not_requested(unpublish_req)
       end
     end
   end
