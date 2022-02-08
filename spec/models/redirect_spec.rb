@@ -110,6 +110,13 @@ describe Redirect do
       assert_publishing_api_unpublish(redirect.content_id, type: "gone")
     end
 
+    it "unreserves the path in the Publishing API" do
+      unreserve_path_request = stub_publishing_api_unreserve_path(redirect.from_path, "short-url-manager")
+      redirect.destroy!
+
+      expect(unreserve_path_request).to have_been_requested
+    end
+
     context "when unpublishing fails" do
       it "fails to destroy" do
         stub_any_publishing_api_call
