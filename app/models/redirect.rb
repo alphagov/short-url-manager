@@ -42,6 +42,7 @@ private
 
   def unpublish_in_publishing_api
     GdsApi.publishing_api.unpublish(content_id, type: "gone")
+    GdsApi.publishing_api.unreserve_path(from_path, "short-url-manager")
   end
 
   def ensure_presence_of_content_id
