@@ -15,7 +15,7 @@ module ShortUrlValidations
 
   def allowed_government_absolute_url?(path)
     uri = URI.parse(path)
-    uri.scheme == "https" && uri.host.end_with?(".gov.uk", ".judiciary.uk", ".nhs.uk", ".ukri.org") && uri.host != "www.gov.uk"
+    uri.scheme == "https" && uri.host.end_with?(".gov.uk", ".judiciary.uk", ".nhs.uk", ".ukri.org", "optimalworkshop.com") && uri.host != "www.gov.uk"
   rescue StandardError
     false
   end

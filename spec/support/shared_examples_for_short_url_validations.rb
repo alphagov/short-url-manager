@@ -43,5 +43,9 @@ shared_examples_for "ShortUrlValidations" do |klass|
     it "may be a ukri.org subdomain URL" do
       expect(build(klass, to_path: "https://www.ukri.org/path")).to be_valid
     end
+
+    it "may be a optimalworkshop.com subdomain URL" do
+      expect(build(klass, to_path: "https://www.optimalworkshop.com/path")).to be_valid
+    end
   end
 end
