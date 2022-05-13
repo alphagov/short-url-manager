@@ -14,6 +14,7 @@ gem "mongoid"
 gem "plek"
 gem "redis", require: false # Used by the Organisation importer as a locking mechanism
 gem "sassc-rails"
+gem "sentry-sidekiq"
 gem "uglifier"
 gem "whenever", require: false
 gem "will_paginate_mongoid"
