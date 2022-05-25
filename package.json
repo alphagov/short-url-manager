@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "postcss": "^8.4.12",
-    "stylelint": "^14.8.3",
+    "stylelint": "^14.8.4",
     "stylelint-config-gds": "^0.2.0"
   }
 }
