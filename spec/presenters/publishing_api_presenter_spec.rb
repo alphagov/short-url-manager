@@ -27,6 +27,6 @@ RSpec.describe Presenters::PublishingAPI do
 
   it "validates successfully against the content schema" do
     presented = described_class.present(redirect)
-    expect(presented).to be_valid_against_schema("redirect")
+    expect(presented).to be_valid_against_publisher_schema("redirect")
   end
 end
