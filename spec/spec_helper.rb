@@ -23,7 +23,7 @@ require "webmock/rspec"
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before :suite do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :deletion
     DatabaseCleaner.clean
   end
 
