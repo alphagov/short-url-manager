@@ -22,7 +22,7 @@ gem "will_paginate_mongoid"
 group :development, :test do
   gem "byebug"
   gem "capybara"
-  gem "database_cleaner"
+  gem "database_cleaner-mongoid"
   gem "factory_bot_rails"
   gem "govuk_schemas"
   gem "listen"
