@@ -45,13 +45,15 @@ describe RequestNotifier do
     context "exception testing" do
       it "does not raise exception in integration" do
         ENV["SENTRY_CURRENT_ENV"] = "integration"
-        expect { RequestNotifier.email(:short_url_requested, short_url_request) }.not_to raise_error(Notifications::Client::BadRequestError)
+        expect { RequestNotifier.email(:short_url_requested, short_url_request) }.not_to raise_error
       end
 
       it "raises exception in production" do
         ENV["SENTRY_CURRENT_ENV"] = "production"
-        allow(RequestNotifier).to receive(:email).with(:short_url_requested, short_url_request) { raise }
-        expect { RequestNotifier.email(:short_url_requested, short_url_request) }.to raise_error
+        allow(Notifier).to receive(:send) do
+          raise Notifications::Client::BadRequestError, OpenStruct.new(code: 400, body: "Bad request")
+        end
+        expect { RequestNotifier.email(:short_url_requested, short_url_request) }.to raise_error(Notifications::Client::BadRequestError)
       end
     end
 
