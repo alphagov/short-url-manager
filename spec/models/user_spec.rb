@@ -7,7 +7,7 @@ describe User do
   let(:instance) { User.new(attributes) }
   let(:attributes) do
     {
-      permissions: permissions,
+      permissions:,
     }
   end
   let(:permissions) { %w[signin] }

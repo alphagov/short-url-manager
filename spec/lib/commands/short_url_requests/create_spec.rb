@@ -23,9 +23,9 @@ describe Commands::ShortUrlRequests::Create do
       allow(Notifier).to receive(:short_url_requested).and_call_original
 
       command.call(
-        success: success,
-        failure: failure,
-        confirmation_required: confirmation_required,
+        success:,
+        failure:,
+        confirmation_required:,
       )
 
       expect(Notifier).to have_received(:short_url_requested)
@@ -33,9 +33,9 @@ describe Commands::ShortUrlRequests::Create do
 
     it "calls the success callback" do
       command.call(
-        success: success,
-        failure: failure,
-        confirmation_required: confirmation_required,
+        success:,
+        failure:,
+        confirmation_required:,
       )
 
       expect(success).to have_received(:call).once.with(instance_of(ShortUrlRequest))
@@ -43,9 +43,9 @@ describe Commands::ShortUrlRequests::Create do
 
     it "results in a new ShortUrlRequest" do
       command.call(
-        success: success,
-        failure: failure,
-        confirmation_required: confirmation_required,
+        success:,
+        failure:,
+        confirmation_required:,
       )
 
       expect(ShortUrlRequest.count).to eq(1)
@@ -64,9 +64,9 @@ describe Commands::ShortUrlRequests::Create do
 
     it "calls the failure callback" do
       command.call(
-        success: success,
-        failure: failure,
-        confirmation_required: confirmation_required,
+        success:,
+        failure:,
+        confirmation_required:,
       )
 
       expect(failure).to have_received(:call).once.with(instance_of(ShortUrlRequest))
@@ -89,9 +89,9 @@ describe Commands::ShortUrlRequests::Create do
 
     it "calls the confirmation_required callback" do
       command.call(
-        success: success,
-        failure: failure,
-        confirmation_required: confirmation_required,
+        success:,
+        failure:,
+        confirmation_required:,
       )
 
       expect(confirmation_required).to have_received(:call).once.with(instance_of(ShortUrlRequest))
@@ -109,9 +109,9 @@ describe Commands::ShortUrlRequests::Create do
 
       it "calls the failure callback" do
         command.call(
-          success: success,
-          failure: failure,
-          confirmation_required: confirmation_required,
+          success:,
+          failure:,
+          confirmation_required:,
         )
 
         expect(failure).to have_received(:call).once.with(instance_of(ShortUrlRequest))
@@ -131,9 +131,9 @@ describe Commands::ShortUrlRequests::Create do
 
       it "calls the success callback" do
         command.call(
-          success: success,
-          failure: failure,
-          confirmation_required: confirmation_required,
+          success:,
+          failure:,
+          confirmation_required:,
         )
 
         expect(success).to have_received(:call).once.with(instance_of(ShortUrlRequest))
@@ -157,9 +157,9 @@ describe Commands::ShortUrlRequests::Create do
 
     it "creates a redirect with segment mode of 'preserve'" do
       command.call(
-        success: success,
-        failure: failure,
-        confirmation_required: confirmation_required,
+        success:,
+        failure:,
+        confirmation_required:,
       )
 
       expect(success).to have_received(:call).once.with(instance_of(ShortUrlRequest))

@@ -15,7 +15,7 @@ describe FormHelper do
     end
     let(:leading_message) { nil }
 
-    let(:rendered) { Capybara::Node::Simple.new(render_errors_for(model, leading_message: leading_message)) }
+    let(:rendered) { Capybara::Node::Simple.new(render_errors_for(model, leading_message:)) }
 
     describe "without errors" do
       let(:errors) { [] }

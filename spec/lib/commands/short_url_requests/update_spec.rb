@@ -16,19 +16,19 @@ describe Commands::ShortUrlRequests::Update do
     end
 
     it "updates the record" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect(ShortUrlRequest.last.from_path).to eq("/a-friendly-url")
     end
 
     it "calls the success callback" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect(success).to have_received(:call).once
     end
 
     it "updates the redirect" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect { Redirect.find_by(from_path: "/a-friendly-url") }.not_to raise_error
     end
@@ -44,7 +44,7 @@ describe Commands::ShortUrlRequests::Update do
     end
 
     it "calls the failure callback" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect(failure).to have_received(:call).once
     end

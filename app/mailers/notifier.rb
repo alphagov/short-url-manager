@@ -5,19 +5,19 @@ class Notifier < ApplicationMailer
   def short_url_requested(short_url_request, recipient)
     @short_url_request = short_url_request
     subject = "#{prefix}Short URL request for '#{short_url_request.from_path}' by #{short_url_request.organisation_title}"
-    view_mail(template_id, to: recipient, subject: subject)
+    view_mail(template_id, to: recipient, subject:)
   end
 
   def short_url_request_accepted(short_url_request, recipient)
     @short_url_request = short_url_request
     subject = "#{prefix}Short URL request approved"
-    view_mail(template_id, to: recipient, subject: subject)
+    view_mail(template_id, to: recipient, subject:)
   end
 
   def short_url_request_rejected(short_url_request, recipient)
     @short_url_request = short_url_request
     subject = "#{prefix}Short URL request denied"
-    view_mail(template_id, to: recipient, subject: subject)
+    view_mail(template_id, to: recipient, subject:)
   end
 
 private

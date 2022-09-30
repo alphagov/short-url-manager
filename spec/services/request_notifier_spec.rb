@@ -99,7 +99,7 @@ describe RequestNotifier do
     let(:redirect_to_path) { "/favourite-hangouts/evil-headquarters" }
     let(:short_url_request) do
       create :short_url_request,
-             requester: requester,
+             requester:,
              contact_email: short_url_request_contact_email,
              redirect: build(
                :redirect,
@@ -138,7 +138,7 @@ describe RequestNotifier do
     let(:short_url_request_rejection_reason) { nil }
     let(:short_url_request) do
       create :short_url_request,
-             requester: requester,
+             requester:,
              contact_email: short_url_request_contact_email,
              from_path: short_url_request_from_path,
              to_path: short_url_request_to_path,

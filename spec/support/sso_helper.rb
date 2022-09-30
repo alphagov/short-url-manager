@@ -19,7 +19,7 @@ module SSOControllerHelper
     request.env["warden"] = double(
       authenticate!: true,
       authenticated?: true,
-      user: user,
+      user:,
     )
   end
 
@@ -33,7 +33,7 @@ module SSOControllerHelper
   end
 
   def expect_not_authorised(http_method, action, params = {})
-    send(http_method, action, params: params)
+    send(http_method, action, params:)
     expect(response.status).to eql 403
   end
 end
