@@ -112,10 +112,10 @@ describe ShortUrlRequest do
 
   describe "#similar_requests" do
     let(:from_path) { "/my-short-path" }
-    let(:subject) { create(:short_url_request, from_path: from_path, to_path: "/a/long-version/of/my-short-path") }
+    let(:subject) { create(:short_url_request, from_path:, to_path: "/a/long-version/of/my-short-path") }
 
     it "includes other requests for the same from_path" do
-      same_from_path = create(:short_url_request, from_path: from_path, to_path: "/a/different-place")
+      same_from_path = create(:short_url_request, from_path:, to_path: "/a/different-place")
       expect(subject.similar_requests).to include same_from_path
     end
 
@@ -134,9 +134,9 @@ describe ShortUrlRequest do
     end
 
     it "includes other requests in creation order, oldest first" do
-      duplicate1 = create(:short_url_request, from_path: from_path, to_path: "/a/different-place", created_at: 5.days.ago)
-      duplicate2 = create(:short_url_request, from_path: from_path, to_path: "/a/different-place", created_at: 10.days.ago)
-      duplicate3 = create(:short_url_request, from_path: from_path, to_path: "/a/different-place", created_at: 8.days.ago)
+      duplicate1 = create(:short_url_request, from_path:, to_path: "/a/different-place", created_at: 5.days.ago)
+      duplicate2 = create(:short_url_request, from_path:, to_path: "/a/different-place", created_at: 10.days.ago)
+      duplicate3 = create(:short_url_request, from_path:, to_path: "/a/different-place", created_at: 8.days.ago)
 
       expect(subject.similar_requests).to eq [duplicate2, duplicate3, duplicate1]
     end

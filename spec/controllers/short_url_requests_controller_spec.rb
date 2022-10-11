@@ -57,7 +57,7 @@ describe ShortUrlRequestsController do
 
     context "with 45 short_url_requests" do
       let!(:short_url_requests) { 45.times.map { |n| create :short_url_request, :pending, created_at: n.days.ago } }
-      before { get :index, params: params }
+      before { get :index, params: }
 
       context "page param is not given" do
         let(:params) { {} }
@@ -164,7 +164,7 @@ describe ShortUrlRequestsController do
         mock_mail = double
         expect(mock_mail).to receive(:deliver_later)
         expect(RequestNotifier).to receive(:email).with(:short_url_requested, kind_of(ShortUrlRequest)).and_return([mock_mail])
-        post :create, params: params
+        post :create, params:
       end
 
       context "when an existing redirect already exists" do
@@ -211,7 +211,7 @@ describe ShortUrlRequestsController do
         }
       end
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       specify { expect(response).to render_template("short_url_requests/new") }
       specify { expect(ShortUrlRequest.count).to eql 0 }
@@ -289,7 +289,7 @@ describe ShortUrlRequestsController do
     let!(:short_url_request) { create :short_url_request }
     let(:rejection_reason) { "Don't like it!" }
     before do
-      post :reject, params: { id: short_url_request.id, short_url_request: { rejection_reason: rejection_reason } }
+      post :reject, params: { id: short_url_request.id, short_url_request: { rejection_reason: } }
     end
 
     it "should reject the short_url request, passing in the given reason" do

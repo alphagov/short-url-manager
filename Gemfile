@@ -20,6 +20,7 @@ gem "whenever", require: false
 gem "will_paginate_mongoid"
 
 group :development, :test do
+  gem "brakeman"
   gem "byebug"
   gem "capybara"
   gem "database_cleaner-mongoid"

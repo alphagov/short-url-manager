@@ -9,17 +9,17 @@ describe Commands::ShortUrlRequests::Destroy do
 
   context "with a deletable short url" do
     it "deletes the record" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
       expect(ShortUrlRequest.all).to eq([other_url_request])
     end
 
     it "deletes the redirect" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
       expect(Redirect.all).to eq([other_url_request.redirect])
     end
 
     it "calls the success callback" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
       expect(success).to have_received(:call).once
     end
   end
@@ -31,19 +31,19 @@ describe Commands::ShortUrlRequests::Destroy do
     subject(:command) { described_class.new(undeletable_url_req) }
 
     it "does not delete the url" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect(ShortUrlRequest.all).to eq([url_request, other_url_request])
     end
 
     it "does not delete the redirect" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect(Redirect.all).to eq([url_request.redirect, other_url_request.redirect])
     end
 
     it "calls the failure callback" do
-      command.call(success: success, failure: failure)
+      command.call(success:, failure:)
 
       expect(failure).to have_received(:call).once
     end

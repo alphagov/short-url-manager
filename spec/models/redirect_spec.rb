@@ -15,7 +15,7 @@ describe Redirect do
 
     it "does not overwrite a provided content ID" do
       content_id = SecureRandom.uuid
-      redirect = described_class.new(content_id: content_id)
+      redirect = described_class.new(content_id:)
 
       expect(redirect.content_id).to eq(content_id)
     end

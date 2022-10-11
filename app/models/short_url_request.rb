@@ -32,11 +32,11 @@ class ShortUrlRequest
   attr_accessor :confirmed
 
   def similar_redirects
-    @similar_redirects ||= Redirect.or({ from_path: from_path }, to_path: to_path)
+    @similar_redirects ||= Redirect.or({ from_path: }, to_path:)
   end
 
   def similar_requests
-    @similar_requests ||= ShortUrlRequest.where(from_path: from_path, :id.ne => id).order_by(%i[created_at asc])
+    @similar_requests ||= ShortUrlRequest.where(from_path:, :id.ne => id).order_by(%i[created_at asc])
   end
 
   def pending?
