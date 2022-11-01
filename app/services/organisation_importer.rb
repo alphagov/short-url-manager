@@ -6,7 +6,7 @@ class OrganisationImporter
   attr_reader :api_url_base
 
   def initialize(api_url_base = nil)
-    @api_url_base = api_url_base || Plek.current.website_root
+    @api_url_base = api_url_base || Plek.new.website_root
   end
 
   def perform!
