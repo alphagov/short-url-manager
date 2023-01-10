@@ -174,7 +174,7 @@ GEM
     jwt (2.5.0)
     kgio (2.11.4)
     link_header (0.0.8)
-    listen (3.7.1)
+    listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logstasher (2.1.5)
