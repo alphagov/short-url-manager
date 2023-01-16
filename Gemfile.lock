@@ -460,7 +460,6 @@ DEPENDENCIES
   govuk_sidekiq
   gretel
   listen
-  mail (~> 2.8.0)
   mail-notify
   mlanett-redis-lock
   mongoid
