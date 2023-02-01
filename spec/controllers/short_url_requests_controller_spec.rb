@@ -138,7 +138,7 @@ describe ShortUrlRequestsController do
       end
 
       it "should create a short_url_request" do
-        post :create, params: params
+        post(:create, params:)
         short_url_request = ShortUrlRequest.last
         expect(short_url_request).to_not be_nil
         expect(short_url_request.from_path).to          eql params[:short_url_request][:from_path]
@@ -150,12 +150,12 @@ describe ShortUrlRequestsController do
       end
 
       it "should associate the current user with the short_url_request" do
-        post :create, params: params
+        post(:create, params:)
         expect(ShortUrlRequest.last.requester).to eql user
       end
 
       it "should redirect to the dashboard with a flash message" do
-        post :create, params: params
+        post(:create, params:)
         expect(response).to redirect_to root_path
         expect(flash).not_to be_empty
       end
@@ -176,7 +176,7 @@ describe ShortUrlRequestsController do
         end
 
         it "does not create a short_url_request" do
-          post :create, params: params
+          post(:create, params:)
           expect(ShortUrlRequest.count).to eq(0)
         end
 
@@ -194,7 +194,7 @@ describe ShortUrlRequestsController do
           end
 
           it "creates a short url request" do
-            post :create, params: params
+            post(:create, params:)
             expect(ShortUrlRequest.count).to eq(1)
           end
         end
