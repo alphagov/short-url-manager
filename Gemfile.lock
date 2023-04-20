@@ -91,7 +91,7 @@ GEM
       xpath (~> 3.2)
     chronic (0.10.2)
     concurrent-ruby (1.2.2)
-    connection_pool (2.3.0)
+    connection_pool (2.4.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -368,13 +368,13 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sentry-rails (5.8.0)
+    sentry-rails (5.9.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.8.0)
-    sentry-ruby (5.8.0)
+      sentry-ruby (~> 5.9.0)
+    sentry-ruby (5.9.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.8.0)
-      sentry-ruby (~> 5.8.0)
+    sentry-sidekiq (5.9.0)
+      sentry-ruby (~> 5.9.0)
       sidekiq (>= 3.0)
     sidekiq (6.5.8)
       connection_pool (>= 2.2.5, < 3)
