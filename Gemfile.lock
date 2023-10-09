@@ -162,9 +162,9 @@ GEM
       govuk_app_config (>= 1.1)
       redis-namespace (~> 1.6)
       sidekiq (~> 6)
-    gretel (4.5.0)
-      actionview (>= 5.1, < 7.1)
-      railties (>= 5.1, < 7.1)
+    gretel (4.6.0)
+      actionview (>= 5.1, < 7.2)
+      railties (>= 5.1, < 7.2)
     hashdiff (1.0.1)
     hashie (5.0.0)
     http-accept (1.7.0)
@@ -644,7 +644,7 @@ GEM
       will_paginate (~> 3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.11)
+    zeitwerk (2.6.12)
 
 PLATFORMS
   aarch64-linux
