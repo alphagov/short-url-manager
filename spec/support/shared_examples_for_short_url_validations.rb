@@ -32,12 +32,12 @@ shared_examples_for "ShortUrlValidations" do |klass|
       expect(build(klass, to_path: "https://www.gov.uk/path")).to_not be_valid
     end
 
-    it "may be an nhs.uk subdomain URL" do
-      expect(build(klass, to_path: "https://www.nhs.uk/path")).to be_valid
-    end
-
     it "may be a judiciary.uk subdomain URL" do
       expect(build(klass, to_path: "https://www.judiciary.uk/path")).to be_valid
+    end
+
+    it "may be an nhs.uk subdomain URL" do
+      expect(build(klass, to_path: "https://www.nhs.uk/path")).to be_valid
     end
 
     it "may be a ukri.org subdomain URL" do
