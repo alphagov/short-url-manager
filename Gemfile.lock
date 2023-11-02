@@ -196,7 +196,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mail-notify (1.1.0)
+    mail-notify (1.2.0)
       actionmailer (>= 5.2.4.6)
       actionpack (>= 5.2.7.1)
       actionview (>= 5.2.7.1)
@@ -223,14 +223,14 @@ GEM
       ruby2_keywords (~> 0.0.5)
     msgpack (1.7.2)
     multi_xml (0.6.0)
-    net-imap (0.3.7)
+    net-imap (0.4.2)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.1)
       timeout
-    net-smtp (0.3.3)
+    net-smtp (0.4.0)
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.9)
@@ -243,7 +243,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
-    notifications-ruby-client (5.3.0)
+    notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
     null_logger (0.0.1)
     oauth2 (2.0.9)
