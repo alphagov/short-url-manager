@@ -30,6 +30,13 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
+  # Using a sass css compressor causes a scss file to be processed twice
+  # (once to build, once to compress) which breaks the usage of "unquote"
+  # to use CSS that has same function names as SCSS such as max.
+  # https://github.com/alphagov/govuk-frontend/issues/1350
+  config.assets.css_compressor = nil
+  config.sass.style = :compressed
+
   # Generate digests for assets URLs.
   config.assets.digest = true
 

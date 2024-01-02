@@ -59,4 +59,5 @@ Rails.application.configure do
   # to use CSS that has same function names as SCSS such as max.
   # https://github.com/alphagov/govuk-frontend/issues/1350
   config.assets.css_compressor = nil
+  config.sass.style = :compressed
 end
