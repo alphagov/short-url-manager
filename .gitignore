@@ -27,3 +27,7 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+/public/assets
+/app/assets/builds/*
+!/app/assets/builds/.keep

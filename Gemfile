@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "7.1.3"
 
 gem "bootsnap", require: false
+gem "dartsass-rails"
 gem "gds-api-adapters"
 gem "gds-sso"
 gem "govuk_admin_template"
@@ -16,7 +17,6 @@ gem "mlanett-redis-lock" # Used by the Organisation importer as a locking mechan
 gem "mongoid"
 gem "plek"
 gem "redis", require: false # Used by the Organisation importer as a locking mechanism
-gem "sassc-rails"
 gem "sentry-sidekiq"
 gem "uglifier"
 gem "whenever", require: false
