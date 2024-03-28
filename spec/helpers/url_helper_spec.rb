@@ -5,6 +5,10 @@ describe UrlHelper do
     it "should return a fully qualified gov.uk url from the given path" do
       expect(govuk_url_for("/some/path")).to eql "http://www.dev.gov.uk/some/path"
     end
+
+    it "should leave absolute URLs unchanged" do
+      expect(govuk_url_for("http://example.com/some/other/path")).to eql "http://example.com/some/other/path"
+    end
   end
 
   describe "short_url_manger_url_for" do
