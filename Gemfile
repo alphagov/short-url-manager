@@ -18,7 +18,7 @@ gem "mongoid"
 gem "plek"
 gem "redis", require: false # Used by the Organisation importer as a locking mechanism
 gem "sentry-sidekiq"
-gem "uglifier"
+gem "terser"
 gem "whenever", require: false
 gem "will_paginate_mongoid"
 

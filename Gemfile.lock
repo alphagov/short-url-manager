@@ -686,12 +686,12 @@ GEM
       sprockets (>= 3.0.0)
     statsd-ruby (1.5.0)
     stringio (3.1.1)
+    terser (1.2.3)
+      execjs (>= 0.3.0, < 3)
     thor (1.3.2)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.1)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (2.5.0)
     uri (0.13.0)
     version_gem (1.1.4)
@@ -752,7 +752,7 @@ DEPENDENCIES
   sentry-sidekiq
   simplecov
   simplecov-rcov
-  uglifier
+  terser
   webmock
   whenever
   will_paginate_mongoid
