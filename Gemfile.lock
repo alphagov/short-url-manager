@@ -188,7 +188,7 @@ GEM
     govuk_personalisation (1.0.0)
       plek (>= 1.9.0)
       rails (>= 6, < 8)
-    govuk_publishing_components (43.3.0)
+    govuk_publishing_components (43.4.1)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -264,10 +264,10 @@ GEM
     minitest (5.25.1)
     mlanett-redis-lock (0.2.7)
       redis
-    mongo (2.20.1)
+    mongo (2.21.0)
       bson (>= 4.14.1, < 6.0.0)
-    mongoid (9.0.1)
-      activemodel (>= 5.1, < 7.2, != 7.0.0)
+    mongoid (9.0.2)
+      activemodel (>= 5.1, < 7.3, != 7.0.0)
       concurrent-ruby (>= 1.0.5, < 2.0)
       mongo (>= 2.18.0, < 3.0.0)
     msgpack (1.7.2)
