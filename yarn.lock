@@ -756,6 +756,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"picocolors@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "picocolors@npm:1.1.1"
+  checksum: e1cf46bf84886c79055fdfa9dcb3e4711ad259949e3565154b004b260cd356c5d54b31a1437ce9782624bf766272fe6b0154f5f0c744fb7af5d454d2b60db045
+  languageName: node
+  linkType: hard
+
 "picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
@@ -840,6 +847,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.4.48":
+  version: 8.4.48
+  resolution: "postcss@npm:8.4.48"
+  dependencies:
+    nanoid: ^3.3.7
+    picocolors: ^1.1.1
+    source-map-js: ^1.2.1
+  checksum: 9bf75be1b45aa31f24b5f2ba2d9cf3021a788c3dd41d4d0491f4e2d7f9fe3329eb5e7b76ad96e2490ed1ebfeec0e484dc49cdef0071da2575d009c1dde5f8923
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
@@ -886,7 +904,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "short-url-manager@workspace:."
   dependencies:
-    postcss: ^8.4.47
+    postcss: ^8.4.48
     stylelint: ^16.10.0
     stylelint-config-gds: ^2.0.0
   languageName: unknown
