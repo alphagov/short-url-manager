@@ -64,7 +64,10 @@ class ShortUrlRequestsController < ApplicationController
         flash[:success] = "Your edit was successful."
         redirect_to short_url_request_path(@short_url_request)
       },
-      failure: -> { render "edit" },
+      failure: lambda {
+        # flash[:alert] = "Bah humbug."
+        render "edit"
+      },
     )
   end
 
