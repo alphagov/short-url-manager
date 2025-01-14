@@ -539,10 +539,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "ignore@npm:7.0.0"
-  checksum: 68dea34f6d5f7eed1b0f5590d4a927bab9782b92a46dfc1cc064a61f0450fb92f4a4df9b84e83657b6c033d6accf76109ba19db2f3289088a57043910041d74a
+"ignore@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "ignore@npm:7.0.1"
+  checksum: a23327e4a46da1fd84b19fa76493d01f08509097c62583bbd8133f9f6a187036eaacd1d38e645df7c8ecf427bf2d7045881dd3b946c36b8c6a38694a6e884eef
   languageName: node
   linkType: hard
 
@@ -924,7 +924,7 @@ __metadata:
   resolution: "short-url-manager@workspace:."
   dependencies:
     postcss: ^8.4.49
-    stylelint: ^16.13.0
+    stylelint: ^16.13.1
     stylelint-config-gds: ^2.0.0
   languageName: unknown
   linkType: soft
@@ -1068,9 +1068,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^16.13.0":
-  version: 16.13.0
-  resolution: "stylelint@npm:16.13.0"
+"stylelint@npm:^16.13.1":
+  version: 16.13.1
+  resolution: "stylelint@npm:16.13.1"
   dependencies:
     "@csstools/css-parser-algorithms": ^3.0.4
     "@csstools/css-tokenizer": ^3.0.3
@@ -1090,7 +1090,7 @@ __metadata:
     globby: ^11.1.0
     globjoin: ^0.1.4
     html-tags: ^3.3.1
-    ignore: ^7.0.0
+    ignore: ^7.0.1
     imurmurhash: ^0.1.4
     is-plain-object: ^5.0.0
     known-css-properties: ^0.35.0
@@ -1112,7 +1112,7 @@ __metadata:
     write-file-atomic: ^5.0.1
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 8a62cc2cb8bb92bd68062835d85932f18f13cda006e35d0db9b29ba6f6a4db3d024939c935d5071e7865074bac0400ac8c749c091cf2757f5afdc0271d8c75ca
+  checksum: 3cb22a5483a1ad9212bce62754c0757c5d3324780d3fd4f668c111c1f9355cce0342855ed2dbf1ea90cba0bd135e88f5836a66387e12bf567daeebeb212d9f52
   languageName: node
   linkType: hard
 
