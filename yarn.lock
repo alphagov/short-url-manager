@@ -742,7 +742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.7":
+"nanoid@npm:^3.3.7, nanoid@npm:^3.3.8":
   version: 3.3.8
   resolution: "nanoid@npm:3.3.8"
   bin:
@@ -877,6 +877,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.5.1":
+  version: 8.5.1
+  resolution: "postcss@npm:8.5.1"
+  dependencies:
+    nanoid: ^3.3.8
+    picocolors: ^1.1.1
+    source-map-js: ^1.2.1
+  checksum: cfdcfcd019fca78160341080ba8986cf80cd6e9ca327ba61b86c03e95043e9bce56ad2e018851858039fd7264781797360bfba718dd216b17b3cd803a5134f2f
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
@@ -923,7 +934,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "short-url-manager@workspace:."
   dependencies:
-    postcss: ^8.4.49
+    postcss: ^8.5.1
     stylelint: ^16.13.2
     stylelint-config-gds: ^2.0.0
   languageName: unknown
