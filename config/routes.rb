@@ -17,7 +17,6 @@ Rails.application.routes.draw do
     GovukHealthcheck::SidekiqRedis,
   )
 
-  if Rails.env.development?
-    get "/styleguide" => "govuk_admin_template/style_guide#index"
-  end
+  mount GovukPublishingComponents::Engine, at: "/component-guide"
+  get "/styleguide" => "govuk_admin_template/style_guide#index"
 end
