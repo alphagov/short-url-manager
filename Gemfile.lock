@@ -87,7 +87,7 @@ GEM
       sassc (>= 2.0.0)
     brakeman (7.1.0)
       racc
-    bson (5.0.2)
+    bson (5.1.1)
     builder (3.3.0)
     byebug (12.0.0)
     capybara (3.40.0)
@@ -270,9 +270,10 @@ GEM
     minitest (5.25.5)
     mlanett-redis-lock (0.2.7)
       redis
-    mongo (2.21.0)
+    mongo (2.21.2)
+      base64
       bson (>= 4.14.1, < 6.0.0)
-    mongoid (9.0.6)
+    mongoid (9.0.7)
       activemodel (>= 5.1, < 8.1, != 7.0.0)
       concurrent-ruby (>= 1.0.5, < 2.0)
       mongo (>= 2.18.0, < 3.0.0)
