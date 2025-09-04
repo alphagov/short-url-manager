@@ -374,7 +374,7 @@ describe ShortUrlRequestsController do
     context "with a valid short url" do
       it "destroys and unpublishes the short-url" do
         unpublish_req = stub_any_publishing_api_call
-          .with(body: '{"type":"gone"}')
+          .with(body: '{"type":"gone","discard_drafts":true}')
         stub_any_publishing_api_call
         put :destroy, params: { id: short_url_request.id }
         expect(response).to redirect_to(short_url_requests_path)

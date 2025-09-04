@@ -107,7 +107,7 @@ describe Redirect do
 
     it "unpublishing from the Publishing API" do
       redirect.destroy!
-      assert_publishing_api_unpublish(redirect.content_id, type: "gone")
+      assert_publishing_api_unpublish(redirect.content_id, type: "gone", discard_drafts: true)
     end
 
     it "unreserves the path in the Publishing API" do
