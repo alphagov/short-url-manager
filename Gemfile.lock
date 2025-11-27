@@ -101,7 +101,7 @@ GEM
       xpath (~> 3.2)
     chronic (0.10.2)
     concurrent-ruby (1.3.5)
-    connection_pool (2.5.4)
+    connection_pool (2.5.5)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -118,7 +118,7 @@ GEM
     docile (1.4.0)
     domain_name (0.6.20240107)
     drb (2.2.3)
-    erb (5.1.3)
+    erb (6.0.0)
     erubi (1.13.1)
     execjs (2.10.0)
     factory_bot (6.5.5)
@@ -154,16 +154,16 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    google-protobuf (4.33.0)
+    google-protobuf (4.33.1)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-aarch64-linux-gnu)
+    google-protobuf (4.33.1-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-arm64-darwin)
+    google-protobuf (4.33.1-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-x86_64-linux-gnu)
+    google-protobuf (4.33.1-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.22.0)
@@ -188,7 +188,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (62.0.0)
+    govuk_publishing_components (62.1.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -266,7 +266,7 @@ GEM
     mime-types-data (3.2025.0812)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (5.26.1)
+    minitest (5.26.2)
     mlanett-redis-lock (0.2.7)
       redis
     mongo (2.21.3)
@@ -408,11 +408,11 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-delayed_job (0.25.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-ethon (0.25.0)
+    opentelemetry-instrumentation-ethon (0.25.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-excon (0.26.0)
+    opentelemetry-instrumentation-excon (0.26.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-faraday (0.30.0)
+    opentelemetry-instrumentation-faraday (0.30.1)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-grape (0.5.0)
       opentelemetry-instrumentation-rack (~> 0.29)
@@ -422,11 +422,11 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-gruf (0.5.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-http (0.27.0)
+    opentelemetry-instrumentation-http (0.27.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-http_client (0.26.0)
+    opentelemetry-instrumentation-http_client (0.26.1)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-httpx (0.5.0)
+    opentelemetry-instrumentation-httpx (0.5.1)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-koala (0.23.0)
       opentelemetry-instrumentation-base (~> 0.25)
@@ -439,7 +439,7 @@ GEM
       opentelemetry-helpers-sql
       opentelemetry-helpers-sql-obfuscation
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-net_http (0.26.0)
+    opentelemetry-instrumentation-net_http (0.26.1)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-pg (0.33.0)
       opentelemetry-helpers-sql
@@ -562,7 +562,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.15.1)
+    rdoc (6.16.0)
       erb
       psych (>= 4.0.0)
       tsort
@@ -704,7 +704,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webrick (1.9.1)
+    webrick (1.9.2)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
