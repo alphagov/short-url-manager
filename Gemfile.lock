@@ -206,7 +206,7 @@ GEM
       govuk_app_config (>= 1.1)
       redis-client (>= 0.22.2)
       sidekiq (~> 7.0, < 8)
-    gretel (5.0.1)
+    gretel (5.1.0)
       actionview (>= 6.1)
       railties (>= 6.1)
     hashdiff (1.2.1)
