@@ -82,7 +82,7 @@ GEM
       execjs (~> 2)
     base64 (0.3.0)
     bigdecimal (4.0.1)
-    bootsnap (1.22.0)
+    bootsnap (1.23.0)
       msgpack (~> 1.2)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
