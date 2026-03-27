@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "postcss": "^8.5.8",
-    "stylelint": "^17.5.0",
+    "stylelint": "^17.6.0",
     "stylelint-config-gds": "^2.0.0"
   },
   "packageManager": "yarn@3.6.4"
