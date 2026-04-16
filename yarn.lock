@@ -874,17 +874,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.8":
-  version: 8.5.8
-  resolution: "postcss@npm:8.5.8"
-  dependencies:
-    nanoid: ^3.3.11
-    picocolors: ^1.1.1
-    source-map-js: ^1.2.1
-  checksum: 118cbec9551c7107c7884a585b45d7cce1632159065c7f6e112bbb4c4811253e78d507e49082b36d9b89f36a02a611c5a8cd210548dead55795c20c4f37ab9e8
-  languageName: node
-  linkType: hard
-
 "postcss@npm:^8.5.9":
   version: 8.5.9
   resolution: "postcss@npm:8.5.9"
@@ -945,7 +934,7 @@ __metadata:
   resolution: "short-url-manager@workspace:."
   dependencies:
     postcss: ^8.5.9
-    stylelint: ^17.7.0
+    stylelint: ^17.8.0
     stylelint-config-gds: ^2.0.0
   languageName: unknown
   linkType: soft
@@ -1101,9 +1090,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^17.7.0":
-  version: 17.7.0
-  resolution: "stylelint@npm:17.7.0"
+"stylelint@npm:^17.8.0":
+  version: 17.8.0
+  resolution: "stylelint@npm:17.8.0"
   dependencies:
     "@csstools/css-calc": ^3.1.1
     "@csstools/css-parser-algorithms": ^4.0.0
@@ -1132,7 +1121,7 @@ __metadata:
     micromatch: ^4.0.8
     normalize-path: ^3.0.0
     picocolors: ^1.1.1
-    postcss: ^8.5.8
+    postcss: ^8.5.9
     postcss-safe-parser: ^7.0.1
     postcss-selector-parser: ^7.1.1
     postcss-value-parser: ^4.2.0
@@ -1143,7 +1132,7 @@ __metadata:
     write-file-atomic: ^7.0.1
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: a15b0c742a20f66b538ed61ee90424be7a7e541edacd8d2f5f476658c35f1eff9df126864565e38e0e42ced225dfba9ba01b7328c8fbafe5afca2d798d467f9d
+  checksum: cbb20c2c2823468197b721b61068280d8189d84c47ba8c7c3fe9e2770b032e48e64cfb48fac2e020cd88ed5043458175105cc6763a5b96039ccf724e74c994c9
   languageName: node
   linkType: hard
 
