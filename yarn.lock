@@ -54,13 +54,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-calc@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "@csstools/css-calc@npm:3.1.1"
+"@csstools/css-calc@npm:^3.2.0":
+  version: 3.2.1
+  resolution: "@csstools/css-calc@npm:3.2.1"
   peerDependencies:
     "@csstools/css-parser-algorithms": ^4.0.0
     "@csstools/css-tokenizer": ^4.0.0
-  checksum: 22d76fa9a83b58ad61c9341937549304f51dfddbd7f03324e3ea4a59c7e317f54ec9c75122bf9ccf8b32c448ea5b453c239cbaa161a1a4995ee0779bb81ecbc8
+  checksum: 621c2d134aff7cd5366f48c5f440d10cedfc2fff8c4f5393b2d4a0ae20ee6c037091d52296c8c28aa12e7c701af85f5df525807ed9092686e8c8db819a533670
   languageName: node
   linkType: hard
 
@@ -73,15 +73,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-syntax-patches-for-csstree@npm:^1.1.2":
-  version: 1.1.3
-  resolution: "@csstools/css-syntax-patches-for-csstree@npm:1.1.3"
+"@csstools/css-syntax-patches-for-csstree@npm:^1.1.3":
+  version: 1.1.4
+  resolution: "@csstools/css-syntax-patches-for-csstree@npm:1.1.4"
   peerDependencies:
     css-tree: ^3.2.1
   peerDependenciesMeta:
     css-tree:
       optional: true
-  checksum: c5a41b450de3dd8a8baf4c33d6a124db702773d23122cd940fc9b925ce0559d6a7b08b783940765bf47cfab80eaa238f8876e9dc3512575075b02d5674c59f0c
+  checksum: 11fc340aca3bcc34f16fdd025baf7bd5db86962aacea20aff09707cf910dc3cff554fd87a9be9b441166cb82fe23c2c0f62df3f6d405aceed5c8e0d314336624
   languageName: node
   linkType: hard
 
@@ -636,13 +636,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-plain-object@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "is-plain-object@npm:5.0.0"
-  checksum: e32d27061eef62c0847d303125440a38660517e586f2f3db7c9d179ae5b6674ab0f469d519b2e25c147a1a3bc87156d0d5f4d8821e0ce4a9ee7fe1fcf11ce45c
-  languageName: node
-  linkType: hard
-
 "isexe@npm:^2.0.0":
   version: 2.0.0
   resolution: "isexe@npm:2.0.0"
@@ -885,14 +878,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.9":
-  version: 8.5.9
-  resolution: "postcss@npm:8.5.9"
+"postcss@npm:^8.5.14":
+  version: 8.5.14
+  resolution: "postcss@npm:8.5.14"
   dependencies:
     nanoid: ^3.3.11
     picocolors: ^1.1.1
     source-map-js: ^1.2.1
-  checksum: 0dcaa32d934fe97ad7b7da0113901f619258485c1906325ad7b873010ef09b83a6c2d52fe9e818c1c90eadcc9dc05870a9e34f34341696c7a07cfbb78b80946b
+  checksum: ec17d1519cd997b43aceb82bfa959f380085591269e286c53d5ba76eb1989525e7cde106a44f1565516fcbb50f206eb1858cc2cd5e5aaea3a8ee793886c8232c
   languageName: node
   linkType: hard
 
@@ -945,7 +938,7 @@ __metadata:
   resolution: "short-url-manager@workspace:."
   dependencies:
     postcss: ^8.5.10
-    stylelint: ^17.8.0
+    stylelint: ^17.11.1
     stylelint-config-gds: ^2.0.0
   languageName: unknown
   linkType: soft
@@ -993,13 +986,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "string-width@npm:8.2.0"
+"string-width@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "string-width@npm:8.2.1"
   dependencies:
     get-east-asian-width: ^1.5.0
     strip-ansi: ^7.1.2
-  checksum: c4f62877ec08fca155e84a260eb4f58f473cfe5169bd1c1e21ffb563d8e0b7f6d705cc3d250f2ed6bb4f30ee9732ad026f54afaac77aa487e3d1dc1b1969e51b
+  checksum: f77829903c89e671942a8863cfc801f9ea330d3b7439f0ef9b0fcb2960866802bb90c598cf9aca86961e616e6d5182077e8b9c389f8ace42f7a3584a4f8f99d0
   languageName: node
   linkType: hard
 
@@ -1101,13 +1094,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^17.8.0":
-  version: 17.8.0
-  resolution: "stylelint@npm:17.8.0"
+"stylelint@npm:^17.11.1":
+  version: 17.11.1
+  resolution: "stylelint@npm:17.11.1"
   dependencies:
-    "@csstools/css-calc": ^3.1.1
+    "@csstools/css-calc": ^3.2.0
     "@csstools/css-parser-algorithms": ^4.0.0
-    "@csstools/css-syntax-patches-for-csstree": ^1.1.2
+    "@csstools/css-syntax-patches-for-csstree": ^1.1.3
     "@csstools/css-tokenizer": ^4.0.0
     "@csstools/media-query-list-parser": ^5.0.0
     "@csstools/selector-resolve-nested": ^4.0.0
@@ -1126,24 +1119,23 @@ __metadata:
     html-tags: ^5.1.0
     ignore: ^7.0.5
     import-meta-resolve: ^4.2.0
-    is-plain-object: ^5.0.0
     mathml-tag-names: ^4.0.0
     meow: ^14.1.0
     micromatch: ^4.0.8
     normalize-path: ^3.0.0
     picocolors: ^1.1.1
-    postcss: ^8.5.9
+    postcss: ^8.5.14
     postcss-safe-parser: ^7.0.1
     postcss-selector-parser: ^7.1.1
     postcss-value-parser: ^4.2.0
-    string-width: ^8.2.0
+    string-width: ^8.2.1
     supports-hyperlinks: ^4.4.0
     svg-tags: ^1.0.0
     table: ^6.9.0
     write-file-atomic: ^7.0.1
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: cbb20c2c2823468197b721b61068280d8189d84c47ba8c7c3fe9e2770b032e48e64cfb48fac2e020cd88ed5043458175105cc6763a5b96039ccf724e74c994c9
+  checksum: c0d2c314f68580993043d585d3f46673e555b8e8ebaa48f2a82469914b525c7acfcb0d872e5d5aef86fd3955c91f1a7b2e9af1ad91a35b56ba4dd04e15a7847f
   languageName: node
   linkType: hard
 
