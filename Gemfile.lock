@@ -157,19 +157,19 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    google-protobuf (4.34.1)
+    google-protobuf (4.35.0)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.34.1-aarch64-linux-gnu)
+    google-protobuf (4.35.0-aarch64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.34.1-arm64-darwin)
+    google-protobuf (4.35.0-arm64-darwin)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.34.1-x86_64-linux-gnu)
+    google-protobuf (4.35.0-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    googleapis-common-protos-types (1.22.0)
+    googleapis-common-protos-types (1.23.0)
       google-protobuf (~> 4.26)
     govuk_admin_template (7.0.0)
       bootstrap-sass (~> 3.4)
@@ -192,7 +192,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (66.3.0)
+    govuk_publishing_components (66.4.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -265,7 +265,7 @@ GEM
       activesupport (>= 5.2.8.1)
       notifications-ruby-client (~> 6.0)
       rack (>= 2.1.4.1)
-    marcel (1.1.0)
+    marcel (1.2.1)
     matrix (0.4.2)
     mime-types (3.7.0)
       logger
@@ -408,7 +408,7 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-aws_sdk (0.11.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-base (0.26.0)
+    opentelemetry-instrumentation-base (0.26.1)
       opentelemetry-api (~> 1.7)
       opentelemetry-common (~> 0.21)
       opentelemetry-registry (~> 0.1)
@@ -502,7 +502,7 @@ GEM
       opentelemetry-common (~> 0.20)
       opentelemetry-registry (~> 0.2)
       opentelemetry-semantic_conventions
-    opentelemetry-semantic_conventions (1.37.1)
+    opentelemetry-semantic_conventions (1.38.0)
       opentelemetry-api (~> 1.0)
     ostruct (0.6.3)
     parallel (1.28.0)
@@ -732,7 +732,7 @@ GEM
       will_paginate (~> 3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.1)
 
 PLATFORMS
   aarch64-linux
