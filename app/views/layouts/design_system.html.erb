@@ -1,0 +1,16 @@
+<% content_for :head do %>
+  <% if ENV["GOOGLE_TAG_MANAGER_ID"] %>
+      <%= render "govuk_publishing_components/components/google_tag_manager_script", {
+        gtm_id: ENV["GOOGLE_TAG_MANAGER_ID"],
+        gtm_auth: ENV["GOOGLE_TAG_MANAGER_AUTH"],
+        gtm_preview: ENV["GOOGLE_TAG_MANAGER_PREVIEW"],
+      } %>
+  <% end %>
+<% end %>
+
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+  product_name: "Short URL Manager",
+  browser_title: "Short URL Manager - GOV.UK"
+} do %>
+<% end %>
