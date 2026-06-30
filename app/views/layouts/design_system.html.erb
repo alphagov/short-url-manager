@@ -13,7 +13,6 @@
   product_name: "Short URL Manager",
   browser_title: "Short URL Manager - GOV.UK"
 } do %>
-<% end %>
 
 <%= render "govuk_publishing_components/components/layout_header", {
   environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
@@ -31,4 +30,9 @@
   ]
 } %>
 
+<div class="govuk-width-container">
+  <%= yield %>
+</div>
+
 <%= render "govuk_publishing_components/components/layout_footer" %>
+<% end %>
