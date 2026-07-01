@@ -1,10 +1,10 @@
 module ApplicationHelper
-  def crumb_li(title, path, active)
+  def crumb_li(title, path)
     options = {}
-    options[:class] = "active" if active
+    options[:class] = "govuk-breadcrumbs__list-item"
 
     tag.li nil, **options do
-      active ? title : link_to(title, path)
+      link_to(title, path, class: "govuk-breadcrumbs__link")
     end
   end
 

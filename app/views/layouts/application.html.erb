@@ -25,8 +25,8 @@
 
   <% breadcrumbs.tap do |links| %>
     <% if links.any? %>
-      <ul class='breadcrumb'>
-        <% links.each do |link| %><%= crumb_li(link.text, link.url, link.current?) %><% end %>
+      <ul class="govuk-breadcrumbs__list">
+        <% links.each do |link| %><%= crumb_li(link.text, link.url) %><% end %>
       </ul>
     <% end %>
   <% end %>
