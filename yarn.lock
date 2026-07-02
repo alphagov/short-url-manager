@@ -894,6 +894,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.5.16":
+  version: 8.5.16
+  resolution: "postcss@npm:8.5.16"
+  dependencies:
+    nanoid: ^3.3.12
+    picocolors: ^1.1.1
+    source-map-js: ^1.2.1
+  checksum: 636fd45f028f487d4873d1d30a541b910e2477d77e5ca368e9f8535fad12b2c20bfc508516fd35258e33214d51dd84b1e089539b9d78737aed528abb1db036a5
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
@@ -942,7 +953,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "short-url-manager@workspace:."
   dependencies:
-    postcss: ^8.5.15
+    postcss: ^8.5.16
     stylelint: ^17.14.0
     stylelint-config-gds: ^2.0.0
   languageName: unknown
