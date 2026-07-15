@@ -894,14 +894,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.16":
-  version: 8.5.16
-  resolution: "postcss@npm:8.5.16"
+"postcss@npm:^8.5.17":
+  version: 8.5.17
+  resolution: "postcss@npm:8.5.17"
   dependencies:
     nanoid: ^3.3.12
     picocolors: ^1.1.1
     source-map-js: ^1.2.1
-  checksum: 636fd45f028f487d4873d1d30a541b910e2477d77e5ca368e9f8535fad12b2c20bfc508516fd35258e33214d51dd84b1e089539b9d78737aed528abb1db036a5
+  checksum: 5dfa52963e1044eb6c622efa047bf7b48aee0a6cce5d6c34788024ee7dd1540dc50a84dc1a56f968cebb84f3c8213d9f2582ce1deafc10c7342f3a538cf9d7b1
   languageName: node
   linkType: hard
 
@@ -953,7 +953,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "short-url-manager@workspace:."
   dependencies:
-    postcss: ^8.5.16
+    postcss: ^8.5.17
     stylelint: ^17.14.0
     stylelint-config-gds: ^2.0.0
   languageName: unknown
