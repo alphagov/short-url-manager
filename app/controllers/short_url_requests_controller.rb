@@ -1,4 +1,6 @@
 class ShortUrlRequestsController < ApplicationController
+  layout "design_system", only: %i[new create edit update] if Rails.env.development?
+
   before_action :authorise_as_short_url_requester!, only: %i[new create]
   before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update destroy remove]
   before_action :get_short_url_request, only: %i[edit update show accept new_rejection reject destroy remove]

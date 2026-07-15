@@ -1,4 +1,8 @@
 module FormHelper
+  def error_message_for(attribute, errors)
+    errors.full_messages_for(attribute).first
+  end
+
   def render_errors_for(model, leading_message: nil)
     if model.errors.any?
       render partial: "shared/form_errors",
