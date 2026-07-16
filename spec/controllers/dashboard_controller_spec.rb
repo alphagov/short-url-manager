@@ -6,6 +6,6 @@ describe DashboardController do
   before { login_as user }
   it "renders the application layout" do
     get :dashboard
-    expect(response).to render_template "application"
+    expect(response).to render_template "design_system"
   end
 end

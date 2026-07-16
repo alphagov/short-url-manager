@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def dashboard
-    render layout: "design_system" if Rails.env.development?
+    render layout: "design_system"
   end
 end

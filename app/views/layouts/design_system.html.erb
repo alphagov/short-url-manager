@@ -31,7 +31,9 @@
 } %>
 
 <div class="govuk-width-container">
-  <%= yield %>
+  <main class="govuk-main-wrapper" id="main-content">
+    <%= yield %>
+  </main>
 </div>
 
 <%= render "govuk_publishing_components/components/layout_footer" %>
