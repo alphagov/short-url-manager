@@ -141,4 +141,46 @@ feature "Short URL manager responds to short URL requests" do
       end
     end
   end
+
+  describe "Approving a short URL request when there are complications in Publishing API" do
+    context "Publishing API is down" do
+      before { stub_publishing_api_isnt_available }
+
+      it "shows error message to user" do
+        visit short_url_requests_path
+
+        click_on "Ministry of Beards"
+        click_on "Accept and create redirect"
+        within(".form-errors") do
+          expect(page).to have_content "An error posting to the publishing API prevented this redirect from being created:"
+        end
+      end
+    end
+
+    context "The route is owned by another application" do
+      before do
+        stub_request(:any, /#{Plek.find("publishing-api")}\/.*/)
+          .to_return(
+            body: {
+              error: {
+                code: 422,
+                message: "Base path /foo is already reserved by content-tagger",
+              },
+            }.to_json,
+            status: 422,
+          )
+      end
+
+      it "shows error message to user" do
+        visit short_url_requests_path
+
+        click_on "Ministry of Beards"
+        click_on "Accept and create redirect"
+        within(".form-errors") do
+          expect(page).to have_content "An error posting to the publishing API prevented this redirect from being created:"
+          expect(page).to have_content "Base path /foo is already reserved by content-tagger"
+        end
+      end
+    end
+  end
 end
