@@ -8,7 +8,13 @@
   ]
   } %>
 
-  <%= render_errors_for @short_url_request, leading_message: "Your request for a URL redirect or short URL could not be made for the following reasons:" %>
+  <% if @short_url_request.errors.any? %>
+  <%= render "shared/form_errors", {
+    errors: @short_url_request.errors,
+    leading_message: "Your request for a URL redirect or short URL could not be made for the following reasons:"
+  } %>
+  <% end %>
+
   <fieldset> 
     <%= render "govuk_publishing_components/components/input", {
       label: {
@@ -65,6 +71,7 @@
         heading_size: "s"
       },
       name: f.field_name(:reason),
+      textarea_id: f.field_id(:reason),
       value: @short_url_request.reason,
       error_message: error_message_for(:reason, @short_url_request.errors),
       hint: "Please explain the reason for this request, as requests without a clear and valid reason will be denied. Include any Zendesk ticket URL or other information if available."

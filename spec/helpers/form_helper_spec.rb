@@ -35,8 +35,8 @@ describe FormHelper do
 
       describe "specific errors" do
         it "should render errors in a list" do
-          expect(rendered).to have_css("div.form-errors ul li", text: "Attribute 1 can't be blank")
-          expect(rendered).to have_css("div.form-errors ul li", text: "Attribute 2 can't be a small lemon")
+          expect(rendered).to have_css(".govuk-error-summary__list li", text: "Attribute 1 can't be blank")
+          expect(rendered).to have_css(".govuk-error-summary__list li", text: "Attribute 2 can't be a small lemon")
         end
       end
 
@@ -45,7 +45,7 @@ describe FormHelper do
           let(:leading_message) { nil }
 
           it "should have a default message based on the model's class name" do
-            expect(rendered).to have_css("div.form-errors p", text: "The test model could not be saved for the following reasons:")
+            expect(rendered).to have_css(".govuk-error-summary", text: "The test model could not be saved for the following reasons:")
           end
         end
 
@@ -53,7 +53,7 @@ describe FormHelper do
           let(:leading_message) { "Your death ray could not be activated." }
 
           it "should show the custom leading_message" do
-            expect(rendered).to have_css("div.form-errors p", text: "Your death ray could not be activated.")
+            expect(rendered).to have_css(".govuk-error-summary", text: "Your death ray could not be activated.")
           end
         end
       end
