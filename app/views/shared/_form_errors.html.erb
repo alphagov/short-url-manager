@@ -1,8 +1,11 @@
-<div class="form-errors">
-  <p><%= leading_message %></p>
-  <ul>
-    <%- error_messages.each do |error_message| -%>
-      <li><%= error_message %></li>
-    <%- end -%>
-  </ul>
-</div>
+<%= render "govuk_publishing_components/components/error_summary", {
+  title: "There is a problem",
+  description: leading_message,
+  items: errors.map { |error|
+    {
+      text: error.full_message,
+      href: "#short_url_request_#{error.attribute.to_s}",
+      target: "_self"
+    }
+  }
+} %>
