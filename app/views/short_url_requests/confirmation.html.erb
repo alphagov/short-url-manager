@@ -10,27 +10,36 @@
     <%= f.hidden_field :segments_mode %>
   <% end %>
   <% if would_overwrite_existing?(@short_url_request) %>
-    <h1>Redirects for that URL redirect or short URL already exist!</h1>
+    <h1 class="govuk-heading-xl">Overwrite existing URL</h1>
   <% else %>
-    <h1>A URL redirect or short URL already redirects to that content</h1>
+    <h1 class="govuk-heading-m govuk-!-margin-top-6 govuk-!-margin-bottom-3">A URL redirect or short URL already redirects to that content</h1>
   <% end %>
-  <p>These URL redirects or short URLs are already live on GOV.UK:</p>
-  <ul>
+  <p class="govuk-body">These URL redirects or short URLs are already live on GOV.UK:</p>
+  <ul class='govuk-list govuk-list--bullet'>
     <% @short_url_request.similar_redirects.each do |dupe| %>
       <li>
         <code><%= dupe.from_path %></code> redirecting to <code><%= dupe.to_path %></code>
       </li>
     <% end %>
   </ul>
-  <p>
+  <p class="govuk-body">
     You requested to redirect <code><%= @short_url_request.from_path %></code>
     to <code><%= @short_url_request.to_path %>.</code>
   </p>
   <% if would_overwrite_existing?(@short_url_request) %>
-    <p>If your request is accepted, it will overwrite the existing URL redirect or short URL.</p>
+    <p class="govuk-body">If your request is accepted, it will overwrite the existing URL redirect or short URL.</p>
   <% else %>
-    <p>Do you want another URL redirect or short URL to redirect to that content?</p>
+    <p class="govuk-body">Do you want another URL redirect or short URL to redirect to that content?</p>
   <% end %>
-  <%= f.submit 'Yes, I still want to request this URL redirect or short URL', class: 'btn btn-success' %>
-  <%= link_to "Cancel", '/', class: "btn btn-default add-left-margin" %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Overwrite existing URL",
+    type: "submit",
+    inline_layout: true
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Cancel",
+    href: "/",
+    secondary_solid: true,
+    inline_layout: true
+  } %>
 <% end %>
