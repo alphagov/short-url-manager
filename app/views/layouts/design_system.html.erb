@@ -34,6 +34,7 @@
 } %>
 
 <div class="govuk-width-container">
+  <%= render BreadcrumbsComponent.new(breadcrumbs) %>
   <main class="govuk-main-wrapper" id="main-content">
     <%= yield %>
   </main>
