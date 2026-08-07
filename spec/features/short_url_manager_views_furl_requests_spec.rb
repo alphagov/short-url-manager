@@ -48,7 +48,9 @@ feature "Short URL manager finds information on short_url requests" do
 
     visit short_url_requests_path
 
-    click_on "Ministry of Beards"
+    within("tr", text: "Ministry of Beards") do
+      click_on "View"
+    end
 
     expect(page).to have_content "Ministry of Beards"
     expect(page).to have_content "12:00pm, 1 January 2014"
@@ -85,7 +87,9 @@ feature "Short URL manager finds information on short_url requests" do
 
     visit short_url_requests_path
 
-    click_on "Ministry of Beards"
+    within("tr", text: "Ministry of Beards") do
+      click_on "View"
+    end
 
     within ".other-requests" do
       # Don't have the main request in the other requests section

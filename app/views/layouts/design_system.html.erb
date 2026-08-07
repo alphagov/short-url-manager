@@ -36,6 +36,11 @@
 <div class="govuk-width-container">
   <%= render BreadcrumbsComponent.new(breadcrumbs) %>
   <main class="govuk-main-wrapper" id="main-content">
+    <% if flash[:success] %>
+      <%= render "govuk_publishing_components/components/success_alert", {
+        message: flash[:success]
+      } %>
+    <% end %>
     <%= yield %>
   </main>
 </div>

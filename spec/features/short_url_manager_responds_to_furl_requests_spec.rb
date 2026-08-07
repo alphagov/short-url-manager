@@ -57,7 +57,9 @@ feature "Short URL manager responds to short URL requests" do
     perform_enqueued_jobs do
       visit short_url_requests_path
 
-      click_on "Ministry of Beards"
+      within("tr", text: "Ministry of Beards") do
+        click_on "View"
+      end
       click_on "Accept and create redirect"
     end
 
@@ -76,7 +78,9 @@ feature "Short URL manager responds to short URL requests" do
     perform_enqueued_jobs do
       visit short_url_requests_path
 
-      click_on "Ministry of Beards"
+      within("tr", text: "Ministry of Beards") do
+        click_on "View"
+      end
       click_on "Reject"
       fill_in "Reason", with: "Beards are soo last season."
       click_on "Reject"
@@ -132,7 +136,9 @@ feature "Short URL manager responds to short URL requests" do
     scenario "Short URL manager is shown a warning message" do
       visit short_url_requests_path
 
-      click_on "Ministry of Hair"
+      within("tr", text: "Ministry of Hair") do
+        click_on "View"
+      end
 
       within("#existing-redirect-warning") do
         expect(page).to have_content accepted_request.from_path
