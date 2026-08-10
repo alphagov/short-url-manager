@@ -1,18 +1,38 @@
 <% breadcrumb :short_url_requests %>
 
-<h1>URL redirect and short URL requests</h1>
+<h1 class="govuk-heading-xl">Pending URL redirect and short URL requests</h1>
 
 <%= will_paginate @short_url_requests %>
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr class="table-header">
-      <th>Organisation</th>
-      <th>From</th>
-      <th>To</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @short_url_requests %>
-  </tbody>
-</table>
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    {
+      text: "Organisation"
+    },
+    {
+      text: "From",
+    },
+    {
+      text: "To",
+    },
+    {
+      text: "Action"
+    }
+  ],
+  rows: @short_url_requests.map { |r|
+    [
+      { 
+        text: r.organisation_title
+      },
+      { 
+        text: r.from_path
+      },
+      { 
+        text: r.to_path
+      },
+      {
+        text: link_to("View", short_url_request_path(r))
+      }
+    ]
+  }
+} %>
 <%= will_paginate @short_url_requests %>

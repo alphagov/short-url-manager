@@ -1,11 +1,5 @@
 <% breadcrumb :root %>
 
-<% if flash[:success] %>
-  <%= render "govuk_publishing_components/components/success_alert", {
-    message: flash[:success]
-  } %>
-<% end %>
-
 <%= render "govuk_publishing_components/components/notice", {
   title: "Migration Alert",
   description: "We are currently migrating this application to use the GOV.UK design system over the coming weeks. There should not be any changes to the functionality. If you experience any issues please contact publishing service support via Zendesk."
