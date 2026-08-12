@@ -1,22 +1,25 @@
 <% breadcrumb :reject_short_url_request, @short_url_request %>
 
-<h1>Reject this URL redirect or short URL request</h1>
+<h1 class="govuk-heading-xl">Reject this URL redirect or short URL request</h1>
 
 <%= render 'short_url_request_data', short_url_request: @short_url_request, show_short_url: true %>
 
 <%= form_for @short_url_request, url: { action: :reject }, method: :post do |f| %>
   <%= render_errors_for @short_url_request, leading_message: "The short URL request could not be rejected for the following reasons:" %>
-  <fieldset>
-    <div class="form-group">
-      <%= f.label :rejection_reason, "Reason" %>
-      <%= f.text_area :rejection_reason, class: 'form-control' %>
-      <p class="help-block">Optionally, tell the requester why you are rejecting their request.</p>
-    </div>
-  </fieldset>
+    <%= render "govuk_publishing_components/components/textarea", {
+      label: {
+        text: "Reason",
+        heading_size: "s"
+      },
+      name: f.field_name(:rejection_reason),
+      textarea_id: f.field_id(:rejection_reason),
+      value: @short_url_request.rejection_reason,
+      error_message: error_message_for(:rejection_reason, @short_url_request.errors),
+      hint: "Optionally, tell the requester why you are rejecting their request."
+    } %>
 
-  <fieldset>
-    <div class="form-group">
-      <%= f.submit "Reject", class: 'btn btn-danger' %>
-    </div>
-  </fieldset>
+<%= render "govuk_publishing_components/components/button", {
+  text: "Reject",
+  destructive: true
+} %>
 <%- end -%>
