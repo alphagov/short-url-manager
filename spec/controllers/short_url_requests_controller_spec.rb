@@ -362,7 +362,8 @@ describe ShortUrlRequestsController do
         get :remove, params: { id: short_url_request.id }
         expect(response).to have_http_status(200)
         expect(response).to render_template(:remove)
-        expect(response.body).to include("Delete URL redirect or Short URL /original")
+        expect(response.body).to include("Are you sure you want to delete this URL redirect or Short URL request?")
+        expect(response.body).to include("/original")
       end
     end
   end
