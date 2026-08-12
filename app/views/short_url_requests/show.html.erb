@@ -1,6 +1,6 @@
 <% breadcrumb :short_url_request, @short_url_request %>
 
-<h1>URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
+<h1 class="govuk-heading-xl">URL redirect or Short URL requested by <%= @short_url_request.organisation_title %></h1>
 
 <% if @short_url_request.state == 'pending' && @existing_redirect.present? %>
   <%= render 'existing_redirect', existing_redirect: @existing_redirect %>
@@ -8,22 +8,20 @@
 
 <%= render 'short_url_request_data', short_url_request: @short_url_request, show_short_url: true %>
 
-<div class="panel panel-default other-requests">
-  <div class="panel-heading">
-    <h2>Other requests for this short URL</h2>
-  </div>
-  <div class="panel-body">
-    <% if @short_url_request.similar_requests.any? %>
-      <ol>
-        <% @short_url_request.similar_requests.each do |similar_request| %>
-          <li><%= render 'short_url_request_data', short_url_request: similar_request, show_short_url: false %></li>
-        <% end %>
-      </ol>
-    <% else %>
-      <p>None</p>
+<% if @short_url_request.similar_requests.any? %>
+  <section class="govuk-!-margin-top-8 other-requests">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Other requests for this short URL:",
+      heading_level: 2,
+      font_size: "m",
+      margin_bottom: 4
+    } %>
+
+    <% @short_url_request.similar_requests.each do |similar_request| %>
+      <%= render "similar_request_card", similar_request: similar_request %>
     <% end %>
-  </div>
-</div>
+  </section>
+<% end %>
 
 <% unless allow_accepting_request? %>
   <div class="panel panel-danger">
@@ -38,9 +36,34 @@
   </div>
 <% end %>
 
-<% if @short_url_request.state == 'pending' %>
-  <%= button_to "Accept and create redirect", accept_short_url_request_path(@short_url_request), method: :post, class: "btn btn-success add-right-margin", disabled: allow_accepting_request? ? nil : 'disabled' %>
-  <%= link_to "Reject", new_rejection_short_url_request_path(@short_url_request), class: "btn btn-danger add-right-margin" %>
+<% if @short_url_request.state == "pending" %>
+  <%= form_with url: accept_short_url_request_path(@short_url_request), method: :post, local: true, class: "govuk-!-display-inline-block" do %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Accept and create redirect",
+      type: "submit",
+      inline_layout: true,
+      disabled: !allow_accepting_request?
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Reject",
+    href: new_rejection_short_url_request_path(@short_url_request),
+    secondary_solid: true,
+    inline_layout: true
+  } %>
 <% end %>
-<%= link_to "Edit", edit_short_url_request_path, class: "btn btn-default" %>
-<%= link_to "Delete", remove_short_url_request_path, class: "btn btn-danger" %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "Edit",
+  href: edit_short_url_request_path(@short_url_request),
+  secondary_solid: true,
+  inline_layout: true
+} %>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "Delete",
+  href: remove_short_url_request_path(@short_url_request),
+  destructive: true,
+  inline_layout: true
+} %>
