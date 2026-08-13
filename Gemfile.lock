@@ -281,7 +281,7 @@ GEM
       prism (~> 1.5)
     mlanett-redis-lock (0.2.7)
       redis
-    mongo (2.23.1)
+    mongo (2.25.0)
       base64
       bson (>= 4.14.1, < 6.0.0)
     mongoid (9.1.0)
@@ -766,7 +766,7 @@ DEPENDENCIES
   listen
   mail-notify
   mlanett-redis-lock
-  mongo (~> 2.23.0)
+  mongo (~> 2.25.0)
   mongoid
   plek
   rails (~> 8.1.3)

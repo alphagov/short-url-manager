@@ -14,7 +14,7 @@ gem "govuk_sidekiq"
 gem "gretel"
 gem "mail-notify"
 gem "mlanett-redis-lock" # Used by the Organisation importer as a locking mechanism
-gem "mongo", "~> 2.23.0"
+gem "mongo", "~> 2.25.0"
 gem "mongoid"
 gem "plek"
 gem "redis", require: false # Used by the Organisation importer as a locking mechanism
