@@ -94,7 +94,7 @@ feature "Short URL manager finds information on short_url requests" do
     within ".other-requests" do
       # Don't have the main request in the other requests section
       expect(page).not_to have_content "Ministry of Beards"
-      expect(page).not_to have_content "12:00pm, 1 January 2014"
+      expect(page).not_to have_content "1 January 2014"
       expect(page).not_to have_content "/ministry-of-beards"
       expect(page).not_to have_link "/government/organisations/ministry-of-beards", href: "http://www.dev.gov.uk/government/organisations/ministry-of-beards"
       expect(page).not_to have_content "Beards are now their own department"
@@ -102,7 +102,7 @@ feature "Short URL manager finds information on short_url requests" do
 
       # Do have a relevant other request
       expect(page).to have_content "Ministry of Facial Hair"
-      expect(page).to have_content "12:00pm, 1 January 2013"
+      expect(page).to have_content "1 January 2013"
       expect(page).to have_content "/ministry-of-facial-hair"
       expect(page).to have_link "/government/organisations/ministry-of-facial-hair", href: "http://www.dev.gov.uk/government/organisations/ministry-of-facial-hair"
       expect(page).to have_content "Facial Hair department is all about beards"
