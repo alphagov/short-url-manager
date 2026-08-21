@@ -1,6 +1,6 @@
 class ShortUrlRequestsController < ApplicationController
-  layout "design_system", only: %i[new index create]
-  layout "design_system", only: %i[edit create update] if Rails.env.development?
+  layout "design_system", only: %i[new accept index show new_rejection remove create]
+  layout "design_system", only: %i[edit index show new_rejection reject destroy remove create update] if Rails.env.development?
 
   before_action :authorise_as_short_url_requester!, only: %i[new create]
   before_action :authorise_as_short_url_manager!, only: %i[index show accept new_rejection reject list_short_urls edit update destroy remove]
@@ -76,7 +76,7 @@ class ShortUrlRequestsController < ApplicationController
   def destroy
     Commands::ShortUrlRequests::Destroy.new(get_short_url_request).call(
       success: lambda {
-        flash.notice = "Short URL #{get_short_url_request.from_path} was deleted."
+        flash[:success] = "Short URL request #{get_short_url_request.from_path} was deleted."
       },
       failure: lambda {
         flash.alert = "Failed to delete Short URL #{get_short_url_request.from_path}."
