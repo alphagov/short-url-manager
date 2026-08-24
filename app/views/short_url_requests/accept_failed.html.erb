@@ -1,5 +1,6 @@
 <% breadcrumb :short_url_request_accepted_failed, @short_url_request %>
 
-<h1>The redirect could not be published</h1>
-
-<%= render_errors_for @short_url_request.redirect, leading_message: "The URL redirect or short URL could not be created for the following reasons:" %>
+<%= render "govuk_publishing_components/components/error_alert", {
+  message: "The redirect could not be published",
+  description: @short_url_request.redirect.errors.full_messages.to_sentence
+} %>
