@@ -1,0 +1,37 @@
+<%= render "govuk_publishing_components/components/summary_card", {
+  title: similar_request.created_at.to_date.to_fs(:govuk_date),
+  rows: [
+    {
+      key: "Organisation",
+      value: similar_request.organisation_title,
+    },
+    {
+      key: "Target URL",
+      value: link_to(similar_request.to_path, govuk_url_for(similar_request.to_path))
+    },
+    {
+      key: "Override existing",
+      value: similar_request.override_existing? ? "Yes" : "No"
+    },
+    {
+      key: "Route type",
+      value: similar_request.route_type
+    },
+    {
+      key: "Segments mode",
+      value: similar_request.segments_mode
+    },
+    {
+      key: "Reason",
+      value: similar_request.reason
+    },
+    {
+      key: "Contact email",
+      value: similar_request.contact_email
+    },
+    {
+      key: "State",
+      value: similar_request.state.titleize
+    }
+  ]
+} %>

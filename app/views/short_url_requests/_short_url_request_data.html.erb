@@ -1,33 +1,3 @@
-<dl>
-  <dt>By:</dt>
-  <dd><%= short_url_request.organisation_title %></dd>
-
-  <dt>Requested at:</dt>
-  <dd><%= short_url_request.created_at.to_fs(:govuk_date) %></dd>
-
-  <% if show_short_url %>
-    <dt>URL redirect or short URL:</dt>
-    <dd><%= short_url_request.from_path %></dd>
-  <% end %>
-
-  <dt>Target URL:</dt>
-  <dd><%= link_to short_url_request.to_path, govuk_url_for(short_url_request.to_path) %></dd>
-
-  <dt>Override existing:</dt>
-  <dd><%= short_url_request.override_existing? ? "Yes" : "No" %></dd>
-
-  <dt>Route type:</dt>
-  <dd><%= short_url_request.route_type %></dd>
-
-  <dt>Segments mode:</dt>
-  <dd><%= short_url_request.segments_mode %></dd>
-
-  <dt>Reason:</dt>
-  <dd><%= short_url_request.reason %></dd>
-
-  <dt>Contact email:</dt>
-  <dd><%= short_url_request.contact_email %></dd>
-
-  <dt>State:</dt>
-  <dd><%= short_url_request.state.titleize %></dd>
-</dl>
+<%= render ShortUrlRequestDataComponent.new(
+  short_url_request: @short_url_request,
+) %>
