@@ -44,7 +44,7 @@ class ShortUrlRequestDataComponent < ViewComponent::Base
       },
       {
         field: "State",
-        value: @short_url_request.state.titleize,
+        value: render(RequestStatusComponent.new(@short_url_request)),
       },
     ]
   end
