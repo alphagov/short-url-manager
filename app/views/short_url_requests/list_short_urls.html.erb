@@ -1,30 +1,52 @@
 <% breadcrumb :live_short_urls %>
 
-<table class="table table-bordered table-hover" data-module="filterable-table">
-  <thead>
-    <tr class="table-header">
-      <th>Organisation</th>
-      <th>From</th>
-      <th>To</th>
-      <th>State</th>
-      <th>Date</th>
-    </tr>
-    <tr class="if-no-js-hide table-header-secondary">
-      <td colspan="5">
-        <form>
-          <label for="url-list-filter" class="rm">Filter short URLs</label>
-          <input id="url-list-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter short URLs">
-        </form>
-      </td>
-    </tr>
-  </thead>
-  <% @accepted_short_urls.each do |request| %>
-    <tr class="clickable-row">
-      <td><%= link_to request.organisation_title, short_url_request_path(request) %></td>
-      <td><%= link_to request.from_path, short_url_request_path(request) %></td>
-      <td><%= link_to request.to_path, short_url_request_path(request) %></td>
-      <td><%= link_to request.state.titleize, short_url_request_path(request) %></td>
-      <td><%= link_to request.updated_at.to_date, short_url_request_path(request) %></td>
-    </tr>
-  <% end %>
-</table>
+<h1 class="govuk-heading-xl">Live URL redirects and short URLs</h1>
+
+<%= render "govuk_publishing_components/components/table", {
+  filterable: true,
+  label: "Filter short URLs",
+  head: [
+    {
+      text: "Organisation"
+    },
+    {
+      text: "From",
+      width: "one-quarter"
+    },
+    {
+      text: "To",
+      width: "one-quarter"
+    },
+    {
+      text: "State"
+    },
+    {
+      text: "Date"
+    },
+    {
+      text: "Action"
+    }
+  ],
+  rows: @accepted_short_urls.map { |r|
+    [
+      {
+        text: r.organisation_title
+      },
+      {
+        text: r.from_path
+      },
+      {
+        text: r.to_path
+      },
+      {
+        text: render(RequestStatusComponent.new(r))
+      },
+      {
+        text: r.updated_at.to_date
+      },
+      {
+        text: link_to("View", short_url_request_path(r))
+      }
+    ]
+  }
+} %>

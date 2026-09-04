@@ -98,7 +98,9 @@ feature "Short URL manager responds to short URL requests" do
   scenario "Short URL manager edits a short URL" do
     visit list_short_urls_path
 
-    click_on "Ministry of Hair"
+    within("tr", text: "Ministry of Hair") do
+      click_on "View"
+    end
     click_on "Edit"
 
     target_url = "/government/organisations/ministry-of-long-hair"
