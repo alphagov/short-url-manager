@@ -15,7 +15,7 @@ class ShortUrlRequestDataComponent < ViewComponent::Base
       },
       {
         field: "Requested at",
-        value: @short_url_request.created_at.to_fs(:govuk_date),
+        value: @short_url_request.created_at.strftime("%-l:%M%P, %-d %B %Y"),
       },
       *short_url_item,
       {

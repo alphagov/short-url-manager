@@ -1,5 +1,5 @@
 <%= render "govuk_publishing_components/components/summary_card", {
-  title: similar_request.created_at.to_date.to_fs(:govuk_date),
+  title: similar_request.created_at.to_date.strftime("%-d %B %Y"),
   rows: [
     {
       key: "Organisation",
