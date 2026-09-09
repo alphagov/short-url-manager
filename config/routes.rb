@@ -18,5 +18,4 @@ Rails.application.routes.draw do
   )
 
   mount GovukPublishingComponents::Engine, at: "/component-guide"
-  get "/styleguide" => "govuk_admin_template/style_guide#index"
 end

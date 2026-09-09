@@ -9,17 +9,5 @@
 // defined in the other CSS/SCSS files in this directory. It is generally better to create a new
 // file per style scope.
 
-@import "govuk_admin_template";
-
-@import "modules/button_to";
-@import "modules/clickable_row";
-@import "modules/dl";
-@import "modules/form";
-@import "modules/other_requests";
-@import "modules/table";
-
-@import "layouts/application";
-
-@import "views/shared/form_errors";
 @import "base";
 @import "govuk_publishing_components/all-components";
