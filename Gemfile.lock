@@ -778,4 +778,4 @@ DEPENDENCIES
   will_paginate_mongoid
 
 BUNDLED WITH
-   2.3.22
+  4.0.20
