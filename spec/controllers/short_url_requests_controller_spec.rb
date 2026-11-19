@@ -314,23 +314,43 @@ describe ShortUrlRequestsController do
   describe "#update" do
     let!(:organisation) { create(:organisation) }
     let!(:short_url_request) { create(:short_url_request, from_path: "/original") }
+    let(:params) do
+      {
+        from_path: short_url_request.from_path,
+        to_path: "/somewhere/different",
+        reason: "Because wombles",
+        organisation_slug: organisation.slug,
+      }
+    end
 
     context "with valid parameters" do
-      let(:params) do
-        {
-          from_path: short_url_request.from_path,
-          to_path: "/somewhere/different",
-          reason: "Because wombles",
-          organisation_slug: organisation.slug,
-        }
-      end
-
       it "saves the changes" do
         put :update, params: { id: short_url_request.id, short_url_request: params }
         expect(response).to redirect_to(short_url_request_path(short_url_request))
 
         short_url_request.reload
         expect(short_url_request.to_path).to eql("/somewhere/different")
+      end
+    end
+
+    context "route exists on publishing api already, and override has not been set to yes" do
+      before do
+        stub_request(:any, /#{Plek.find("publishing-api")}\/.*/)
+          .to_return(
+            body: {
+              error: {
+                code: 422,
+                message: "Base path /foo is already reserved by content-tagger",
+              },
+            }.to_json,
+            status: 422,
+          )
+      end
+
+      it "should have a custom flash message" do
+        put :update, params: { id: short_url_request.id, short_url_request: params }
+
+        expect(flash).to eq("foo")
       end
     end
 
