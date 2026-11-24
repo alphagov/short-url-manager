@@ -9,6 +9,11 @@
 // defined in the other CSS/SCSS files in this directory. It is generally better to create a new
 // file per style scope.
 
-@import "base";
-@import "govuk_publishing_components/all-components";
-@import "modules/table";
+@use "govuk_publishing_components/base" with (
+  $govuk-page-width: 1140px
+);
+@use "govuk_publishing_components/core";
+@use "govuk_publishing_components/all-components";
+
+@use "app_base";
+@use "modules/table";
